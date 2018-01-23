@@ -1,0 +1,40 @@
+.loading, .loading:after {
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+}
+
+.loading {
+    margin: 60px auto;
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border: .9em solid rgba(150, 150, 150, 0.2);
+    border-left-color: #ccc;
+    transform: translateZ(0);
+    animation: spinner 1s infinite linear;
+    opacity: 1;
+    transition: opacity 250ms ease;
+}
+
+.static-loading-container{
+    min-height:100px;
+}
+
+.loading-container.finished {
+    pointer-events: none;
+
+    .loading{
+        opacity: 0;
+
+    }
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
