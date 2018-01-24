@@ -1,6 +1,6 @@
 import * as React from "react";
 import { reduxForm, InjectedFormProps, Field, WrappedFieldProps, formValues, FormSection, FieldArray, formValueSelector, getFormValues } from 'redux-form';
-import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Button, Glyphicon, ProgressBar } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Button, Glyphicon, ProgressBar, Modal } from 'react-bootstrap';
 import * as HighCourt from '../data/High Court.json';
 import { connect } from 'react-redux';
 
@@ -66,21 +66,89 @@ const TextAreaFieldRow = FieldRow(TextAreaField);
 
 const RateSelector = formValueSelector('cc');
 
-
-export class UnSchemedCourtCosts extends React.PureComponent<{scheme: string}> {
+export class RateAndBand extends React.PureComponent<{scheme: CC.Scheme}> {
     render() {
-        return [
-              <Field key={0} title={'Daily Rate'} name={'rate'} component={SelectFieldRow}>
-                { Schemes[this.props.scheme] && Schemes[this.props.scheme].rates.map((rate: any) => {
+        return [<Field key={0} title={'Daily Rate'} name={'rate'} component={SelectFieldRow}>
+                { this.props.scheme && this.props.scheme.rates.map((rate: any) => {
                     return <option key={rate.category} value={rate.category}>{ `${rate.category} - $${numberWithCommas(rate.rate)}` }</option>
                 }) }
             </Field>,
-              <Field key={2} title={'Band'} name={'band'} component={SelectFieldRow}>
+              <Field key={1} title={'Band'} name={'band'} component={SelectFieldRow}>
               <option value="A">A</option>
               <option value="B">B</option>
               <option value="C">C</option>
+            </Field>]
+    }
+}
+
+export class AllocationSelect extends React.PureComponent<{scheme: CC.Scheme}> {
+    render() {
+        return <Field title={'Allocation'} name={'allocation'} component={SelectFieldRow}>
+                <option value="" disabled>Please Select...</option>
+                { this.props.scheme && this.props.scheme.allocations.map((allocation: any, index: number) => {
+                    return <optgroup key={index} label={allocation.label}>
+                        { allocation.items.map((item: any, index: number) => {
+                            return <option key={index} value={item.number}>{ item.label }</option>
+                        })}
+                    </optgroup>
+                }) }
             </Field>
-        ];
+    }
+}
+
+
+export class AddItem extends React.PureComponent<any, {showAddItem: boolean}> {
+    constructor(props: any) {
+        super(props);
+        this.handleShow = this.handleShow.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.state = { showAddItem: false };
+    }
+
+    handleClose() {
+        this.setState({ showAddItem: false });
+    }
+
+    handleShow() {
+        this.setState({ showAddItem: true });
+    }
+    render() {
+        return [
+            <div  key={0} className="button-row">
+             <Button bsStyle="primary" onClick={this.handleShow}>
+                Add Item
+                </Button></div>,
+
+        <Modal key={1} show={this.state.showAddItem} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Add Item</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                     <Form horizontal>
+                        <FormSection name="addItem">
+                            <RateAndBand scheme={this.props.scheme} />
+                            <AllocationSelect scheme={this.props.scheme} />
+                        </FormSection>
+                        </Form>
+                   </Modal.Body>
+                    <Modal.Footer>
+                        <Button onClick={this.handleClose}>Close</Button>
+                    </Modal.Footer>
+                   </Modal>]
+    }
+}
+
+interface SchemedCourtCosts {
+    scheme: string
+}
+
+export class UnSchemedCourtCosts extends React.PureComponent<SchemedCourtCosts> {
+
+    render() {
+        return [
+             <RateAndBand key={'rateAndBand'} scheme={Schemes[this.props.scheme]} />,
+            <AddItem key={'addItem'} scheme={Schemes[this.props.scheme]} />
+         ];
     }
 }
 

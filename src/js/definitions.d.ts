@@ -9,7 +9,7 @@ declare namespace CC {
             rate: number
         }],
         allocations: [{
-            category: string,
+            label: string,
             items: [{
                 A?: number,
                 B?: number,
