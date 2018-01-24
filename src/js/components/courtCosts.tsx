@@ -4,6 +4,15 @@ import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Butto
 import * as HighCourt from '../data/High Court.json';
 import { connect } from 'react-redux';
 
+
+interface SchemedFieldProps {
+    scheme : CC.Scheme
+}
+
+class SchemedField extends Field<SchemedFieldProps> {}
+
+
+
 function FieldRow(Component: any) : any {
 
     return class Wrapped extends React.PureComponent<any> {
@@ -60,9 +69,16 @@ class TextAreaField extends React.PureComponent<WrappedFieldProps> {
     }
 }
 
+class NumberField extends React.PureComponent<WrappedFieldProps> {
+    render() {
+        return <FormControl {...this.props.input} componentClass="input" type='number' />
+    }
+}
+
 const SelectFieldRow = FieldRow(SelectField);
 const TextFieldRow = FieldRow(TextField);
 const TextAreaFieldRow = FieldRow(TextAreaField);
+const NumberFieldRow = FieldRow(NumberField);
 
 const RateSelector = formValueSelector('cc');
 
@@ -97,12 +113,49 @@ export class AllocationSelect extends React.PureComponent<{scheme: CC.Scheme}> {
 }
 
 
+export class ItemTable extends React.PureComponent<any> {
+    render() {
+        return <div>
+            <table className="table table-striped">
+                <thead>
+                    <tr>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Band</th>
+                    <th>Rate</th>
+                    <th>Days</th>
+                    <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    { this.props.fields.map((item: any, index: number) => {
+                        return <tr key={index}>
+                            <td>{ item.number }</td>
+                            <td>{ item.description }</td>
+                            <td>{ item.band }</td>
+                            <td>{ item.rate }</td>
+                            <td>{ item.days }</td>
+                            <td>{ item.amount }</td>
+                        </tr>
+                    }) }
+                </tbody>
+            </table>
+        </div>
+    }
+}
+
 export class AddItem extends React.PureComponent<any, {showAddItem: boolean}> {
     constructor(props: any) {
         super(props);
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.addItem = this.addItem.bind(this);
         this.state = { showAddItem: false };
+    }
+
+    addItem() {
+        this.props.fields.push({});
+        this.handleClose();
     }
 
     handleClose() {
@@ -128,11 +181,14 @@ export class AddItem extends React.PureComponent<any, {showAddItem: boolean}> {
                         <FormSection name="addItem">
                             <RateAndBand scheme={this.props.scheme} />
                             <AllocationSelect scheme={this.props.scheme} />
+                            <Field  title={'Days'} name={'days'} component={NumberFieldRow} />
+
                         </FormSection>
                         </Form>
                    </Modal.Body>
                     <Modal.Footer>
                         <Button onClick={this.handleClose}>Close</Button>
+                        <Button bsStyle="primary" onClick={this.addItem}>Add Item</Button>
                     </Modal.Footer>
                    </Modal>]
     }
@@ -147,7 +203,8 @@ export class UnSchemedCourtCosts extends React.PureComponent<SchemedCourtCosts> 
     render() {
         return [
              <RateAndBand key={'rateAndBand'} scheme={Schemes[this.props.scheme]} />,
-            <AddItem key={'addItem'} scheme={Schemes[this.props.scheme]} />
+            <FieldArray key={'addItem'} name="items" component={ItemTable as any} props={{scheme: Schemes[this.props.scheme]}} />,
+            <FieldArray key={'itemTable'} name="items" component={AddItem as any} props={{scheme: Schemes[this.props.scheme]}} />,
          ];
     }
 }
@@ -166,6 +223,7 @@ export class CourtCostsForm extends React.PureComponent<{}> {
                 }) }
             </Field>
             <SchemedCourtCosts />
+
         </Form>
     }
 }
@@ -196,6 +254,7 @@ export class CourtCosts extends React.PureComponent<{}> {
 export default reduxForm<{}>({
     form: 'cc',
     initialValues: {
-        scheme: 'High Court'
+        scheme: 'High Court',
+        items: []
     }
 })(CourtCosts as any);
