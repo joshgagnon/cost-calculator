@@ -1,0 +1,9 @@
+{
+    "apps" : [{
+        "name": "cost-calculator",
+        "script": "server.js",
+        "env": {
+            "NODE_ENV": "production",
+        }
+    }]
+}
