@@ -26,6 +26,13 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/utilities";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities";
 
+$font-path: '~react-widgets/lib/fonts';
+$img-path: '~react-widgets/lib/img';
+@import "~react-widgets/lib/scss/react-widgets";
+
+
+
+
 @import "loading";
 
 html {

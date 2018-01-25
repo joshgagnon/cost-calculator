@@ -3,6 +3,10 @@ import { reduxForm, InjectedFormProps, Field, WrappedFieldProps, formValues, For
 import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Button, Glyphicon, ProgressBar, Modal } from 'react-bootstrap';
 import * as HighCourt from '../data/High Court.json';
 import { connect } from 'react-redux';
+import * as DateTimePicker from 'react-widgets/lib/DateTimePicker'
+import * as moment from 'moment';
+
+const DATE_FORMAT = "DD MMM YYYY";
 
 
 interface SchemedFieldProps {
@@ -50,6 +54,20 @@ export function numberWithCommas(x: number | string) : string {
 }
 
 
+
+class RenderDateTimePicker extends React.PureComponent<WrappedFieldProps> {
+    render() {
+        const  { input: { onChange, value }} = this.props;
+        return   <DateTimePicker
+            onChange={onChange}
+            format={DATE_FORMAT}
+            time={false}
+            value={!value ? null : new Date(value)}
+          />
+    }
+}
+
+
 class SelectField extends React.PureComponent<WrappedFieldProps> {
     render() {
         return <FormControl {...this.props.input} componentClass="select">
@@ -72,16 +90,24 @@ class TextAreaField extends React.PureComponent<WrappedFieldProps> {
 
 class NumberField extends React.PureComponent<WrappedFieldProps> {
     render() {
-        return <FormControl {...this.props.input} componentClass="input" type='number' step="0.1" />
+        return <FormControl {...this.props.input} componentClass="input" type='number' step="0.05" />
     }
 }
 
+class DateField extends React.PureComponent<WrappedFieldProps> {
+    render() {
+        return <FormControl {...this.props} componentClass={RenderDateTimePicker}  />
+    }
+}
+
+const DateFieldFieldRow = FieldRow(DateField)
 const SelectFieldRow = FieldRow(SelectField);
 const TextFieldRow = FieldRow(TextField);
 const TextAreaFieldRow = FieldRow(TextAreaField);
 const NumberFieldRow = FieldRow(NumberField);
 
 const RateSelector = formValueSelector('cc');
+const AddItemSelector = formValueSelector('addItem');
 
 
 interface SchemeNamedCourtCosts {
@@ -110,7 +136,7 @@ export class AllocationSelect extends React.PureComponent<{scheme: CC.Scheme}> {
                 { this.props.scheme && this.props.scheme.allocations.map((allocation: any, index: number) => {
                     return <optgroup key={index} label={allocation.label}>
                         { allocation.items.map((item: any, index: number) => {
-                            return <option key={index} value={item.allocationCode}>{ item.label }</option>
+                            return <option key={index} value={item.allocationCode}>{ `${item.allocationCode} - ${item.label}` }</option>
                         })}
                     </optgroup>
                 }) }
@@ -120,6 +146,7 @@ export class AllocationSelect extends React.PureComponent<{scheme: CC.Scheme}> {
 
 
 export class ItemTable extends React.PureComponent<any> {
+
     render() {
         return <div>
             <table className="table table-striped">
@@ -127,8 +154,9 @@ export class ItemTable extends React.PureComponent<any> {
                     <tr>
                     <th>Item</th>
                     <th>Description</th>
-                    <th>Band</th>
+                    <th>Date</th>
                     <th>Rate</th>
+                    <th>Band</th>
                     <th>Days</th>
                     <th>Amount</th>
                     <th></th>
@@ -136,14 +164,15 @@ export class ItemTable extends React.PureComponent<any> {
                 </thead>
                 <tbody>
                     { this.props.fields.getAll().map((item: any, index: number) => {
-                        return <tr key={index}>
+                        return <tr key={index} onClick={() => this.props.editItem(item, index)}>
                             <td>{ item.allocationCode }</td>
                             <td>{ item.description }</td>
-                            <td>{ item.band }</td>
+                            <td>{ moment(item.date).format(DATE_FORMAT) }</td>
                             <td>{ `$${numberWithCommas(item.rate)}` }</td>
+                            <td>{ item.band }</td>
                             <td>{ item.days }</td>
                             <td>{ `$${numberWithCommas(item.amount)}` }</td>
-                            <td><Button bsSize='xs' onClick={() => this.props.fields.remove(index)}><Glyphicon glyph="remove"/></Button> </td>
+                            <td><Button bsSize='xs' onClick={(e) => this.props.remove(e, index)}><Glyphicon glyph="remove"/></Button> </td>
                         </tr>
                     }) }
                 </tbody>
@@ -152,12 +181,41 @@ export class ItemTable extends React.PureComponent<any> {
     }
 }
 
+
+class SelectDays extends React.PureComponent<{scheme: CC.Scheme, allocationCode: string}> {
+
+    render(){
+        const allocationCode = this.props.scheme.allocationMap[this.props.allocationCode];
+        if(!allocationCode || !allocationCode.explaination){
+            return false;
+        }
+        return [
+            <FormGroup key="explaination">
+                <Col sm={3} className="text-right">
+                    <ControlLabel>Explaination</ControlLabel>
+                </Col>
+                <Col sm={7}>
+                    { allocationCode.explaination }
+                </Col>
+            </FormGroup>,
+            <Field key={1} name="days" title="Days" component={NumberFieldRow} />
+        ]
+    }
+}
+
+
+const ConnnectedSelectDays = connect<{}, {}, {scheme: CC.Scheme}>(state => ({
+    allocationCode: AddItemSelector(state, 'allocationCode')
+}))(SelectDays as any);
+
 export class AddItem extends React.PureComponent<{scheme: CC.Scheme} & InjectedFormProps> {
     render() {
         const { error, handleSubmit } = this.props;
         return  <Form horizontal  onSubmit={handleSubmit}>
+            <Field title="Date" name="date" component={DateFieldFieldRow} validate={required} />
             <RateAndBand scheme={this.props.scheme} />
             <AllocationSelect scheme={this.props.scheme} />
+            <ConnnectedSelectDays scheme={this.props.scheme} />
         </Form>
     }
 }
@@ -170,8 +228,12 @@ const findDescription = (scheme: CC.Scheme, allocationCode: string) =>  {
     return scheme.allocationMap[allocationCode].label;
 }
 
-const findDays = (scheme: CC.Scheme, allocationCode: string, band: string) =>  {
-    return (scheme.allocationMap[allocationCode] as any)[band];
+const findDays = (scheme: CC.Scheme, allocationCode: string, band: string, days?: string) =>  {
+    const item = scheme.allocationMap[allocationCode] as CC.AllocationItem;
+    if(item.explaination){
+        return days;
+    }
+    return (item as any)[band];
 }
 
 const calculateAmount = (scheme: CC.Scheme, allocationCode: string, rate: number, band: string) => {
@@ -183,41 +245,75 @@ const AddItemForm = reduxForm<{scheme: CC.Scheme}>({
     form: 'addItem',
 })(AddItem) as any;
 
-export class AddItemModal extends React.PureComponent<{scheme: CC.Scheme, submit: () => void, defaults: {rateCode: number, band:string}} & WrappedFieldArrayProps<CC.AllocationEntry>, {showAddItem: boolean}> {
+interface AddItemProps {
+    scheme: CC.Scheme, submit: () => void,
+    defaults: {rateCode: number, band:string}
+}
+
+
+export class AddItemModal extends React.PureComponent<AddItemProps & WrappedFieldArrayProps<CC.AllocationEntry>, {showAddItem: boolean, values?: CC.AllocationEntry, editIndex?: number}> {
     constructor(props: any) {
         super(props);
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
-        this.addItem = this.addItem.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.editItem = this.editItem.bind(this);
+        this.remove = this.remove.bind(this);
         this.submit = this.submit.bind(this);
         this.state = { showAddItem: false };
     }
 
-    addItem(values : any) {
+    prepareValues(values : any){
         const rate = findRate(this.props.scheme, values.rateCode);
         const description = findDescription(this.props.scheme, values.allocationCode);
-        this.props.fields.push({
+        return {
             allocationCode: values.allocationCode,
             description,
             band: values.band,
             rate,
+            date: values.date,
             rateCode: values.rateCode,
-            days: findDays(this.props.scheme, values.allocationCode, values.band),
+            days: findDays(this.props.scheme, values.allocationCode, values.band, values.days),
             amount:  calculateAmount(this.props.scheme, values.allocationCode, rate, values.band)
-        });
+        };
+    }
+
+    addItem(values : any) {
+        this.props.fields.push(this.prepareValues(values));
         this.handleClose();
     }
 
+    handleSubmit(values : any) {
+        if(this.state.values){
+            this.props.fields.remove(this.state.editIndex);
+            // ugly, ugly hack
+            setTimeout(() => this.props.fields.insert(this.state.editIndex, this.prepareValues(values)), 0)
+        }
+        else{
+            this.props.fields.push(this.prepareValues(values));
+        }
+        this.handleClose();
+    }
+
+    editItem(values : any, editIndex: number) {
+        this.setState({ showAddItem: true, values, editIndex });
+    }
+
     handleClose() {
-        this.setState({ showAddItem: false });
+        this.setState({ showAddItem: false, values: null });
     }
 
     handleShow() {
-        this.setState({ showAddItem: true });
+        this.setState({ showAddItem: true, values: null });
     }
 
     submit() {
         this.props.submit();
+    }
+
+    remove(e: React.MouseEvent<HTMLElement>, index: number) {
+        e.stopPropagation();
+        this.props.fields.remove(index);
     }
 
     render() {
@@ -225,6 +321,8 @@ export class AddItemModal extends React.PureComponent<{scheme: CC.Scheme, submit
             return item.amount + acc
         }, 0)
         return [
+            <h3 key={-2}>Costs</h3>,
+            <ItemTable key={-1} {...this.props} editItem={this.editItem} remove={this.remove}/>,
             <div  key={0} className="">
              <Button bsStyle="primary"  onClick={this.handleShow}>
                 Add Item
@@ -235,14 +333,14 @@ export class AddItemModal extends React.PureComponent<{scheme: CC.Scheme, submit
                </div>,
             <Modal key={1} show={this.state.showAddItem} onHide={this.handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Add Item</Modal.Title>
+                <Modal.Title>{ this.state.values ? 'Edit Item' : 'Add Item' }</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <AddItemForm scheme={this.props.scheme} onSubmit={this.addItem} initialValues={{...this.props.defaults}}/>
+            <AddItemForm scheme={this.props.scheme} onSubmit={this.handleSubmit} initialValues={{date: new Date(), ...(this.state.values || this.props.defaults)}}/>
            </Modal.Body>
             <Modal.Footer>
                 <Button onClick={this.handleClose}>Close</Button>
-                <Button bsStyle="primary" onClick={this.submit}>Add Item</Button>
+                <Button bsStyle="primary" onClick={this.submit}>{ this.state.values ? 'Edit Item' : 'Add Item' }</Button>
             </Modal.Footer>
            </Modal>]
     }
@@ -258,8 +356,7 @@ export class UnSchemedCourtCosts extends React.PureComponent<SchemeNamedCourtCos
     render() {
         return [
              <RateAndBand key={'rateAndBand'} scheme={Schemes[this.props.scheme]} />,
-            <FieldArray key={'addItem'} name="items" component={ItemTable as any} props={{scheme: Schemes[this.props.scheme]}} />,
-            <FieldArray key={'itemTable'} name="items" component={ConnectedAddItemModal as any} props={{scheme: Schemes[this.props.scheme]}} />,
+            <FieldArray key={'addItem'} name="items" component={ConnectedAddItemModal  as any} props={{scheme: Schemes[this.props.scheme]}} />
          ];
     }
 }

@@ -24,7 +24,7 @@ declare namespace CC {
     }
 
     interface AllocationMap {
-            [allocationCode: string]: AllocationItem
+        [allocationCode: string]: AllocationItem
     }
 
     interface Scheme {
@@ -46,7 +46,8 @@ declare namespace CC {
         rate: number,
         rateCode: number,
         days: number,
-        amount: number
+        amount: number,
+        date: Date
     }
 }
 
@@ -56,3 +57,15 @@ declare module "*.json" {
 }
 
 
+declare module 'react-widgets/lib/DateTimePicker' {
+    import { DateTimePicker } from "react-widgets";
+    export = DateTimePicker;
+}
+
+
+
+declare module 'react-widgets-moment' {
+    function momentLocalizer(moment : any): void;
+    namespace momentLocalizer {}
+    export = momentLocalizer;
+}

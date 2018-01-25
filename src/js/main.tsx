@@ -5,6 +5,9 @@ import Root from "./root";
 import configureStore from './configureStore';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
+import * as moment from 'moment';
+import * as momentLocalizer from 'react-widgets-moment';
+momentLocalizer(moment);
 
 const store = configureStore(browserHistory, {});
 const history = syncHistoryWithStore(browserHistory, store);
