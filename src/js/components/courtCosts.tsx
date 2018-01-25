@@ -146,7 +146,6 @@ export class AllocationSelect extends React.PureComponent<{scheme: CC.Scheme}> {
 
 
 export class ItemTable extends React.PureComponent<any> {
-
     render() {
         return <div>
             <table className="table table-striped">
@@ -171,6 +170,33 @@ export class ItemTable extends React.PureComponent<any> {
                             <td>{ `$${numberWithCommas(item.rate)}` }</td>
                             <td>{ item.band }</td>
                             <td>{ item.days }</td>
+                            <td>{ `$${numberWithCommas(item.amount)}` }</td>
+                            <td><Button bsSize='xs' onClick={(e) => this.props.remove(e, index)}><Glyphicon glyph="remove"/></Button> </td>
+                        </tr>
+                    }) }
+                </tbody>
+            </table>
+        </div>
+    }
+}
+
+export class DisbursementsTable extends React.PureComponent<any> {
+    render() {
+        return <div>
+            <table className="table table-striped">
+                <thead>
+                    <tr>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    { this.props.fields.getAll().map((item: any, index: number) => {
+                        return <tr key={index} onClick={() => this.props.editItem(item, index)}>
+                            <td>{ item.description }</td>
+                            <td>{ moment(item.date).format(DATE_FORMAT) }</td>
                             <td>{ `$${numberWithCommas(item.amount)}` }</td>
                             <td><Button bsSize='xs' onClick={(e) => this.props.remove(e, index)}><Glyphicon glyph="remove"/></Button> </td>
                         </tr>
@@ -245,13 +271,32 @@ const AddItemForm = reduxForm<{scheme: CC.Scheme}>({
     form: 'addItem',
 })(AddItem) as any;
 
+
+export class AddDisbursements extends React.PureComponent<{scheme: CC.Scheme} & InjectedFormProps> {
+    render() {
+        const { error, handleSubmit } = this.props;
+        return  <Form horizontal  onSubmit={handleSubmit}>
+            <Field title="Date" name="date" component={DateFieldFieldRow} validate={required} />
+            <Field title="Description" name="description" component={TextAreaFieldRow} validate={required} />
+            <Field title="Amount" name="amount" component={NumberFieldRow} validate={required} />
+        </Form>
+    }
+}
+
+const AddDisbursementsForm = reduxForm<{scheme: CC.Scheme}>({
+    form: 'addDisbursements',
+})(AddDisbursements) as any;
+
 interface AddItemProps {
     scheme: CC.Scheme, submit: () => void,
     defaults: {rateCode: number, band:string}
 }
 
 
-export class AddItemModal extends React.PureComponent<AddItemProps & WrappedFieldArrayProps<CC.AllocationEntry>, {showAddItem: boolean, values?: CC.AllocationEntry, editIndex?: number}> {
+//export class AddItemModal extends React.PureComponent<AddItemProps & WrappedFieldArrayProps<CC.AllocationEntry>, {showAddItem: boolean, values?: CC.AllocationEntry, editIndex?: number}> {
+
+
+export class TableAndModal extends React.PureComponent<any, {showAddItem: boolean, values?: CC.AllocationEntry, editIndex?: number}> {
     constructor(props: any) {
         super(props);
         this.handleShow = this.handleShow.bind(this);
@@ -263,34 +308,14 @@ export class AddItemModal extends React.PureComponent<AddItemProps & WrappedFiel
         this.state = { showAddItem: false };
     }
 
-    prepareValues(values : any){
-        const rate = findRate(this.props.scheme, values.rateCode);
-        const description = findDescription(this.props.scheme, values.allocationCode);
-        return {
-            allocationCode: values.allocationCode,
-            description,
-            band: values.band,
-            rate,
-            date: values.date,
-            rateCode: values.rateCode,
-            days: findDays(this.props.scheme, values.allocationCode, values.band, values.days),
-            amount:  calculateAmount(this.props.scheme, values.allocationCode, rate, values.band)
-        };
-    }
-
-    addItem(values : any) {
-        this.props.fields.push(this.prepareValues(values));
-        this.handleClose();
-    }
-
     handleSubmit(values : any) {
         if(this.state.values){
             this.props.fields.remove(this.state.editIndex);
             // ugly, ugly hack
-            setTimeout(() => this.props.fields.insert(this.state.editIndex, this.prepareValues(values)), 0)
+            setTimeout(() => this.props.fields.insert(this.state.editIndex, this.props.prepareValues(this.props.scheme, values)), 0)
         }
         else{
-            this.props.fields.push(this.prepareValues(values));
+            this.props.fields.push(this.props.prepareValues(this.props.scheme, values));
         }
         this.handleClose();
     }
@@ -320,9 +345,11 @@ export class AddItemModal extends React.PureComponent<AddItemProps & WrappedFiel
         const subtotal = this.props.fields.getAll().reduce((acc: number, item: CC.AllocationEntry) => {
             return item.amount + acc
         }, 0)
+        const TableComponent = this.props.tableComponent;
+        const FormComponent = this.props.formComponent;
         return [
-            <h3 key={-2}>Costs</h3>,
-            <ItemTable key={-1} {...this.props} editItem={this.editItem} remove={this.remove}/>,
+            <h3 key={-2}>{ this.props.title }</h3>,
+            <TableComponent key={-1} {...this.props} editItem={this.editItem} remove={this.remove}/>,
             <div  key={0} className="">
              <Button bsStyle="primary"  onClick={this.handleShow}>
                 Add Item
@@ -336,7 +363,7 @@ export class AddItemModal extends React.PureComponent<AddItemProps & WrappedFiel
                 <Modal.Title>{ this.state.values ? 'Edit Item' : 'Add Item' }</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <AddItemForm scheme={this.props.scheme} onSubmit={this.handleSubmit} initialValues={{date: new Date(), ...(this.state.values || this.props.defaults)}}/>
+            <FormComponent scheme={this.props.scheme} onSubmit={this.handleSubmit} initialValues={{date: new Date(), ...(this.state.values || this.props.defaults)}}/>
            </Modal.Body>
             <Modal.Footer>
                 <Button onClick={this.handleClose}>Close</Button>
@@ -346,9 +373,74 @@ export class AddItemModal extends React.PureComponent<AddItemProps & WrappedFiel
     }
 }
 
-const ConnectedAddItemModal = connect((state) => ({
+const CostsModalAndTable = (props: any) => {
+    return <TableAndModal
+        {...props}
+        title='Costs'
+        tableComponent={ItemTable}
+        formComponent={AddItemForm}
+        prepareValues={(scheme: CC.Scheme, values : any) => {
+            const rate = findRate(scheme, values.rateCode);
+            const description = findDescription(scheme, values.allocationCode);
+            return {
+                allocationCode: values.allocationCode,
+                description,
+                band: values.band,
+                rate,
+                date: values.date,
+                rateCode: values.rateCode,
+                days: findDays(scheme, values.allocationCode, values.band, values.days),
+                amount:  calculateAmount(scheme, values.allocationCode, rate, values.band)
+            };
+        }}
+    />
+}
+
+const DisbursementsModalAndTable = (props: any) => {
+    return <TableAndModal
+        {...props}
+        title='Disbursements'
+        tableComponent={DisbursementsTable}
+        formComponent={AddDisbursementsForm}
+        prepareValues={(scheme: CC.Scheme, values : any) => {
+            return {
+                description: values.description,
+                amount: parseFloat(values.amount),
+                date: values.date
+            };
+        }}
+    />
+}
+
+const ConnectedCostsModalAndTable = connect((state) => ({
     defaults: RateSelector(state, 'rateCode', 'band'),
-}), {submit: () => submit('addItem')})(AddItemModal);
+}), {submit: () => submit('addItem')})(CostsModalAndTable);
+
+const ConnectedDisbursementsModalAndTable = connect((state) => ({
+    defaults: {},
+}), {submit: () => submit('addDisbursements')})(DisbursementsModalAndTable);
+
+
+export class DisplayTotal extends React.PureComponent<{lists: any}> {
+    render() {
+        const lists = this.props.lists;
+        const items = lists.items.reduce((acc: number, item: CC.AllocationEntry) => {
+            return item.amount + acc
+        }, 0);
+        const disbursements = lists.disbursements.reduce((acc: number, item: CC.AllocationEntry) => {
+            return item.amount + acc
+        }, 0);
+        const total = items + disbursements;
+        return <div className="text-right">
+                <strong>Total: { `$${numberWithCommas(total)}` }</strong>
+        </div>
+    }
+}
+
+const ConnectedDisplayTotal = connect(state => ({
+    lists: RateSelector(state, 'items', 'disbursements')
+}))(DisplayTotal as any);
+
 
 
 export class UnSchemedCourtCosts extends React.PureComponent<SchemeNamedCourtCosts> {
@@ -356,7 +448,9 @@ export class UnSchemedCourtCosts extends React.PureComponent<SchemeNamedCourtCos
     render() {
         return [
              <RateAndBand key={'rateAndBand'} scheme={Schemes[this.props.scheme]} />,
-            <FieldArray key={'addItem'} name="items" component={ConnectedAddItemModal  as any} props={{scheme: Schemes[this.props.scheme]}} />
+            <FieldArray key={'addItem'} name="items" component={ConnectedCostsModalAndTable  as any} props={{scheme: Schemes[this.props.scheme]}} />,
+            <FieldArray key={'addDisbursements'} name="disbursements" component={ConnectedDisbursementsModalAndTable  as any} props={{scheme: Schemes[this.props.scheme]}} />,
+            <ConnectedDisplayTotal />
          ];
     }
 }
@@ -413,6 +507,7 @@ export default reduxForm<{}>({
         scheme: 'High Court',
         rateCode: '1',
         band: 'A',
-        items: []
+        items: [],
+        disbursements: []
     }
 })(CourtCosts as any);
