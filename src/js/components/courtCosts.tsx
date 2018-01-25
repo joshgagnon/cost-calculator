@@ -114,18 +114,23 @@ interface SchemeNamedCourtCosts {
     scheme: string
 }
 
-export class RateAndBand extends React.PureComponent<{scheme: CC.Scheme}> {
+export class Rate extends React.PureComponent<{scheme: CC.Scheme}> {
     render() {
-        return [<Field key={0} title={'Daily Rate'} name={'rateCode'} component={SelectFieldRow} validate={required}>
+        return <Field  title={'Daily Rate'} name={'rateCode'} component={SelectFieldRow} validate={required}>
                 { this.props.scheme && this.props.scheme.rates.map((rate: any) => {
                     return <option key={rate.category} value={rate.category}>{ `${rate.category} - $${numberWithCommas(rate.rate)}` }</option>
                 }) }
-            </Field>,
-              <Field key={1} title={'Band'} name={'band'} component={SelectFieldRow} validate={required}>
+            </Field>
+    }
+}
+
+export class Band extends React.PureComponent<{scheme: CC.Scheme}> {
+    render() {
+        return  <Field  title={'Band'} name={'band'} component={SelectFieldRow} validate={required}>
               <option value="A">A</option>
               <option value="B">B</option>
               <option value="C">C</option>
-            </Field>]
+            </Field>
     }
 }
 
@@ -168,7 +173,7 @@ export class ItemTable extends React.PureComponent<any> {
                             <td>{ item.description }</td>
                             <td>{ moment(item.date).format(DATE_FORMAT) }</td>
                             <td>{ `$${numberWithCommas(item.rate)}` }</td>
-                            <td>{ item.band }</td>
+                            <td>{ item.band || '-' }</td>
                             <td>{ item.days }</td>
                             <td>{ `$${numberWithCommas(item.amount)}` }</td>
                             <td><Button bsSize='xs' onClick={(e) => this.props.remove(e, index)}><Glyphicon glyph="remove"/></Button> </td>
@@ -208,40 +213,35 @@ export class DisbursementsTable extends React.PureComponent<any> {
 }
 
 
-class SelectDays extends React.PureComponent<{scheme: CC.Scheme, allocationCode: string}> {
 
-    render(){
-        const allocationCode = this.props.scheme.allocationMap[this.props.allocationCode];
-        if(!allocationCode || !allocationCode.explaination){
-            return false;
-        }
-        return [
-            <FormGroup key="explaination">
+const bandedAllocationMap = (state: CC.State, ownProps: {scheme: CC.Scheme}) => {
+    const allocationCode = AddItemSelector(state, 'allocationCode');
+    const allocation = ownProps.scheme.allocationMap[allocationCode];
+    const hasBands = !allocationCode || !allocation.explaination;
+    return {
+        allocation,
+        hasBands
+    }
+};
+
+
+export class AddItem extends React.PureComponent<{scheme: CC.Scheme, hasBands: boolean, allocation: CC.AllocationItem} & InjectedFormProps> {
+    render() {
+        const { error, handleSubmit, hasBands, allocation } = this.props;
+        return  <Form horizontal  onSubmit={handleSubmit}>
+            <Field title="Date" name="date" component={DateFieldFieldRow} validate={required} />
+            <Rate scheme={this.props.scheme} />
+            <AllocationSelect scheme={this.props.scheme} />
+            {hasBands && <Band scheme={this.props.scheme} />}
+            {!hasBands && <FormGroup key="explaination">
                 <Col sm={3} className="text-right">
                     <ControlLabel>Explaination</ControlLabel>
                 </Col>
                 <Col sm={7}>
-                    { allocationCode.explaination }
+                    { this.props.allocation.explaination }
                 </Col>
-            </FormGroup>,
-            <Field key={1} name="days" title="Days" component={NumberFieldRow} />
-        ]
-    }
-}
-
-
-const ConnnectedSelectDays = connect<{}, {}, {scheme: CC.Scheme}>(state => ({
-    allocationCode: AddItemSelector(state, 'allocationCode')
-}))(SelectDays as any);
-
-export class AddItem extends React.PureComponent<{scheme: CC.Scheme} & InjectedFormProps> {
-    render() {
-        const { error, handleSubmit } = this.props;
-        return  <Form horizontal  onSubmit={handleSubmit}>
-            <Field title="Date" name="date" component={DateFieldFieldRow} validate={required} />
-            <RateAndBand scheme={this.props.scheme} />
-            <AllocationSelect scheme={this.props.scheme} />
-            <ConnnectedSelectDays scheme={this.props.scheme} />
+            </FormGroup> }
+            {!hasBands && <Field name="days" title="Days" component={NumberFieldRow} /> }
         </Form>
     }
 }
@@ -254,7 +254,11 @@ const findDescription = (scheme: CC.Scheme, allocationCode: string) =>  {
     return scheme.allocationMap[allocationCode].label;
 }
 
-const findDays = (scheme: CC.Scheme, allocationCode: string, band: string, days?: string) =>  {
+const hasBand = (scheme: CC.Scheme, allocationCode: string) =>  {
+    return !scheme.allocationMap[allocationCode].explaination;
+}
+
+const findDays = (scheme: CC.Scheme, allocationCode: string, band: string, days?: number) =>  {
     const item = scheme.allocationMap[allocationCode] as CC.AllocationItem;
     if(item.explaination){
         return days;
@@ -262,14 +266,14 @@ const findDays = (scheme: CC.Scheme, allocationCode: string, band: string, days?
     return (item as any)[band];
 }
 
-const calculateAmount = (scheme: CC.Scheme, allocationCode: string, rate: number, band: string) => {
-    const days = findDays(scheme, allocationCode, band);
+const calculateAmount = (scheme: CC.Scheme, allocationCode: string, rate: number, band: string, days?: number) => {
+    days = findDays(scheme, allocationCode, band, days);
     return days * rate;
 }
 
 const AddItemForm = reduxForm<{scheme: CC.Scheme}>({
     form: 'addItem',
-})(AddItem) as any;
+})(connect<{}, {}, {scheme: CC.Scheme}>(bandedAllocationMap)(AddItem)) as any;
 
 
 export class AddDisbursements extends React.PureComponent<{scheme: CC.Scheme} & InjectedFormProps> {
@@ -385,12 +389,12 @@ const CostsModalAndTable = (props: any) => {
             return {
                 allocationCode: values.allocationCode,
                 description,
-                band: values.band,
+                band: hasBand(scheme, values.allocationCode) ? values.band : null,
                 rate,
                 date: values.date,
                 rateCode: values.rateCode,
                 days: findDays(scheme, values.allocationCode, values.band, values.days),
-                amount:  calculateAmount(scheme, values.allocationCode, rate, values.band)
+                amount:  calculateAmount(scheme, values.allocationCode, rate, values.band, values.days)
             };
         }}
     />
@@ -447,10 +451,12 @@ export class UnSchemedCourtCosts extends React.PureComponent<SchemeNamedCourtCos
 
     render() {
         return [
-             <RateAndBand key={'rateAndBand'} scheme={Schemes[this.props.scheme]} />,
+
+             <Rate key={'rate'} scheme={Schemes[this.props.scheme]} />,
+             <Band key={'band'} scheme={Schemes[this.props.scheme]} />,
             <FieldArray key={'addItem'} name="items" component={ConnectedCostsModalAndTable  as any} props={{scheme: Schemes[this.props.scheme]}} />,
             <FieldArray key={'addDisbursements'} name="disbursements" component={ConnectedDisbursementsModalAndTable  as any} props={{scheme: Schemes[this.props.scheme]}} />,
-            <ConnectedDisplayTotal />
+            <ConnectedDisplayTotal key={'total'}/>
          ];
     }
 }

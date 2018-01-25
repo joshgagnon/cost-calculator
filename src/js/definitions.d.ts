@@ -49,6 +49,10 @@ declare namespace CC {
         amount: number,
         date: Date
     }
+
+    interface State {
+
+    }
 }
 
 declare module "*.json" {
