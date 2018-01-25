@@ -131,6 +131,7 @@ export class ItemTable extends React.PureComponent<any> {
                     <th>Rate</th>
                     <th>Days</th>
                     <th>Amount</th>
+                    <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -139,9 +140,10 @@ export class ItemTable extends React.PureComponent<any> {
                             <td>{ item.allocationCode }</td>
                             <td>{ item.description }</td>
                             <td>{ item.band }</td>
-                            <td>{ item.rate }</td>
+                            <td>{ `$${numberWithCommas(item.rate)}` }</td>
                             <td>{ item.days }</td>
-                            <td>{ item.amount }</td>
+                            <td>{ `$${numberWithCommas(item.amount)}` }</td>
+                            <td><Button bsSize='xs' onClick={() => this.props.fields.remove(index)}><Glyphicon glyph="remove"/></Button> </td>
                         </tr>
                     }) }
                 </tbody>
@@ -156,7 +158,6 @@ export class AddItem extends React.PureComponent<{scheme: CC.Scheme} & InjectedF
         return  <Form horizontal  onSubmit={handleSubmit}>
             <RateAndBand scheme={this.props.scheme} />
             <AllocationSelect scheme={this.props.scheme} />
-            <Field  title={'Days'} name={'days'} component={NumberFieldRow} validate={required} />
         </Form>
     }
 }
@@ -169,8 +170,13 @@ const findDescription = (scheme: CC.Scheme, allocationCode: string) =>  {
     return scheme.allocationMap[allocationCode].label;
 }
 
-const calculateAmount = (scheme: CC.Scheme, rate: number, band: string, days: number) => {
-    return 0;
+const findDays = (scheme: CC.Scheme, allocationCode: string, band: string) =>  {
+    return (scheme.allocationMap[allocationCode] as any)[band];
+}
+
+const calculateAmount = (scheme: CC.Scheme, allocationCode: string, rate: number, band: string) => {
+    const days = findDays(scheme, allocationCode, band);
+    return days * rate;
 }
 
 const AddItemForm = reduxForm<{scheme: CC.Scheme}>({
@@ -195,8 +201,9 @@ export class AddItemModal extends React.PureComponent<{scheme: CC.Scheme, submit
             description,
             band: values.band,
             rate,
-            days: values.days,
-            amount:  calculateAmount(this.props.scheme, rate, values.band, values.days)
+            rateCode: values.rateCode,
+            days: findDays(this.props.scheme, values.allocationCode, values.band),
+            amount:  calculateAmount(this.props.scheme, values.allocationCode, rate, values.band)
         });
         this.handleClose();
     }
@@ -214,17 +221,24 @@ export class AddItemModal extends React.PureComponent<{scheme: CC.Scheme, submit
     }
 
     render() {
+        const subtotal = this.props.fields.getAll().reduce((acc: number, item: CC.AllocationEntry) => {
+            return item.amount + acc
+        }, 0)
         return [
-            <div  key={0} className="button-row">
-             <Button bsStyle="primary" onClick={this.handleShow}>
+            <div  key={0} className="">
+             <Button bsStyle="primary"  onClick={this.handleShow}>
                 Add Item
-                </Button></div>,
+                </Button>
+                <div className="pull-right">
+                <strong>Subtotal: { `$${numberWithCommas(subtotal)}` }</strong>
+                </div>
+               </div>,
             <Modal key={1} show={this.state.showAddItem} onHide={this.handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Add Item</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <AddItemForm scheme={this.props.scheme} onSubmit={this.addItem} initialValues={{...this.props.defaults, days: 1}}/>
+            <AddItemForm scheme={this.props.scheme} onSubmit={this.addItem} initialValues={{...this.props.defaults}}/>
            </Modal.Body>
             <Modal.Footer>
                 <Button onClick={this.handleClose}>Close</Button>
@@ -288,11 +302,7 @@ export class CourtCosts extends React.PureComponent<{}> {
     render() {
         return <div className="container">
         <h1 className="text-center">Court Costs Prototype</h1>
-            <div className="row">
-                <div className="col-md-6 col-md-offset-3">
-                    <CourtCostsForm />
-                </div>
-            </div>
+            <CourtCostsForm />
         </div>
     }
 }

@@ -44,6 +44,7 @@ declare namespace CC {
         description: string,
         band: string,
         rate: number,
+        rateCode: number,
         days: number,
         amount: number
     }
