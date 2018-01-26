@@ -134,14 +134,14 @@ export class Band extends React.PureComponent<{scheme: CC.Scheme}> {
     }
 }
 
-export class AllocationSelect extends React.PureComponent<{scheme: CC.Scheme}> {
+export class CostSelect extends React.PureComponent<{scheme: CC.Scheme}> {
     render() {
-        return <Field title={'Allocation'} name={'allocationCode'} component={SelectFieldRow} validate={required}>
+        return <Field title={'Cost'} name={'costCode'} component={SelectFieldRow} validate={required}>
                 <option value="" disabled>Please Select...</option>
-                { this.props.scheme && this.props.scheme.allocations.map((allocation: any, index: number) => {
-                    return <optgroup key={index} label={allocation.label}>
-                        { allocation.items.map((item: any, index: number) => {
-                            return <option key={index} value={item.allocationCode}>{ `${item.allocationCode} - ${item.label}` }</option>
+                { this.props.scheme && this.props.scheme.costs.map((cost: any, index: number) => {
+                    return <optgroup key={index} label={cost.label}>
+                        { cost.items.map((item: any, index: number) => {
+                            return <option key={index} value={item.costCode}>{ `${item.costCode} - ${item.label}` }</option>
                         })}
                     </optgroup>
                 }) }
@@ -169,7 +169,7 @@ export class ItemTable extends React.PureComponent<any> {
                 <tbody>
                     { this.props.fields.getAll().map((item: any, index: number) => {
                         return <tr key={index} onClick={() => this.props.editItem(item, index)}>
-                            <td>{ item.allocationCode }</td>
+                            <td>{ item.costCode }</td>
                             <td>{ item.description }</td>
                             <td>{ moment(item.date).format(DATE_FORMAT) }</td>
                             <td>{ `$${numberWithCommas(item.rate)}` }</td>
@@ -214,31 +214,31 @@ export class DisbursementsTable extends React.PureComponent<any> {
 
 
 
-const bandedAllocationMap = (state: CC.State, ownProps: {scheme: CC.Scheme}) => {
-    const allocationCode = AddItemSelector(state, 'allocationCode');
-    const allocation = ownProps.scheme.allocationMap[allocationCode];
-    const hasBands = !allocationCode || !allocation.explaination;
+const bandedCostMap = (state: CC.State, ownProps: {scheme: CC.Scheme}) => {
+    const costCode = AddItemSelector(state, 'costCode');
+    const cost = ownProps.scheme.costMap[costCode];
+    const hasBands = !costCode || !cost.explaination;
     return {
-        allocation,
+        cost,
         hasBands
     }
 };
 
 
-export class AddItem extends React.PureComponent<{scheme: CC.Scheme, hasBands: boolean, allocation: CC.AllocationItem} & InjectedFormProps> {
+export class AddItem extends React.PureComponent<{scheme: CC.Scheme, hasBands: boolean, cost: CC.CostItem} & InjectedFormProps> {
     render() {
-        const { error, handleSubmit, hasBands, allocation } = this.props;
+        const { error, handleSubmit, hasBands, cost } = this.props;
         return  <Form horizontal  onSubmit={handleSubmit}>
             <Field title="Date" name="date" component={DateFieldFieldRow} validate={required} />
             <Rate scheme={this.props.scheme} />
-            <AllocationSelect scheme={this.props.scheme} />
+            <CostSelect scheme={this.props.scheme} />
             {hasBands && <Band scheme={this.props.scheme} />}
             {!hasBands && <FormGroup key="explaination">
                 <Col sm={3} className="text-right">
                     <ControlLabel>Explaination</ControlLabel>
                 </Col>
                 <Col sm={7}>
-                    { this.props.allocation.explaination }
+                    { this.props.cost.explaination }
                 </Col>
             </FormGroup> }
             {!hasBands && <Field name="days" title="Days" component={NumberFieldRow} /> }
@@ -250,30 +250,30 @@ const findRate = (scheme: CC.Scheme, rateCode: string) =>  {
     return (scheme.rates.find((rate : CC.Rate) => rate.category === rateCode) || {rate : 0}).rate;
 }
 
-const findDescription = (scheme: CC.Scheme, allocationCode: string) =>  {
-    return scheme.allocationMap[allocationCode].label;
+const findDescription = (scheme: CC.Scheme, costCode: string) =>  {
+    return scheme.costMap[costCode].label;
 }
 
-const hasBand = (scheme: CC.Scheme, allocationCode: string) =>  {
-    return !scheme.allocationMap[allocationCode].explaination;
+const hasBand = (scheme: CC.Scheme, costCode: string) =>  {
+    return !scheme.costMap[costCode].explaination;
 }
 
-const findDays = (scheme: CC.Scheme, allocationCode: string, band: string, days?: number) =>  {
-    const item = scheme.allocationMap[allocationCode] as CC.AllocationItem;
+const findDays = (scheme: CC.Scheme, costCode: string, band: string, days?: number) =>  {
+    const item = scheme.costMap[costCode] as CC.CostItem;
     if(item.explaination){
         return days;
     }
     return (item as any)[band];
 }
 
-const calculateAmount = (scheme: CC.Scheme, allocationCode: string, rate: number, band: string, days?: number) => {
-    days = findDays(scheme, allocationCode, band, days);
+const calculateAmount = (scheme: CC.Scheme, costCode: string, rate: number, band: string, days?: number) => {
+    days = findDays(scheme, costCode, band, days);
     return days * rate;
 }
 
 const AddItemForm = reduxForm<{scheme: CC.Scheme}>({
     form: 'addItem',
-})(connect<{}, {}, {scheme: CC.Scheme}>(bandedAllocationMap)(AddItem)) as any;
+})(connect<{}, {}, {scheme: CC.Scheme}>(bandedCostMap)(AddItem)) as any;
 
 
 export class AddDisbursements extends React.PureComponent<{scheme: CC.Scheme} & InjectedFormProps> {
@@ -297,10 +297,10 @@ interface AddItemProps {
 }
 
 
-//export class AddItemModal extends React.PureComponent<AddItemProps & WrappedFieldArrayProps<CC.AllocationEntry>, {showAddItem: boolean, values?: CC.AllocationEntry, editIndex?: number}> {
+//export class AddItemModal extends React.PureComponent<AddItemProps & WrappedFieldArrayProps<CC.CostEntry>, {showAddItem: boolean, values?: CC.CostEntry, editIndex?: number}> {
 
 
-export class TableAndModal extends React.PureComponent<any, {showAddItem: boolean, values?: CC.AllocationEntry, editIndex?: number}> {
+export class TableAndModal extends React.PureComponent<any, {showAddItem: boolean, values?: CC.CostEntry, editIndex?: number}> {
     constructor(props: any) {
         super(props);
         this.handleShow = this.handleShow.bind(this);
@@ -346,7 +346,7 @@ export class TableAndModal extends React.PureComponent<any, {showAddItem: boolea
     }
 
     render() {
-        const subtotal = this.props.fields.getAll().reduce((acc: number, item: CC.AllocationEntry) => {
+        const subtotal = this.props.fields.getAll().reduce((acc: number, item: CC.CostEntry) => {
             return item.amount + acc
         }, 0)
         const TableComponent = this.props.tableComponent;
@@ -356,7 +356,7 @@ export class TableAndModal extends React.PureComponent<any, {showAddItem: boolea
             <TableComponent key={-1} {...this.props} editItem={this.editItem} remove={this.remove}/>,
             <div  key={0} className="">
              <Button bsStyle="primary"  onClick={this.handleShow}>
-                Add Item
+               {this.props.addText}
                 </Button>
                 <div className="pull-right">
                 <strong>Subtotal: { `$${numberWithCommas(subtotal)}` }</strong>
@@ -381,20 +381,21 @@ const CostsModalAndTable = (props: any) => {
     return <TableAndModal
         {...props}
         title='Costs'
+        addText='Add Cost Entry'
         tableComponent={ItemTable}
         formComponent={AddItemForm}
         prepareValues={(scheme: CC.Scheme, values : any) => {
             const rate = findRate(scheme, values.rateCode);
-            const description = findDescription(scheme, values.allocationCode);
+            const description = findDescription(scheme, values.costCode);
             return {
-                allocationCode: values.allocationCode,
+                costCode: values.costCode,
                 description,
-                band: hasBand(scheme, values.allocationCode) ? values.band : null,
+                band: hasBand(scheme, values.costCode) ? values.band : null,
                 rate,
                 date: values.date,
                 rateCode: values.rateCode,
-                days: findDays(scheme, values.allocationCode, values.band, values.days),
-                amount:  calculateAmount(scheme, values.allocationCode, rate, values.band, values.days)
+                days: findDays(scheme, values.costCode, values.band, values.days),
+                amount:  calculateAmount(scheme, values.costCode, rate, values.band, values.days)
             };
         }}
     />
@@ -404,6 +405,7 @@ const DisbursementsModalAndTable = (props: any) => {
     return <TableAndModal
         {...props}
         title='Disbursements'
+        addText='Add Disbursement'
         tableComponent={DisbursementsTable}
         formComponent={AddDisbursementsForm}
         prepareValues={(scheme: CC.Scheme, values : any) => {
@@ -428,10 +430,10 @@ const ConnectedDisbursementsModalAndTable = connect((state) => ({
 export class DisplayTotal extends React.PureComponent<{lists: any}> {
     render() {
         const lists = this.props.lists;
-        const items = lists.items.reduce((acc: number, item: CC.AllocationEntry) => {
+        const items = lists.items.reduce((acc: number, item: CC.CostEntry) => {
             return item.amount + acc
         }, 0);
-        const disbursements = lists.disbursements.reduce((acc: number, item: CC.AllocationEntry) => {
+        const disbursements = lists.disbursements.reduce((acc: number, item: CC.CostEntry) => {
             return item.amount + acc
         }, 0);
         const total = items + disbursements;
@@ -481,9 +483,9 @@ export class CourtCostsForm extends React.PureComponent<{}> {
 }
 
 const massageScheme = (scheme: any) => {
-    scheme.allocationMap = scheme.allocations.reduce((acc: CC.AllocationMap, allocation: CC.Allocation) => {
-        allocation.items.map((allocationItem: CC.AllocationItem) => {
-            acc[allocationItem.allocationCode] = allocationItem;
+    scheme.costMap = scheme.costs.reduce((acc: CC.CostMap, cost: CC.Cost) => {
+        cost.items.map((costItem: CC.CostItem) => {
+            acc[costItem.costCode] = costItem;
         })
         return acc;
     }, {});

@@ -9,8 +9,8 @@ declare namespace CC {
         rate: number
     }
 
-    interface AllocationItem {
-        allocationCode: string,
+    interface CostItem {
+        costCode: string,
         A?: number,
         B?: number,
         C?: number,
@@ -18,19 +18,19 @@ declare namespace CC {
         explaination?: string,
     }
 
-    interface Allocation {
+    interface Cost {
         label: string,
-        items: [AllocationItem]
+        items: [CostItem]
     }
 
-    interface AllocationMap {
-        [allocationCode: string]: AllocationItem
+    interface CostMap {
+        [costCode: string]: CostItem
     }
 
     interface Scheme {
         rates: [Rate],
-        allocations: [Allocation],
-        allocationMap: AllocationMap
+        costs: [Cost],
+        costMap: CostMap
 
     }
 
@@ -39,8 +39,8 @@ declare namespace CC {
     }
 
 
-    interface AllocationEntry {
-        allocationCode: string,
+    interface CostEntry {
+        costCode: string,
         description: string,
         band: string,
         rate: number,

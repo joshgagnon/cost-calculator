@@ -55,13 +55,13 @@ def parse_high_court():
                 results.append({'label': line[1], 'items': current_category})
             elif all(line[0:2]) and len(line) == 4:
                 current_category.append({
-                                        'allocationCode': line[0],
+                                        'costCode': line[0],
                                         'label': line[1],
                                         'explaination': line[3]
                                         })
             elif all(line[0:2] + line[3:]):
                 current_category.append({
-                                        'allocationCode': line[0],
+                                        'costCode': line[0],
                                         'label': line[1],
                                         'A': to_float(line[3]),
                                         'B': to_float(line[4]),
@@ -69,7 +69,7 @@ def parse_high_court():
                                         })
         return results
     return {
-        'allocations': time_allocations(),
+        'costs': time_allocations(),
         'rates': daily_rates()
     }
 
