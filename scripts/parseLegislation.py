@@ -19,12 +19,15 @@ def to_float(input):
 
 
 def parse_high_court():
-    tree = ET.parse(os.path.join(path, '../src/xml/High Court.xml'))
-    root = tree.getroot()
+    rules_tree = ET.parse(os.path.join(path, '../src/xml/High Court Rules.xml'))
+    rules_root = rules_tree.getroot()
+
+    fees_tree = ET.parse(os.path.join(path, '../src/xml/High Court Fees Regulations.xml'))
+    fees_root = fees_tree.getroot()
 
     def daily_rates():
         xml_id = "DLM6953317"
-        node = root.findall(".//*[@id='%s']" % xml_id)[0]
+        node = rules_root.findall(".//*[@id='%s']" % xml_id)[0]
         table = node.find(".//table")
         rows = table.findall('.//tbody/row')[1:]
         lines = []
@@ -38,7 +41,7 @@ def parse_high_court():
 
     def time_allocations():
         xml_id = "DLM6953320"
-        node = root.findall(".//*[@id='%s']" % xml_id)[0]
+        node = rules_root.findall(".//*[@id='%s']" % xml_id)[0]
         table = node.find(".//table")
         rows = table.findall('.//tbody/row')
         lines = []
@@ -68,8 +71,20 @@ def parse_high_court():
                                         'C': to_float(line[5]),
                                         })
         return results
+
+    def disbursements():
+        xml_id = "DLM5196182"
+        table = fees_root.findall(".//*[@id='%s']" % xml_id)[0]
+        rows = table.findall('.//tbody/row')
+        lines = []
+        for row in rows:
+            cells = row.findall('.//entry')
+            lines.append([ET.tostring(cell, 'utf8', 'text') for cell in cells])
+        print lines
+
     return {
         'costs': time_allocations(),
+        'disbursements': disbursements(),
         'rates': daily_rates()
     }
 
