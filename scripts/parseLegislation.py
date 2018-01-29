@@ -97,11 +97,13 @@ def parse_high_court():
         for row in rows:
             if not ET.tostring(row, 'utf8', 'text'):
                 continue
+
             cells = row.findall('.//entry')
             if cells[0].attrib.get('morerows'):
                 category_rows = int(cells[0].attrib.get('morerows'))
-                current_category = []
-                categories.append({'label': ET.tostring(cells[0], 'utf8', 'text'), 'items': current_category})
+                stack = [[]]
+                categories.append({'label': ET.tostring(cells[0], 'utf8', 'text'), 'items': stack[0]})
+
                 category_cost = cost(ET.tostring(cells[-1], 'utf8', 'text'))
             label_sub_code = None
 
@@ -113,25 +115,27 @@ def parse_high_court():
 
             # if first for are empty, then its a subsubitem
             if not any(ET.tostring(cell, 'utf8', 'text') for cell in cells[0:4]):
-                current_sub_items.append({
-                                        'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
-                                        'label': ET.tostring(cells[-5], 'utf8', 'text'),
-                                        'code': label_sub_code
-                                        })
+                stack[2].append({
+                                'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
+                                'label': ET.tostring(cells[-5], 'utf8', 'text'),
+                                'code': label_sub_code
+                                })
             elif label_sub_code:
-                current_sub_items.append({
-                                        'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
-                                        'label': ET.tostring(cells[-5], 'utf8', 'text'),
-                                        'code': label_sub_code
-                                        })
+                stack[2] = []
+                stack[1].append({
+                                'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
+                                'label': ET.tostring(cells[-5], 'utf8', 'text'),
+                                'code': label_sub_code,
+                                'subItems': stack[2]
+                                })
             else:
-                current_sub_items = []
-                current_category.append({
-                                        'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
-                                        'label': ET.tostring(cells[-5], 'utf8', 'text'),
-                                        'code': ET.tostring(cells[-6], 'utf8', 'text'),
-                                        'subItems': current_sub_items
-                                        })
+                stack[1] = []
+                stack[0].append({
+                                'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
+                                'label': ET.tostring(cells[-5], 'utf8', 'text'),
+                                'code': ET.tostring(cells[-6], 'utf8', 'text'),
+                                'subItems': stack[1]
+                                })
 
         pp = pprint.PrettyPrinter(indent=4)
         pp.pprint(categories)
