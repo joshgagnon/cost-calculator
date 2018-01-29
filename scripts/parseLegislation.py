@@ -125,7 +125,7 @@ def parse_high_court():
                                 'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
                                 'label': ET.tostring(cells[-5], 'utf8', 'text'),
                                 'code': label_sub_code,
-                                'subItems': stack[2]
+                                'items': stack[2]
                                 })
             elif code:
                 stack = [stack[0], []]
@@ -134,7 +134,7 @@ def parse_high_court():
                                 'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
                                 'label': ET.tostring(cells[-5], 'utf8', 'text'),
                                 'code': code,
-                                'subItems': stack[1]
+                                'items': stack[1]
                                 })
 
 

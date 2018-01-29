@@ -31,6 +31,7 @@ declare namespace CC {
     interface Disbursement {
         label: string,
         items: [any]
+        code: string
     }
 
     interface DisbursementMap {

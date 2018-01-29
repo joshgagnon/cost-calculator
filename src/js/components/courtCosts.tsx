@@ -164,12 +164,12 @@ export class DisbursementsSelect extends React.PureComponent<{scheme: CC.Scheme}
             path.push(item.code)
             const value = path.join('')
             acc.push(<option key={value} value={value} disabled={!item.amount}>{ `${item.code.padStart(8 * (path.length-1)).replace(/ /g, '\u00A0')} - ${item.label}` }</option>);
-            acc = item.subItems ? item.subItems.reduce(recurse, acc) : acc;
+            acc = item.items ? item.items.reduce(recurse, acc) : acc;
             path.pop();
             return acc;
         }
 
-        return <Field title={'Cost'} name={'costCode'} component={SelectFieldRow} validate={required}>
+        return <Field title={'Disbursement'} name={'code'} component={SelectFieldRow} validate={required}>
                 <option value="" disabled>Please Select...</option>
                 { this.props.scheme && this.props.scheme.disbursements.map((cost: any, index: number) => {
                     return <optgroup key={index} label={cost.label}>
@@ -224,17 +224,23 @@ export class DisbursementsTable extends React.PureComponent<any> {
             <table className="table table-striped">
                 <thead>
                     <tr>
+                    <th>Item</th>
                     <th>Description</th>
                     <th>Date</th>
-                    <th>Amount</th>
+                    <th>Item Amount</th>
+                    <th>Count</th>
+                    <th>Total Amount</th>
                     <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     { this.props.fields.getAll().map((item: any, index: number) => {
                         return <tr key={index} onClick={() => this.props.editItem(item, index)}>
+                            <td>{ item.code }</td>
                             <td>{ item.description }</td>
                             <td>{ moment(item.date).format(DATE_FORMAT) }</td>
+                            <td>{ `$${numberWithCommas(item.itemAmount)}` }</td>
+                            <td>{ `${numberWithCommas(item.count)}` }</td>
                             <td>{ `$${numberWithCommas(item.amount)}` }</td>
                             <td><Button bsSize='xs' onClick={(e) => this.props.remove(e, index)}><Glyphicon glyph="remove"/></Button> </td>
                         </tr>
@@ -444,9 +450,14 @@ const DisbursementsModalAndTable = (props: any) => {
         tableComponent={DisbursementsTable}
         formComponent={AddDisbursementsForm}
         prepareValues={(scheme: CC.Scheme, values : any) => {
+            const disbursementList = scheme.disbursementMap[values.code];
+            const disbursement = disbursementList[disbursementList.length - 1];
             return {
-                description: values.description,
-                amount: parseFloat(values.amount),
+                code: values.code,
+                description: disbursement.label,
+                itemAmount: disbursement.amount,
+                amount: values.count * disbursement.amount,
+                count: values.count,
                 date: values.date
             };
         }}
@@ -524,6 +535,20 @@ const massageScheme = (scheme: any) => {
         })
         return acc;
     }, {});
+
+
+    let parts = [] as [CC.Disbursement];
+    const recurse = (acc: any, item: any, index: number) => {
+        parts.push(item)
+        const value = parts.map(p => p.code).join('')
+        acc[value] = [...parts];
+        if(item.items){
+            item.items.reduce(recurse, acc)
+        }
+        parts.pop();
+        return acc;
+    }
+    scheme.disbursementMap = scheme.disbursements.reduce(recurse, {});
     return scheme as CC.Scheme;
 }
 
