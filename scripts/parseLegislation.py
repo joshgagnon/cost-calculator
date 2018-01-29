@@ -1,7 +1,7 @@
 import os
-import requests
 import json
 import xml.etree.ElementTree as ET
+import pprint
 
 path = os.path.dirname(__file__)
 
@@ -76,11 +76,67 @@ def parse_high_court():
         xml_id = "DLM5196182"
         table = fees_root.findall(".//*[@id='%s']" % xml_id)[0]
         rows = table.findall('.//tbody/row')
-        lines = []
+        parent_map = {}
+        for el in table.iter():
+            for child in el:
+                parent_map[child] = el
+        category_rows = 0
+        categories = []
+        current_category = None
+        current_sub_items = None
+        category_cost = None
+        stack = []
+
+        def cost(value):
+            try:
+                return float(value.replace(',', ''))
+            except ValueError:
+                return value
+
+
         for row in rows:
+            if not ET.tostring(row, 'utf8', 'text'):
+                continue
             cells = row.findall('.//entry')
-            lines.append([ET.tostring(cell, 'utf8', 'text') for cell in cells])
-        print lines
+            if cells[0].attrib.get('morerows'):
+                category_rows = int(cells[0].attrib.get('morerows'))
+                current_category = []
+                categories.append({'label': ET.tostring(cells[0], 'utf8', 'text'), 'items': current_category})
+                category_cost = cost(ET.tostring(cells[-1], 'utf8', 'text'))
+            label_sub_code = None
+
+            if cells[-5].findall('.//label'):
+                for label in cells[-5].findall('.//label'):
+                    label_sub_code = ET.tostring(label, 'utf8', 'text')
+                    # assume only one label per row, extract then remove
+                    parent_map[label].remove(label)
+
+            # if first for are empty, then its a subsubitem
+            if not any(ET.tostring(cell, 'utf8', 'text') for cell in cells[0:4]):
+                current_sub_items.append({
+                                        'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
+                                        'label': ET.tostring(cells[-5], 'utf8', 'text'),
+                                        'code': label_sub_code
+                                        })
+            elif label_sub_code:
+                current_sub_items.append({
+                                        'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
+                                        'label': ET.tostring(cells[-5], 'utf8', 'text'),
+                                        'code': label_sub_code
+                                        })
+            else:
+                current_sub_items = []
+                current_category.append({
+                                        'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
+                                        'label': ET.tostring(cells[-5], 'utf8', 'text'),
+                                        'code': ET.tostring(cells[-6], 'utf8', 'text'),
+                                        'subItems': current_sub_items
+                                        })
+
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(categories)
+        return categories
+
 
     return {
         'costs': time_allocations(),
