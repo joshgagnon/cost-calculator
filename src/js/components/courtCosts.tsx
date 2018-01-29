@@ -115,6 +115,7 @@ const IntegerFieldRow = FieldRow(IntegerField);
 
 const RateSelector = formValueSelector('cc');
 const AddItemSelector = formValueSelector('addItem');
+const AddDisbursementSelector = formValueSelector('addDisbursements');
 
 
 interface SchemeNamedCourtCosts {
@@ -171,6 +172,7 @@ export class DisbursementsSelect extends React.PureComponent<{scheme: CC.Scheme}
 
         return <Field title={'Disbursement'} name={'code'} component={SelectFieldRow} validate={required}>
                 <option value="" disabled>Please Select...</option>
+                <option value="custom">Custom Disbursement</option>
                 { this.props.scheme && this.props.scheme.disbursements.map((cost: any, index: number) => {
                     return <optgroup key={index} label={cost.label}>
                         { cost.items.reduce(recurse, []) }
@@ -227,7 +229,7 @@ export class DisbursementsTable extends React.PureComponent<any> {
                     <th>Item</th>
                     <th>Description</th>
                     <th>Date</th>
-                    <th>Item Amount</th>
+                    <th>Item Cost</th>
                     <th>Count</th>
                     <th>Total Amount</th>
                     <th></th>
@@ -264,6 +266,27 @@ const bandedCostMap = (state: CC.State, ownProps: {scheme: CC.Scheme}) => {
 };
 
 
+const disbursementMap = (state: CC.State, ownProps: {scheme: CC.Scheme}) => {
+    const { code, count, amount } = AddDisbursementSelector(state, 'code', 'count', 'amount');
+    let disbursement = ownProps.scheme.disbursementMap[code];
+    const custom = code === 'custom';
+    if(disbursement){
+        disbursement = disbursement[disbursement.length -1];
+    }
+    const noFee = disbursement && disbursement.amount === 'no fee';
+    const userDefined = !disbursement && (!noFee || typeof disbursement.amount !== 'number');
+    const calcAmount = noFee ? 0 : (userDefined ? amount : disbursement.amount);
+    return {
+        custom,
+        count,
+        amount: calcAmount,
+        disbursement,
+        noFee,
+        userDefined
+    }
+};
+
+
 export class AddItem extends React.PureComponent<{scheme: CC.Scheme, hasBands: boolean, cost: CC.CostItem} & InjectedFormProps> {
     render() {
         const { error, handleSubmit, hasBands, cost } = this.props;
@@ -276,8 +299,9 @@ export class AddItem extends React.PureComponent<{scheme: CC.Scheme, hasBands: b
                 <Col sm={3} className="text-right">
                     <ControlLabel>Explaination</ControlLabel>
                 </Col>
-                <Col sm={7}>
+                <Col sm={7}><div className="form-text">
                     { this.props.cost.explaination }
+                    </div>
                 </Col>
             </FormGroup> }
             {!hasBands && <Field name="days" title="Days" component={NumberFieldRow} /> }
@@ -315,22 +339,35 @@ const AddItemForm = reduxForm<{scheme: CC.Scheme}>({
 })(connect<{}, {}, {scheme: CC.Scheme}>(bandedCostMap)(AddItem)) as any;
 
 
-export class AddDisbursements extends React.PureComponent<{scheme: CC.Scheme} & InjectedFormProps> {
+export class AddDisbursements extends React.PureComponent<{scheme: CC.Scheme, userDefined: boolean, noFee: boolean, disbursement: CC.Disbursement, count: number, amount: number, custom: boolean} & InjectedFormProps> {
     render() {
-        const { error, handleSubmit } = this.props;
+        const { error, handleSubmit, userDefined, noFee, disbursement, custom  } = this.props;
+        const showTotal = !!this.props.count && !!this.props.amount;
         return  <Form horizontal  onSubmit={handleSubmit}>
             <Field title="Date" name="date" component={DateFieldFieldRow} validate={required} />
             <DisbursementsSelect scheme={this.props.scheme} />
-            <Field title="Number" name="count" component={IntegerFieldRow} validate={required} />
-            {/* <Field title="Description" name="description" component={TextAreaFieldRow} validate={required} /> */ }
-            {/* <Field title="Amount" name="amount" component={NumberFieldRow} validate={required} /> */ }
+            { custom &&  <Field title="Description" name="description" component={TextAreaFieldRow} validate={required} /> }
+            { userDefined && <Field title="Item Cost" name="amount" component={NumberFieldRow} validate={required} /> }
+            <Field title="Count" name="count" component={IntegerFieldRow} validate={required} />
+            <FormGroup key="explaination">
+                <Col sm={3} className="text-right">
+                    <ControlLabel>Total</ControlLabel>
+                </Col>
+                <Col sm={7}>
+                <div className="form-text">
+                { showTotal && `${numberWithCommas(this.props.count)} x $${numberWithCommas(this.props.amount)} = ` }
+                { showTotal && <strong>{ `$${numberWithCommas((this.props.count * this.props.amount) || 0)}`}</strong> }
+                { !showTotal && '$0'}
+                </div>
+                </Col>
+               </FormGroup>
         </Form>
     }
 }
 
 const AddDisbursementsForm = reduxForm<{scheme: CC.Scheme}>({
     form: 'addDisbursements',
-})(AddDisbursements) as any;
+})(connect<{}, {}, {scheme: CC.Scheme}>(disbursementMap)(AddDisbursements)) as any;
 
 interface AddItemProps {
     scheme: CC.Scheme, submit: () => void,
@@ -450,13 +487,32 @@ const DisbursementsModalAndTable = (props: any) => {
         tableComponent={DisbursementsTable}
         formComponent={AddDisbursementsForm}
         prepareValues={(scheme: CC.Scheme, values : any) => {
-            const disbursementList = scheme.disbursementMap[values.code];
-            const disbursement = disbursementList[disbursementList.length - 1];
+            let description, amount;
+            if(values.code === 'custom'){
+                amount = values.amount;
+                description = values.description;
+            }
+            else{
+                const disbursementList = scheme.disbursementMap[values.code];
+                const disbursement = disbursementList[disbursementList.length - 1];
+                if(disbursement.amount === 'no fee'){
+                    amount = 0;
+                }
+                else if(typeof disbursement.amount !== 'number') {
+                    amount = values.amount;
+                }
+                else{
+                    amount = disbursement.amount;
+                }
+                description = disbursementList.map((d: CC.Disbursement) => d.label).join('\n');
+
+
+            }
             return {
                 code: values.code,
-                description: disbursement.label,
-                itemAmount: disbursement.amount,
-                amount: values.count * disbursement.amount,
+                description: description,
+                itemAmount: amount,
+                amount: values.count * amount,
                 count: values.count,
                 date: values.date
             };
@@ -479,10 +535,11 @@ export class DisplayTotal extends React.PureComponent<{lists: any}> {
         const items = lists.items.reduce((acc: number, item: CC.CostEntry) => {
             return item.amount + acc
         }, 0);
-        const disbursements = lists.disbursements.reduce((acc: number, item: CC.CostEntry) => {
+        const disbursements = lists.disbursements.reduce((acc: number, item: any) => {
             return item.amount + acc
         }, 0);
         const total = items + disbursements;
+        console.log(lists)
         return <div className="text-right">
                 <strong>Total: { `$${numberWithCommas(total)}` }</strong>
         </div>
