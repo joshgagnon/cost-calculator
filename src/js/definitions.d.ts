@@ -27,10 +27,22 @@ declare namespace CC {
         [costCode: string]: CostItem
     }
 
+
+    interface Disbursement {
+        label: string,
+        items: [any]
+    }
+
+    interface DisbursementMap {
+        [code: string]: any
+    }
+
     interface Scheme {
         rates: [Rate],
         costs: [Cost],
-        costMap: CostMap
+        costMap: CostMap,
+        disbursements: [Disbursement],
+        disbursementMap: DisbursementMap
 
     }
 

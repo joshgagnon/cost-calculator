@@ -94,6 +94,12 @@ class NumberField extends React.PureComponent<WrappedFieldProps> {
     }
 }
 
+class IntegerField extends React.PureComponent<WrappedFieldProps> {
+    render() {
+        return <FormControl {...this.props.input} componentClass="input" type='number' step="1" />
+    }
+}
+
 class DateField extends React.PureComponent<WrappedFieldProps> {
     render() {
         return <FormControl {...this.props} componentClass={RenderDateTimePicker}  />
@@ -105,6 +111,7 @@ const SelectFieldRow = FieldRow(SelectField);
 const TextFieldRow = FieldRow(TextField);
 const TextAreaFieldRow = FieldRow(TextAreaField);
 const NumberFieldRow = FieldRow(NumberField);
+const IntegerFieldRow = FieldRow(IntegerField);
 
 const RateSelector = formValueSelector('cc');
 const AddItemSelector = formValueSelector('addItem');
@@ -148,6 +155,32 @@ export class CostSelect extends React.PureComponent<{scheme: CC.Scheme}> {
             </Field>
     }
 }
+
+export class DisbursementsSelect extends React.PureComponent<{scheme: CC.Scheme}> {
+    render() {
+
+        let path = [] as [string];
+        const recurse = (acc: [any], item: any, index: number) => {
+            path.push(item.code)
+            const value = path.join('')
+            acc.push(<option key={value} value={value} disabled={!item.amount}>{ `${item.code.padStart(8 * (path.length-1)).replace(/ /g, '\u00A0')} - ${item.label}` }</option>);
+            acc = item.subItems ? item.subItems.reduce(recurse, acc) : acc;
+            path.pop();
+            return acc;
+        }
+
+        return <Field title={'Cost'} name={'costCode'} component={SelectFieldRow} validate={required}>
+                <option value="" disabled>Please Select...</option>
+                { this.props.scheme && this.props.scheme.disbursements.map((cost: any, index: number) => {
+                    return <optgroup key={index} label={cost.label}>
+                        { cost.items.reduce(recurse, []) }
+
+                    </optgroup>
+                }) }
+            </Field>
+    }
+}
+
 
 
 export class ItemTable extends React.PureComponent<any> {
@@ -281,8 +314,10 @@ export class AddDisbursements extends React.PureComponent<{scheme: CC.Scheme} & 
         const { error, handleSubmit } = this.props;
         return  <Form horizontal  onSubmit={handleSubmit}>
             <Field title="Date" name="date" component={DateFieldFieldRow} validate={required} />
-            <Field title="Description" name="description" component={TextAreaFieldRow} validate={required} />
-            <Field title="Amount" name="amount" component={NumberFieldRow} validate={required} />
+            <DisbursementsSelect scheme={this.props.scheme} />
+            <Field title="Number" name="count" component={IntegerFieldRow} validate={required} />
+            {/* <Field title="Description" name="description" component={TextAreaFieldRow} validate={required} /> */ }
+            {/* <Field title="Amount" name="amount" component={NumberFieldRow} validate={required} /> */ }
         </Form>
     }
 }
@@ -423,7 +458,7 @@ const ConnectedCostsModalAndTable = connect((state) => ({
 }), {submit: () => submit('addItem')})(CostsModalAndTable);
 
 const ConnectedDisbursementsModalAndTable = connect((state) => ({
-    defaults: {},
+    defaults: {count: 1},
 }), {submit: () => submit('addDisbursements')})(DisbursementsModalAndTable);
 
 
