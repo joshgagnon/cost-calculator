@@ -142,9 +142,9 @@ export class Band extends React.PureComponent<{scheme: CC.Scheme}> {
     }
 }
 
-export class CostSelect extends React.PureComponent<{scheme: CC.Scheme}> {
+export class CostSelect extends React.PureComponent<{scheme: CC.Scheme, onChange: (event : React.FormEvent<HTMLSelectElement>, value: string) => void }> {
     render() {
-        return <Field title={'Cost'} name={'costCode'} component={SelectFieldRow} validate={required}>
+        return <Field title={'Cost'} name={'costCode'} component={SelectFieldRow} validate={required} onChange={this.props.onChange}>
                 <option value="" disabled>Please Select...</option>
                 { this.props.scheme && this.props.scheme.costs.map((cost: any, index: number) => {
                     return <optgroup key={index} label={cost.label}>
@@ -157,7 +157,7 @@ export class CostSelect extends React.PureComponent<{scheme: CC.Scheme}> {
     }
 }
 
-export class DisbursementsSelect extends React.PureComponent<{scheme: CC.Scheme}> {
+export class DisbursementsSelect extends React.PureComponent<{scheme: CC.Scheme, onChange: (event : React.FormEvent<HTMLSelectElement>, value: string) => void }> {
     render() {
 
         let path = [] as [string];
@@ -170,7 +170,7 @@ export class DisbursementsSelect extends React.PureComponent<{scheme: CC.Scheme}
             return acc;
         }
 
-        return <Field title={'Disbursement'} name={'code'} component={SelectFieldRow} validate={required}>
+        return <Field title={'Disbursement'} name={'code'} component={SelectFieldRow} validate={required}  onChange={this.props.onChange}>
                 <option value="" disabled>Please Select...</option>
                 <option value="custom">Custom Disbursement</option>
                 { this.props.scheme && this.props.scheme.disbursements.map((cost: any, index: number) => {
@@ -291,14 +291,33 @@ const disbursementMap = (state: CC.State, ownProps: {scheme: CC.Scheme}) => {
     }
 };
 
+interface AddItemProps{
+    scheme: CC.Scheme,
+    hasBands: boolean,
+    cost: CC.CostItem
+}
 
-export class AddItem extends React.PureComponent<{scheme: CC.Scheme, hasBands: boolean, cost: CC.CostItem} & InjectedFormProps> {
+type AddItemFormProps = AddItemProps & InjectedFormProps;
+
+export class AddItem extends React.PureComponent<AddItemFormProps> {
+    constructor(props: AddItemFormProps) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(event: React.FormEvent<HTMLSelectElement>, value: string) {
+        const description = findDescription(this.props.scheme, value);
+        this.props.change('description', description || '');
+
+    }
+
     render() {
         const { error, handleSubmit, hasBands, cost } = this.props;
         return  <Form horizontal  onSubmit={handleSubmit}>
             <Field title="Date" name="date" component={DateFieldFieldRow} validate={required} />
             <Rate scheme={this.props.scheme} />
-            <CostSelect scheme={this.props.scheme} />
+            <CostSelect scheme={this.props.scheme} onChange={this.handleChange}/>
+            <Field title="Description" name="description"  component={TextAreaFieldRow} validate={required} />
             {hasBands && <Band scheme={this.props.scheme} />}
             {!hasBands && <FormGroup key="explaination">
                 <Col sm={3} className="text-right">
@@ -344,14 +363,35 @@ const AddItemForm = reduxForm<{scheme: CC.Scheme}>({
 })(connect<{}, {}, {scheme: CC.Scheme}>(bandedCostMap)(AddItem)) as any;
 
 
-export class AddDisbursements extends React.PureComponent<{scheme: CC.Scheme, userDefined: boolean, noFee: boolean, disbursement: CC.Disbursement, count: number, amount: number, custom: boolean} & InjectedFormProps> {
+interface AddDisbursementsProps {
+    scheme: CC.Scheme, userDefined: boolean, noFee: boolean, disbursement: CC.Disbursement, count: number, amount: number, custom: boolean
+}
+
+type AddDisbursementFormProps = AddDisbursementsProps & InjectedFormProps;
+
+export class AddDisbursements extends React.PureComponent<AddDisbursementFormProps> {
+    constructor(props: AddDisbursementFormProps) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(event: React.FormEvent<HTMLSelectElement>, value: string) {
+        const disbursementList = this.props.scheme.disbursementMap[value];
+        let description = ''
+        if(disbursementList){
+            description = disbursementList.map((d: CC.Disbursement) => d.label).join('\n');
+        }
+        this.props.change('description', description);
+
+    }
+
     render() {
         const { error, handleSubmit, userDefined, noFee, disbursement, custom  } = this.props;
         const showTotal = !!this.props.count && !!this.props.amount;
         return  <Form horizontal  onSubmit={handleSubmit}>
             <Field title="Date" name="date" component={DateFieldFieldRow} validate={required} />
-            <DisbursementsSelect scheme={this.props.scheme} />
-            { custom &&  <Field title="Description" name="description" component={TextAreaFieldRow} validate={required} /> }
+            <DisbursementsSelect scheme={this.props.scheme} onChange={this.handleChange}/>
+            <Field title="Description" name="description"  component={TextAreaFieldRow} validate={required} />
             { userDefined && <Field title="Item Cost" name="amount" component={NumberFieldRow} validate={required} /> }
             <Field title="Count" name="count" component={IntegerFieldRow} validate={required} />
             <FormGroup key="explaination">
@@ -470,16 +510,15 @@ const CostsModalAndTable = (props: any) => {
     return <TableAndModal
         {...props}
         title='Costs'
-        addText='Add Cost Entry'
+        addText='Add Cost'
         modalNoun="Cost"
         tableComponent={ItemTable}
         formComponent={AddItemForm}
         prepareValues={(scheme: CC.Scheme, values : any) => {
             const rate = findRate(scheme, values.rateCode);
-            const description = findDescription(scheme, values.costCode);
             return {
                 costCode: values.costCode,
-                description,
+                description: values.description,
                 band: hasBand(scheme, values.costCode) ? values.band : null,
                 rate,
                 date: values.date,
@@ -503,7 +542,6 @@ const DisbursementsModalAndTable = (props: any) => {
             let description, amount;
             if(values.code === 'custom'){
                 amount = values.amount;
-                description = values.description;
             }
             else{
                 const disbursementList = scheme.disbursementMap[values.code];
@@ -517,13 +555,10 @@ const DisbursementsModalAndTable = (props: any) => {
                 else{
                     amount = disbursement.amount;
                 }
-                description = disbursementList.map((d: CC.Disbursement) => d.label).join('\n');
-
-
             }
             return {
                 code: values.code,
-                description: description,
+                description: values.description,
                 itemAmount: amount,
                 amount: values.count * amount,
                 count: values.count,
