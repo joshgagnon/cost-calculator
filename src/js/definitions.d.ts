@@ -4,6 +4,13 @@ declare let DEV : boolean;
 
 declare namespace CC {
 
+    const enum DownloadStatus {
+        NotStarted,
+        InProgress,
+        Complete,
+        Failed
+    }
+
     interface Rate {
         category: string,
         rate: number
@@ -63,10 +70,51 @@ declare namespace CC {
         date: Date
     }
 
+    interface DisbursementEntry {
+        code: string,
+        description: string,
+        count: number,
+        amount: number,
+        date: Date
+    }
+
     interface State {
 
     }
 }
+
+
+declare namespace CC.Actions {
+    const enum Types {
+        RENDER = 'RENDER',
+        UPDATE_RENDER = 'UPDATE_RENDER',
+    }
+
+    interface ActionCreator<T> {
+        type: CC.Actions.Types;
+        payload: T;
+    }
+
+    interface Action {
+        type: CC.Actions.Types;
+    }
+
+    interface RenderPayload {
+        data: any
+    }
+
+    interface Render extends ActionCreator<RenderPayload> {}
+
+    interface UpdateRenderPayload {
+        downloadStatus: CC.DownloadStatus
+        data?: any
+    }
+
+    interface UpdateRender extends ActionCreator<UpdateRenderPayload> {}
+
+}
+
+
 
 declare module "*.json" {
     const value: any;

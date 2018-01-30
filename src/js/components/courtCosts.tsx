@@ -1,6 +1,6 @@
 import * as React from "react";
 import { reduxForm, InjectedFormProps, Field, WrappedFieldProps, formValues, FormSection, FieldArray, formValueSelector, getFormValues, WrappedFieldArrayProps, submit } from 'redux-form';
-import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Button, Glyphicon, ProgressBar, Modal } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Button, Glyphicon, ProgressBar, Modal, ButtonGroup } from 'react-bootstrap';
 import * as HighCourt from '../data/High Court.json';
 import { connect } from 'react-redux';
 import * as DateTimePicker from 'react-widgets/lib/DateTimePicker'
@@ -203,7 +203,7 @@ export class ItemTable extends React.PureComponent<any> {
                 </thead>
                 <tbody>
                     { this.props.fields.getAll().map((item: any, index: number) => {
-                        return <tr key={index} onClick={() => this.props.editItem(item, index)}>
+                        return <tr key={index}>
                             <td>{ item.costCode }</td>
                             <td>{ item.description }</td>
                             <td>{ moment(item.date).format(DATE_FORMAT) }</td>
@@ -211,7 +211,12 @@ export class ItemTable extends React.PureComponent<any> {
                             <td>{ item.band || '-' }</td>
                             <td>{ item.days }</td>
                             <td>{ `$${numberWithCommas(item.amount)}` }</td>
-                            <td><Button bsSize='xs' onClick={(e) => this.props.remove(e, index)}><Glyphicon glyph="remove"/></Button> </td>
+                            <td className="button-cell">
+                            <ButtonGroup>
+                                <Button bsSize='sm' onClick={() => this.props.editItem(item, index)}><Glyphicon glyph="pencil"/></Button>
+                                <Button bsSize='sm' onClick={(e) => this.props.remove(e, index)}><Glyphicon glyph="remove"/></Button>
+                             </ButtonGroup>
+                            </td>
                         </tr>
                     }) }
                 </tbody>
@@ -371,14 +376,20 @@ const AddDisbursementsForm = reduxForm<{scheme: CC.Scheme}>({
 
 interface AddItemProps {
     scheme: CC.Scheme, submit: () => void,
-    defaults: {rateCode: number, band:string}
+    defaults: {rateCode: number, band:string},
+    prepareValues: (scheme: CC.Scheme, values: any) => any,
+    tableComponent: React.ComponentClass<any>,
+    formComponent: React.ComponentClass<any>,
+    addText: string,
+    title: string,
+    modalNoun: string
 }
 
 
 //export class AddItemModal extends React.PureComponent<AddItemProps & WrappedFieldArrayProps<CC.CostEntry>, {showAddItem: boolean, values?: CC.CostEntry, editIndex?: number}> {
 
 
-export class TableAndModal extends React.PureComponent<any, {showAddItem: boolean, values?: CC.CostEntry, editIndex?: number}> {
+export class TableAndModal extends React.PureComponent<AddItemProps & WrappedFieldArrayProps<CC.CostEntry | CC.DisbursementEntry>, {showAddItem: boolean, values?: CC.CostEntry, editIndex?: number}> {
     constructor(props: any) {
         super(props);
         this.handleShow = this.handleShow.bind(this);
@@ -442,14 +453,14 @@ export class TableAndModal extends React.PureComponent<any, {showAddItem: boolea
                </div>,
             <Modal key={1} show={this.state.showAddItem} onHide={this.handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>{ this.state.values ? 'Edit Item' : 'Add Item' }</Modal.Title>
+                <Modal.Title>{ this.state.values ? 'Edit ' : 'Add ' }{ this.props.modalNoun}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
             <FormComponent scheme={this.props.scheme} onSubmit={this.handleSubmit} initialValues={{date: new Date(), ...(this.state.values || this.props.defaults)}}/>
            </Modal.Body>
             <Modal.Footer>
                 <Button onClick={this.handleClose}>Close</Button>
-                <Button bsStyle="primary" onClick={this.submit}>{ this.state.values ? 'Edit Item' : 'Add Item' }</Button>
+                <Button bsStyle="primary" onClick={this.submit}>{ this.state.values ? 'Edit ' : 'Add ' }{ this.props.modalNoun}</Button>
             </Modal.Footer>
            </Modal>]
     }
@@ -460,6 +471,7 @@ const CostsModalAndTable = (props: any) => {
         {...props}
         title='Costs'
         addText='Add Cost Entry'
+        modalNoun="Cost"
         tableComponent={ItemTable}
         formComponent={AddItemForm}
         prepareValues={(scheme: CC.Scheme, values : any) => {
@@ -484,6 +496,7 @@ const DisbursementsModalAndTable = (props: any) => {
         {...props}
         title='Disbursements'
         addText='Add Disbursement'
+        modalNoun="Disbursement"
         tableComponent={DisbursementsTable}
         formComponent={AddDisbursementsForm}
         prepareValues={(scheme: CC.Scheme, values : any) => {
@@ -580,7 +593,9 @@ export class CourtCostsForm extends React.PureComponent<{}> {
                 }) }
             </Field>
             <SchemedCourtCosts />
-
+            <div className="button-row">
+            <Button bsStyle="primary">Download</Button>
+            </div>
         </Form>
     }
 }
