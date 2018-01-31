@@ -78,8 +78,14 @@ declare namespace CC {
         date: Date
     }
 
-    interface State {
+    interface DocumentState {
+        downloadStatus?: DownloadStatus;
+        data?: any;
 
+    }
+
+    interface State {
+        document: DocumentState,
     }
 }
 

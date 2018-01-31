@@ -5,6 +5,9 @@ import * as HighCourt from '../data/High Court.json';
 import { connect } from 'react-redux';
 import * as DateTimePicker from 'react-widgets/lib/DateTimePicker'
 import * as moment from 'moment';
+import { render } from'../actions';
+import { LoadingOverlay } from './loading';
+
 
 const DATE_FORMAT = "DD MMM YYYY";
 
@@ -51,6 +54,15 @@ export function numberWithCommas(x: number | string) : string {
     const parts = x.toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.join(".");
+}
+
+export function formatCurrency(x: number | string) : string {
+    if(!x) {
+        return '$0.00';
+    }
+    const parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return `$${parts.join(".")}`;
 }
 
 
@@ -126,7 +138,7 @@ export class Rate extends React.PureComponent<{scheme: CC.Scheme}> {
     render() {
         return <Field  title={'Daily Rate'} name={'rateCode'} component={SelectFieldRow} validate={required}>
                 { this.props.scheme && this.props.scheme.rates.map((rate: any) => {
-                    return <option key={rate.category} value={rate.category}>{ `${rate.category} - $${numberWithCommas(rate.rate)}` }</option>
+                    return <option key={rate.category} value={rate.category}>{ `${rate.category} - ${formatCurrency(rate.rate)}` }</option>
                 }) }
             </Field>
     }
@@ -207,10 +219,10 @@ export class ItemTable extends React.PureComponent<any> {
                             <td>{ item.costCode }</td>
                             <td>{ item.description }</td>
                             <td>{ moment(item.date).format(DATE_FORMAT) }</td>
-                            <td>{ `$${numberWithCommas(item.rate)}` }</td>
+                            <td>{ `${formatCurrency(item.rate)}` }</td>
                             <td>{ item.band || '-' }</td>
                             <td>{ item.days }</td>
-                            <td>{ `$${numberWithCommas(item.amount)}` }</td>
+                            <td>{ `${formatCurrency(item.amount)}` }</td>
                             <td className="button-cell">
                             <ButtonGroup>
                                 <Button bsSize='sm' onClick={() => this.props.editItem(item, index)}><Glyphicon glyph="pencil"/></Button>
@@ -236,7 +248,7 @@ export class DisbursementsTable extends React.PureComponent<any> {
                     <th>Date</th>
                     <th>Item Cost</th>
                     <th>Count</th>
-                    <th>Total Amount</th>
+                    <th>Amount</th>
                     <th></th>
                     </tr>
                 </thead>
@@ -246,9 +258,9 @@ export class DisbursementsTable extends React.PureComponent<any> {
                             <td>{ item.code }</td>
                             <td>{ item.description }</td>
                             <td>{ moment(item.date).format(DATE_FORMAT) }</td>
-                            <td>{ `$${numberWithCommas(item.itemAmount)}` }</td>
+                            <td>{ `${formatCurrency(item.itemAmount)}` }</td>
                             <td>{ `${numberWithCommas(item.count)}` }</td>
-                            <td>{ `$${numberWithCommas(item.amount)}` }</td>
+                            <td>{ `${formatCurrency(item.amount)}` }</td>
                             <td><Button bsSize='xs' onClick={(e) => this.props.remove(e, index)}><Glyphicon glyph="remove"/></Button> </td>
                         </tr>
                     }) }
@@ -400,8 +412,8 @@ export class AddDisbursements extends React.PureComponent<AddDisbursementFormPro
                 </Col>
                 <Col sm={7}>
                 <div className="form-text">
-                { showTotal && `${numberWithCommas(this.props.count)} x $${numberWithCommas(this.props.amount)} = ` }
-                { showTotal && <strong>{ `$${numberWithCommas((this.props.count * this.props.amount) || 0)}`}</strong> }
+                { showTotal && `${numberWithCommas(this.props.count)} x ${formatCurrency(this.props.amount)} = ` }
+                { showTotal && <strong>{ `${formatCurrency((this.props.count * this.props.amount) || 0)}`}</strong> }
                 { !showTotal && '$0'}
                 </div>
                 </Col>
@@ -488,7 +500,7 @@ export class TableAndModal extends React.PureComponent<AddItemProps & WrappedFie
                {this.props.addText}
                 </Button>
                 <div className="pull-right">
-                <strong>Subtotal: { `$${numberWithCommas(subtotal)}` }</strong>
+                <strong>Subtotal: { `${formatCurrency(subtotal)}` }</strong>
                 </div>
                </div>,
             <Modal key={1} show={this.state.showAddItem} onHide={this.handleClose}>
@@ -580,22 +592,21 @@ const ConnectedDisbursementsModalAndTable = connect((state) => ({
 export class DisplayTotal extends React.PureComponent<{lists: any}> {
     render() {
         const lists = this.props.lists;
-        const items = lists.items.reduce((acc: number, item: CC.CostEntry) => {
+        const costs = lists.costs.reduce((acc: number, item: CC.CostEntry) => {
             return item.amount + acc
         }, 0);
         const disbursements = lists.disbursements.reduce((acc: number, item: any) => {
             return item.amount + acc
         }, 0);
-        const total = items + disbursements;
-        console.log(lists)
+        const total = costs + disbursements;
         return <div className="text-right">
-                <strong>Total: { `$${numberWithCommas(total)}` }</strong>
+                <strong>Total: { `${formatCurrency(total)}` }</strong>
         </div>
     }
 }
 
 const ConnectedDisplayTotal = connect(state => ({
-    lists: RateSelector(state, 'items', 'disbursements')
+    lists: RateSelector(state, 'costs', 'disbursements')
 }))(DisplayTotal as any);
 
 
@@ -607,17 +618,94 @@ export class UnSchemedCourtCosts extends React.PureComponent<SchemeNamedCourtCos
 
              <Rate key={'rate'} scheme={Schemes[this.props.scheme]} />,
              <Band key={'band'} scheme={Schemes[this.props.scheme]} />,
-            <FieldArray key={'addItem'} name="items" component={ConnectedCostsModalAndTable  as any} props={{scheme: Schemes[this.props.scheme]}} />,
+            <FieldArray key={'addItem'} name="costs" component={ConnectedCostsModalAndTable  as any} props={{scheme: Schemes[this.props.scheme]}} />,
             <FieldArray key={'addDisbursements'} name="disbursements" component={ConnectedDisbursementsModalAndTable  as any} props={{scheme: Schemes[this.props.scheme]}} />,
             <ConnectedDisplayTotal key={'total'}/>
          ];
     }
 }
 
+interface DownloadProps {
+    values: any,
+    download: (values: any) => void
+}
+
+function prepareValues(values: any){
+    const costTotal = values.costs.reduce((sum: number, costs: any) => sum + costs.amount, 0);
+    const disbursementTotal = values.disbursements.reduce((sum: number, costs: any) => sum + costs.amount, 0)
+    const result = {
+        rateCode: values.rateCode,
+        rate: formatCurrency(values.rate),
+        costs: values.costs.map((c: any) => ({
+            costCode: c.costCode,
+            description: c.description,
+            rateCode: c.rateCode,
+            band: values.band,
+            days: numberWithCommas(c.days),
+            dateString: moment(c.date).format(DATE_FORMAT) ,
+            amount: formatCurrency(c.amount)
+        })),
+        disbursements: values.disbursements.map((c: any) => ({
+            code: c.code,
+            description: c.description,
+            itemCost: formatCurrency(c.itemCost),
+            count: numberWithCommas(c.count),
+            dateString: moment(c.date).format(DATE_FORMAT) ,
+            amount: formatCurrency(c.amount)
+        })),
+        costsTotal: formatCurrency(costTotal),
+        disbursementsTotal: formatCurrency(disbursementTotal),
+        total: formatCurrency(costTotal + disbursementTotal)
+    };
+
+    return {
+        formName: 'court_costs',
+        templateTitle: 'Court Costs',
+        values: result,
+        metadata: {},
+        env: 'cc'
+    }
+}
+
+export class Download extends React.PureComponent<DownloadProps> {
+    constructor(props: DownloadProps) {
+        super(props);
+        this.download = this.download.bind(this);
+    }
+
+    download() {
+        this.props.download(prepareValues(this.props.values));
+    }
+
+    render() {
+        return  <div className="button-row" onClick={this.download}>
+                <Button bsStyle="primary">Download</Button>
+            </div>
+    }
+}
+
+const ConnectedDownload = connect((state: CC.State) => ({
+    values: getFormValues('cc')(state)
+}), {download: (values: any) => render(values)})(Download as any)
+
+
 const SchemedCourtCosts = connect(state => ({
     scheme: RateSelector(state, 'scheme')
 }))(UnSchemedCourtCosts as any);
 
+export class Modals extends React.PureComponent<{downloading: boolean}> {
+    render() {
+        if(!this.props.downloading){
+            return false;
+        }
+        return <LoadingOverlay />
+    }
+}
+
+
+const ConnectedModals = connect((state: CC.State) => ({
+    downloading: state.document.downloadStatus === CC.DownloadStatus.InProgress
+}))(Modals as any)
 
 export class CourtCostsForm extends React.PureComponent<{}> {
     render() {
@@ -628,9 +716,8 @@ export class CourtCostsForm extends React.PureComponent<{}> {
                 }) }
             </Field>
             <SchemedCourtCosts />
-            <div className="button-row">
-            <Button bsStyle="primary">Download</Button>
-            </div>
+            <ConnectedDownload />
+            <ConnectedModals />
         </Form>
     }
 }
@@ -682,7 +769,7 @@ export default reduxForm<{}>({
         scheme: 'High Court',
         rateCode: '1',
         band: 'A',
-        items: [],
+        costs: [],
         disbursements: []
     }
 })(CourtCosts as any);

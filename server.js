@@ -14,6 +14,7 @@ function checkStatus(response) {
 }
 
 const url = 'https://oddity.catalex.nz/render';
+//const url = 'http://localhost:5771/render';
 
 const render  = (values) => fetch(url, {
           method: 'POST',
