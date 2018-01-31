@@ -650,7 +650,7 @@ function prepareValues(scheme: CC.Scheme, values: any){
         disbursements: values.disbursements.map((c: any) => ({
             code: c.code,
             description: c.description,
-            itemCost: formatCurrency(c.itemCost),
+            itemCost: formatCurrency(c.itemAmount),
             count: numberWithCommas(c.count),
             dateString: moment(c.date).format(DATE_FORMAT) ,
             amount: formatCurrency(c.amount)
