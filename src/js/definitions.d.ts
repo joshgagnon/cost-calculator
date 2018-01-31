@@ -4,6 +4,7 @@ declare let DEV : boolean;
 
 declare namespace CC {
 
+
     const enum DownloadStatus {
         NotStarted,
         InProgress,
