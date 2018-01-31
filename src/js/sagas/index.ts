@@ -33,7 +33,9 @@ function *renderSaga() {
             const filename = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(disposition)[1].replace(/"/g, '');
             saveAs(blob, filename)
         } catch(e) {
-
+            yield put(updateRender({
+                downloadStatus: CC.DownloadStatus.Failed,
+            }));
         }
     }
 
