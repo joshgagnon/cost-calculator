@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as moment from 'moment';
 import { render } from'../actions';
 import { LoadingOverlay } from './loading';
-import { AddDisbursementsForm, AddItemForm, findRate, hasBand, findDays, calculateAmount, prepareValues, SelectFieldRow,  SchemedCourtCosts, RateSelector} from './forms';
+import { AddDisbursementsForm, AddItemForm, findRate, hasBand, findDays, calculateAmount, prepareValues, SelectFieldRow,  SchemedCourtCosts, RateSelector, ConnectedDownloadForm } from './forms';
 import { DisbursementsTable, ItemTable} from './tables';
 import { formatCurrency, numberWithCommas } from '../utils';
 
@@ -186,24 +186,55 @@ const ConnectedDisbursementsModalAndTable = connect((state) => ({
 interface DownloadProps {
     values: any,
     scheme: CC.Scheme,
-    download: (values: any) => void
+    download: (values: any) => void,
+    submit: () => void
+}
+
+interface DownloadState {
+    showingModal: boolean
 }
 
 
+export class Download extends React.PureComponent<DownloadProps, DownloadState> {
 
-export class Download extends React.PureComponent<DownloadProps> {
     constructor(props: DownloadProps) {
         super(props);
         this.download = this.download.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.handleShow = this.handleShow.bind(this);
+        this.state = {showingModal: false}
     }
 
-    download() {
-        this.props.download(prepareValues(this.props.scheme, this.props.values));
+    handleClose() {
+        this.setState({ showingModal: false });
+    }
+
+    handleShow() {
+        this.setState({ showingModal: true });
+    }
+
+    download(values: any) {
+        this.props.download(prepareValues(this.props.scheme, this.props.values, values));
+        this.handleClose();
     }
 
     render() {
-        return  <div className="button-row" onClick={this.download}>
-                <Button bsStyle="primary">Download</Button>
+        return  <div className="button-row">
+                <Button bsStyle="primary" onClick={this.handleShow}>Download</Button>
+                <Modal show={this.state.showingModal} onHide={this.handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Download Schedule</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                <ConnectedDownloadForm onSubmit={this.download} initialValues={{fileType: 'pdf', filename: 'Court Costs'}}/>
+               </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={this.handleClose}>Close</Button>
+                    <Button bsStyle="primary" onClick={this.props.submit}>Download</Button>
+                </Modal.Footer>
+               </Modal>
+
+
             </div>
     }
 }
@@ -211,7 +242,7 @@ export class Download extends React.PureComponent<DownloadProps> {
 const ConnectedDownload = connect((state: CC.State) => ({
     values: getFormValues('cc')(state),
     scheme: Schemes[RateSelector(state, 'scheme')]
-}), {download: (values: any) => render(values)})(Download as any)
+}), {download: (values: any) => render(values), submit: () => submit('download')})(Download as any)
 
 
 

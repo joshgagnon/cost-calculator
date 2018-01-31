@@ -1,6 +1,6 @@
 import * as React from "react";
 import { reduxForm, InjectedFormProps, Field, WrappedFieldProps, formValues, FormSection, FieldArray, formValueSelector, getFormValues, WrappedFieldArrayProps, submit } from 'redux-form';
-import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Button, Glyphicon, ProgressBar, Modal, ButtonGroup } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Button, Glyphicon, ProgressBar, Modal, ButtonGroup, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import * as DateTimePicker from 'react-widgets/lib/DateTimePicker'
 import { connect } from 'react-redux';
 import { formatCurrency, numberWithCommas, DATE_FORMAT } from '../utils';
@@ -67,7 +67,7 @@ function FieldRow(Component: any) : any {
                 <Col sm={3} className="text-right">
                     <ControlLabel>{ props.title }</ControlLabel>
                 </Col>
-                <Col sm={7}>
+                <Col sm={9}>
                      <Component {...props} />
                     <FormControl.Feedback />
                 </Col>
@@ -128,12 +128,28 @@ class DateField extends React.PureComponent<WrappedFieldProps> {
     }
 }
 
+
+const RenderFileTypeSelector = (props: WrappedFieldProps) => {
+        return <ToggleButtonGroup name="fileType" value={props.input.value} onChange={props.input.onChange} type="radio">
+            <ToggleButton value="docx"><i className="fa fa-file-word-o"/> Word (.docx)</ToggleButton>
+            <ToggleButton value="pdf"><i className="fa fa-file-pdf-o"/> PDF (.pdf)</ToggleButton>
+            <ToggleButton value="odt"><i className="fa fa-file-text-o"/>  OpenDocument (.odt)</ToggleButton>
+        </ToggleButtonGroup>
+}
+
+class FileTypeField extends React.PureComponent<WrappedFieldProps> {
+    render() {
+        return <FormControl {...this.props} componentClass={RenderFileTypeSelector}  />
+    }
+}
+
 export const DateFieldFieldRow = FieldRow(DateField)
 export const SelectFieldRow = FieldRow(SelectField);
 export const TextFieldRow = FieldRow(TextField);
 export const TextAreaFieldRow = FieldRow(TextAreaField);
 export const NumberFieldRow = FieldRow(NumberField);
 export const IntegerFieldRow = FieldRow(IntegerField);
+export const FileTypeFieldRow = FieldRow(FileTypeField);
 
 
 export class Rate extends React.PureComponent<{scheme: CC.Scheme}> {
@@ -356,7 +372,7 @@ export const SchemedCourtCosts = connect<{scheme: string}, {}, {itemsComponent: 
 
 
 
-export function prepareValues(scheme: CC.Scheme, values: any){
+export function prepareValues(scheme: CC.Scheme, values: any, fileSettings: any){
     const rate = findRate(scheme, values.rateCode);
     const costTotal = values.costs.reduce((sum: number, costs: any) => sum + costs.amount, 0);
     const disbursementTotal = values.disbursements.reduce((sum: number, costs: any) => sum + costs.amount, 0)
@@ -387,7 +403,8 @@ export function prepareValues(scheme: CC.Scheme, values: any){
 
     return {
         formName: 'court_costs',
-        templateTitle: 'Court Costs',
+        filename: fileSettings.filename,
+        fileType: fileSettings.fileType,
         values: result,
         metadata: {},
         env: 'cc'
@@ -413,3 +430,16 @@ export class DisplayTotal extends React.PureComponent<{lists: any}> {
 const ConnectedDisplayTotal = connect(state => ({
     lists: RateSelector(state, 'costs', 'disbursements')
 }))(DisplayTotal as any);
+
+
+
+class DownloadForm extends React.PureComponent<InjectedFormProps> {
+    render() {
+        return <Form horizontal onSubmit={this.props.handleSubmit}>
+             <Field title="File Type" name="fileType"  component={FileTypeFieldRow} validate={required} />
+             <Field title="Filename" name="filename"  component={TextFieldRow} validate={required} />
+        </Form>
+    }
+}
+
+export const ConnectedDownloadForm = reduxForm({form: 'download'})(DownloadForm);
