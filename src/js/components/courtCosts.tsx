@@ -627,15 +627,17 @@ export class UnSchemedCourtCosts extends React.PureComponent<SchemeNamedCourtCos
 
 interface DownloadProps {
     values: any,
+    scheme: CC.Scheme,
     download: (values: any) => void
 }
 
-function prepareValues(values: any){
+function prepareValues(scheme: CC.Scheme, values: any){
+    const rate = findRate(scheme, values.rateCode);
     const costTotal = values.costs.reduce((sum: number, costs: any) => sum + costs.amount, 0);
     const disbursementTotal = values.disbursements.reduce((sum: number, costs: any) => sum + costs.amount, 0)
     const result = {
         rateCode: values.rateCode,
-        rate: formatCurrency(values.rate),
+        rate: formatCurrency(rate),
         costs: values.costs.map((c: any) => ({
             costCode: c.costCode,
             description: c.description,
@@ -674,7 +676,7 @@ export class Download extends React.PureComponent<DownloadProps> {
     }
 
     download() {
-        this.props.download(prepareValues(this.props.values));
+        this.props.download(prepareValues(this.props.scheme, this.props.values));
     }
 
     render() {
@@ -685,7 +687,8 @@ export class Download extends React.PureComponent<DownloadProps> {
 }
 
 const ConnectedDownload = connect((state: CC.State) => ({
-    values: getFormValues('cc')(state)
+    values: getFormValues('cc')(state),
+    scheme: Schemes[RateSelector(state, 'scheme')]
 }), {download: (values: any) => render(values)})(Download as any)
 
 
