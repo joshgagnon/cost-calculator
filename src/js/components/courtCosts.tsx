@@ -1,12 +1,12 @@
 import * as React from "react";
-import { reduxForm, InjectedFormProps, Field, WrappedFieldProps, formValues, FormSection, FieldArray, formValueSelector, getFormValues, WrappedFieldArrayProps, submit } from 'redux-form';
-import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Button, Glyphicon, ProgressBar, Modal, ButtonGroup } from 'react-bootstrap';
+import { reduxForm, InjectedFormProps, Field, WrappedFieldProps, formValues, FormSection, FieldArray, formValueSelector, getFormValues, WrappedFieldArrayProps, submit, initialize } from 'redux-form';
+import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Button, Glyphicon, ProgressBar, Modal, ButtonGroup, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Schemes from '../schemes';
 import { connect } from 'react-redux';
 import * as moment from 'moment';
 import { render } from'../actions';
 import { LoadingOverlay } from './loading';
-import { AddDisbursementsForm, AddItemForm, findRate, hasBand, findDays, calculateAmount, prepareValues, SelectFieldRow,  SchemedCourtCosts, RateSelector, ConnectedDownloadForm } from './forms';
+import { AddDisbursementsForm, AddItemForm, findRate, hasBand, findDays, calculateAmount, prepareValues, SelectFieldRow,  SchemedCourtCosts, RateSelector, ConnectedDownloadForm, TextFieldRow, required } from './forms';
 import { DisbursementsTable, ItemTable} from './tables';
 import { formatCurrency, numberWithCommas } from '../utils';
 
@@ -191,28 +191,148 @@ interface DownloadProps {
 }
 
 interface DownloadState {
-    showingModal: boolean
+    showingDownload: boolean
+    showingSave: boolean
+    showingLoad: boolean
 }
 
 
-export class Download extends React.PureComponent<DownloadProps, DownloadState> {
+export class DownloadModal extends React.PureComponent<{download: (values: any) => void, submit: () => void, handleClose: () => void}> {
+    render(){
+        return <Modal show={true} onHide={this.props.handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Download Schedule</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                <ConnectedDownloadForm onSubmit={this.props.download} initialValues={{fileType: 'pdf', filename: 'Court Costs'}}/>
+               </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={this.props.handleClose}>Close</Button>
+                    <Button bsStyle="primary" onClick={this.props.submit}>Download</Button>
+                </Modal.Footer>
+               </Modal>
+    }
+
+}
+
+
+export class SaveModal extends React.PureComponent<{handleClose: () => void, entries: string[], courtCostsValues: any} & InjectedFormProps> {
+
+    save(values: any) {
+        localStorage.setItem(values.name, JSON.stringify(this.props.courtCostsValues));
+        this.props.handleClose();;
+    }
+
+
+    render(){
+        const { handleSubmit } = this.props;
+        return <Modal show={true} onHide={this.props.handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Save</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                <Form horizontal >
+                    <ListGroup style={{ maxHeight: 200, overflowY: 'scroll' }}>
+                    { this.props.entries.map((key: string) =>  <ListGroupItem key={key} onClick={() => this.props.change('name', key)}>{ key }</ListGroupItem>) }
+                  </ListGroup>
+                <Field name="name" title="Name" component={TextFieldRow} validate={required}/>
+                </Form>
+               </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={this.props.handleClose}>Close</Button>
+                    <Button bsStyle="primary" onClick={handleSubmit((values) => this.save(values))}>Save</Button>
+                </Modal.Footer>
+               </Modal>
+    }
+}
+
+const ConnectedSaveModal = connect<{entries: string[], courtCostsValues: any}, {}, {handleClose: () => void}>((state: CC.State) => {
+    const keys = Object.keys(localStorage);
+    keys.sort();
+    return {
+        entries: keys,
+        courtCostsValues: getFormValues('cc')(state),
+
+    };
+})(reduxForm<{}>({form: 'save'})(SaveModal as any) as any);
+
+
+export class LoadModal extends React.PureComponent<{handleClose: () => void, entries: string[], courtCostsValues: any, setForm: (values: any) => void} & InjectedFormProps, {selected?: string}> {
+
+    constructor(props: any) {
+        super(props);
+        this.load = this.load.bind(this);
+        this.state = {};
+    }
+
+    load() {
+        if(this.state.selected && localStorage.getItem(this.state.selected)){
+            try{
+                this.props.setForm(JSON.parse(localStorage.getItem(this.state.selected)));
+                this.props.handleClose();
+            }catch(e){};
+        }
+    }
+
+
+    render(){
+        const { handleSubmit } = this.props;
+        return <Modal show={true} onHide={this.props.handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Load</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <ListGroup style={{ maxHeight: 200, overflowY: 'scroll' }}>
+                    { this.props.entries.map((key: string) =>  <ListGroupItem key={key} onClick={() => this.setState({'selected': key})}>{ key }</ListGroupItem>) }
+                  </ListGroup>
+               </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={this.props.handleClose}>Close</Button>
+                    <Button bsStyle="primary" onClick={this.load}>Load</Button>
+                </Modal.Footer>
+               </Modal>
+    }
+}
+
+const ConnectedLoadModal = connect<{entries: string[]}, {}, {handleClose: () => void}>(() => {
+    const keys = Object.keys(localStorage);
+    keys.sort();
+    return {
+        entries: keys
+    };
+} ,{
+    setForm: (values: any) => initialize('cc', values)
+})(LoadModal);
+
+
+export class Controls extends React.PureComponent<DownloadProps, DownloadState> {
 
     constructor(props: DownloadProps) {
         super(props);
         this.download = this.download.bind(this);
         this.handleClose = this.handleClose.bind(this);
-        this.handleShow = this.handleShow.bind(this);
-        this.state = {showingModal: false}
+        this.showDownload = this.showDownload.bind(this);
+        this.showSave = this.showSave.bind(this);
+        this.showLoad = this.showLoad.bind(this);
+        this.state = {showingDownload: false, showingLoad: false, showingSave: false}
     }
+
 
     handleClose() {
-        this.setState({ showingModal: false });
+        this.setState({showingDownload: false, showingLoad: false, showingSave: false});
     }
 
-    handleShow() {
-        this.setState({ showingModal: true });
+    showDownload() {
+        this.setState({ showingDownload: true });
     }
 
+    showSave() {
+        this.setState({ showingSave: true });
+    }
+
+    showLoad() {
+        this.setState({ showingLoad: true });
+    }
     download(values: any) {
         this.props.download(prepareValues(this.props.scheme, this.props.values, values));
         this.handleClose();
@@ -220,29 +340,21 @@ export class Download extends React.PureComponent<DownloadProps, DownloadState> 
 
     render() {
         return  <div className="button-row">
-                <Button bsStyle="primary" onClick={this.handleShow}>Download</Button>
-                <Modal show={this.state.showingModal} onHide={this.handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Download Schedule</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                <ConnectedDownloadForm onSubmit={this.download} initialValues={{fileType: 'pdf', filename: 'Court Costs'}}/>
-               </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={this.handleClose}>Close</Button>
-                    <Button bsStyle="primary" onClick={this.props.submit}>Download</Button>
-                </Modal.Footer>
-               </Modal>
-
+                <Button bsStyle="primary" onClick={this.showDownload}>Download</Button>
+                <Button bsStyle="info" onClick={this.showSave}>Save</Button>
+                <Button bsStyle="info" onClick={this.showLoad}>Load</Button>
+                { this.state.showingDownload && <DownloadModal  submit={this.props.submit} download={this.download} handleClose={this.handleClose} /> }
+                { this.state.showingSave && <ConnectedSaveModal  handleClose={this.handleClose} /> }
+                { this.state.showingLoad && <ConnectedLoadModal  handleClose={this.handleClose} /> }
 
             </div>
     }
 }
 
-const ConnectedDownload = connect((state: CC.State) => ({
+const ConnectedControls = connect((state: CC.State) => ({
     values: getFormValues('cc')(state),
     scheme: Schemes[RateSelector(state, 'scheme')]
-}), {download: (values: any) => render(values), submit: () => submit('download')})(Download as any)
+}), {download: (values: any) => render(values), submit: () => submit('download')})(Controls as any)
 
 
 
@@ -274,7 +386,7 @@ export class CourtCostsForm extends React.PureComponent<{}> {
                 }) }
             </Field>
             <SchemedCourtCosts itemsComponent={ConnectedCostsModalAndTable} disbursementsComponent={ConnectedDisbursementsModalAndTable}/>
-            <ConnectedDownload />
+            <ConnectedControls />
             <ConnectedModals />
         </Form>
     }

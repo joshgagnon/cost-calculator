@@ -48,7 +48,7 @@ interface SchemedFieldProps {
 
 class SchemedField extends Field<SchemedFieldProps> {}
 
-const required = (value : any) => (value ? undefined : 'Required')
+export const required = (value : any) => (value ? undefined : 'Required')
 
 
 function FieldRow(Component: any) : any {
