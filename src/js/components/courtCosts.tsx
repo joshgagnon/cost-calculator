@@ -395,7 +395,6 @@ export class CourtCostsForm extends React.PureComponent<{}> {
 export class CourtCosts extends React.PureComponent<{}> {
     render() {
         return <div className="container">
-        <h1 className="text-center">Court Costs Prototype</h1>
             <CourtCostsForm />
         </div>
     }

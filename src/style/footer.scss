@@ -1,0 +1,35 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+    background-color: $deep-red;
+    background-image: $header-image;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+  .footer-bar{
+    text-align: center;
+    .catalex-logo{
+        background-image: url(~catalex_shared/images/logo-white-right.png);
+        background-repeat: no-repeat;
+        width: 166px;
+        height: 27px;
+        background-size: 166px 27px;
+        margin:10px 0;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    a {
+        text-decoration: none;
+        color: white;
+        line-height: 40px;
+        display: inline-block;
+        margin: 10px;
+        height: 40px;
+        vertical-align: middle;
+    }
+  }
+}

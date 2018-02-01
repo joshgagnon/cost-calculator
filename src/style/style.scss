@@ -17,10 +17,10 @@ $icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/popovers";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/input-groups";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/list-group";
-@import "~bootstrap-sass/assets/stylesheets/bootstrap/navbar";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/progress-bars";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/alerts";
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/type";
+
 //@import "~bootstrap-sass/assets/stylesheets/bootstrap/tooltip";
 
 @import "~bootstrap-sass/assets/stylesheets/bootstrap/utilities";
@@ -31,17 +31,41 @@ $img-path: '~react-widgets/lib/img';
 @import "~react-widgets/lib/scss/react-widgets";
 
 
+@import "~font-awesome/scss/variables";
+$fa-font-path: '~font-awesome/fonts';
+@import "~font-awesome/scss/mixins";
+@import "~font-awesome/scss/path";
+@import "~font-awesome/scss/core";
+@import "~font-awesome/scss/icons";
+@import "~font-awesome/scss/animated";
+@import "~font-awesome/scss/stacked";
+
+
+@import "~catalex_shared/sass/catalex-vars";
+$header-image:url("~catalex_shared/images/hero-bg.jpg");
 
 
 @import "loading";
+@import "footer";
 
 html {
-    position: relative;
-    min-height: 100%;
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+  -webkit-font-smoothing: antialiased;
 }
 
+$light-red: rgb(197, 27, 36);
+$label-color: $text-color;
+$input-border-width: 2px;
+$body-bg:  #fff;
 
-
+#main{
+    margin:20px 0;
+}
 
 .button-row{
     text-align:center;
@@ -56,4 +80,62 @@ html {
 
 .table > tbody > tr > td.button-cell{
     padding: 2px;
+}
+
+.header-wrap{
+   position:relative;
+}
+
+
+
+.logo{
+    position: absolute;
+    left: 50%;
+    top: 35px;
+    font-size: 50px;
+    transform: translate(-50%,-50%);
+    color:white;
+    font-size:55px
+}
+.title{
+
+    h1{
+        margin-top: 0px;
+        text-align:center;
+        span{
+            color:$light-red;
+            font-size:100%;
+            display:inline-block;
+            vertical-align:middle;
+            font-weight:bold;
+        }
+        .big{
+            font-size:50px;
+        }
+        margin-bottom:0;
+    }
+}
+
+@media (min-width: $screen-sm-min){
+    .logo{
+        top: 75px;
+       font-size:100px;
+    }
+    .title{
+        margin-top:10px;
+    }
+}
+
+
+nav{
+    background-color: $deep-red;
+    background-image: $header-image;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: none;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+    height: 75px;
+    @media (min-width: $screen-sm-min) {
+        height: 150px;
+    }
 }

@@ -101,9 +101,9 @@ module.exports = function(env){
                 to: './'
             }
         ]),
-       /* new CopyWebpackPlugin([
-                { from: 'node_modules/pdfjs-dist/build/pdf.worker.min.js', to: './pdf.worker.js' }
-        ]),*/
+        new CopyWebpackPlugin([
+                { from: 'node_modules/catalex_shared/images/favicon.png', to: './favicon.png' }
+        ]),
         new ExtractTextPlugin(DEV ? '[name].css' : '[name].[hash].css'),
         new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en-nz/),
         function() {
