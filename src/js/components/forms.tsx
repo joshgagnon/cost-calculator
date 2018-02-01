@@ -64,7 +64,7 @@ function FieldRow(Component: any) : any {
         render(){
             const props = this.props;
             return <FormGroup validationState={this.getValidationState()}>
-                <Col sm={3} className="text-right">
+                <Col sm={3} className="label-column">
                     <ControlLabel>{ props.title }</ControlLabel>
                 </Col>
                 <Col sm={9}>
@@ -357,8 +357,12 @@ export class UnSchemedCourtCosts extends React.PureComponent<SchemeNamedCourtCos
 
     render() {
         return [
-             <Rate key={'rate'} scheme={Schemes[this.props.scheme]} />,
-             <Band key={'band'} scheme={Schemes[this.props.scheme]} />,
+           <div className="row" key='row'>
+                <div className="col-md-offset-3 col-md-6">
+                    <Rate key={'rate'} scheme={Schemes[this.props.scheme]} />
+                     <Band key={'band'} scheme={Schemes[this.props.scheme]} />
+               </div>
+            </div>,
             <FieldArray key={'addItem'} name="costs" component={this.props.itemsComponent  as any} props={{scheme: Schemes[this.props.scheme]}} />,
             <FieldArray key={'addDisbursements'} name="disbursements" component={this.props.disbursementsComponent as any} props={{scheme: Schemes[this.props.scheme]}} />,
             <ConnectedDisplayTotal key={'total'}/>

@@ -88,6 +88,7 @@ $body-bg:  #fff;
 
 
 
+
 .logo{
     position: absolute;
     left: 50%;
@@ -123,6 +124,9 @@ $body-bg:  #fff;
     }
     .title{
         margin-top:10px;
+    }
+    form .label-column{
+        text-align:right;
     }
 }
 

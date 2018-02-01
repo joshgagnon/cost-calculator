@@ -7,6 +7,7 @@ import * as moment from 'moment';
 export class ItemTable extends React.PureComponent<any> {
     render() {
         return <div>
+            <div className="table-responsive">
             <table className="table table-striped">
                 <thead>
                     <tr>
@@ -40,6 +41,7 @@ export class ItemTable extends React.PureComponent<any> {
                     }) }
                 </tbody>
             </table>
+            </div>
         </div>
     }
 }
@@ -47,6 +49,7 @@ export class ItemTable extends React.PureComponent<any> {
 export class DisbursementsTable extends React.PureComponent<any> {
     render() {
         return <div>
+            <div className="table-responsive">
             <table className="table table-striped">
                 <thead>
                     <tr>
@@ -78,6 +81,7 @@ export class DisbursementsTable extends React.PureComponent<any> {
                     }) }
                 </tbody>
             </table>
+            </div>
         </div>
     }
 }

@@ -380,12 +380,16 @@ const ConnectedModals = connect((state: CC.State) => ({
 export class CourtCostsForm extends React.PureComponent<{}> {
     render() {
         return <Form horizontal>
-            <Field title={'Scheme'} name={'scheme'} component={SelectFieldRow}>
-                { Object.keys(Schemes).map((scheme: string) => {
-                    return <option key={scheme} value={scheme}>{ scheme }</option>
-                }) }
-            </Field>
-            <SchemedCourtCosts itemsComponent={ConnectedCostsModalAndTable} disbursementsComponent={ConnectedDisbursementsModalAndTable}/>
+            <div className="row">
+                <div className="col-md-offset-3 col-md-6">
+                    <Field title={'Scheme'} name={'scheme'} component={SelectFieldRow}>
+                        { Object.keys(Schemes).map((scheme: string) => {
+                            return <option key={scheme} value={scheme}>{ scheme }</option>
+                        }) }
+                    </Field>
+                </div>
+            </div>
+             <SchemedCourtCosts itemsComponent={ConnectedCostsModalAndTable} disbursementsComponent={ConnectedDisbursementsModalAndTable}/>
             <ConnectedControls />
             <ConnectedModals />
         </Form>
