@@ -72,8 +72,8 @@ export class DisbursementsTable extends React.PureComponent<any> {
                                <ButtonGroup>
                                <Button bsSize='sm' onClick={() => this.props.editItem(item, index)}><Glyphicon glyph="pencil"/></Button>
                                 <Button bsSize='sm' onClick={(e) => this.props.remove(e, index)}><Glyphicon glyph="remove"/></Button>
-                                </td>
                                 </ButtonGroup>
+                                </td>
                         </tr>
                     }) }
                 </tbody>
