@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import * as moment from 'moment';
 import { render } from'../actions';
 import { LoadingOverlay } from './loading';
-import { AddDisbursementsForm, AddItemForm, findRate, hasBand, findDays, calculateAmount, prepareValues, SelectFieldRow,  SchemedCourtCosts, RateSelector, ConnectedDownloadForm, TextFieldRow, required } from './forms';
+import { AddDisbursementsForm, AddItemForm, Uplift, findRate, hasBand, findDays, calculateAmount, prepareValues, SelectFieldRow,  SchemedCourtCosts, RateSelector, ConnectedDownloadForm, TextFieldRow, required, normalizeUplift } from './forms';
 import { DisbursementsTable, ItemTable} from './tables';
 import { formatCurrency, numberWithCommas } from '../utils';
 
@@ -24,11 +24,11 @@ interface AddItemProps {
     formComponent: React.ComponentClass<any>,
     addText: string,
     title: string,
-    modalNoun: string
+    modalNoun: string,
+    additionalButtons: React.ComponentClass<any>,
+    useUplift?: boolean,
+    uplift?: number
 }
-
-
-//export class AddItemModal extends React.PureComponent<AddItemProps & WrappedFieldArrayProps<CC.CostEntry>, {showAddItem: boolean, values?: CC.CostEntry, editIndex?: number}> {
 
 
 export class TableAndModal extends React.PureComponent<AddItemProps & WrappedFieldArrayProps<CC.CostEntry | CC.DisbursementEntry>, {showAddItem: boolean, values?: CC.CostEntry, editIndex?: number}> {
@@ -77,19 +77,31 @@ export class TableAndModal extends React.PureComponent<AddItemProps & WrappedFie
     }
 
     render() {
-        const subtotal = this.props.fields.getAll().reduce((acc: number, item: CC.CostEntry) => {
+        let subtotal = this.props.fields.getAll().reduce((acc: number, item: CC.CostEntry) => {
             return item.amount + acc
-        }, 0)
+        }, 0);
+        let uplift = 0;
+        if(this.props.useUplift && !!this.props.uplift){
+            uplift = normalizeUplift(this.props.uplift);
+            subtotal = subtotal + (uplift/100 * subtotal);
+        }
         const TableComponent = this.props.tableComponent;
         const FormComponent = this.props.formComponent;
+        const AdditionalButtons =  this.props.additionalButtons;
         return [
             <h3 key={-2}>{ this.props.title }</h3>,
             <TableComponent key={-1} {...this.props} editItem={this.editItem} remove={this.remove}/>,
-            <div  key={0} className="">
+            <div  key={0} className="button-row-left">
              <Button bsStyle="primary"  onClick={this.handleShow}>
                {this.props.addText}
                 </Button>
-                <div className="pull-right">
+                { !!AdditionalButtons && <AdditionalButtons /> }
+
+                { this.props.useUplift && !!uplift && <div className="pull-right">
+                    <strong>Uplift: {uplift}% </strong>
+                </div> }
+
+                <div className="pull-right "  style={{clear: 'right'}}>
                 <strong>Subtotal: { `${formatCurrency(subtotal)}` }</strong>
                 </div>
                </div>,
@@ -116,6 +128,8 @@ const CostsModalAndTable = (props: any) => {
         modalNoun="Cost"
         tableComponent={ItemTable}
         formComponent={AddItemForm}
+        additionalButtons={Uplift}
+        useUplift={true}
         prepareValues={(scheme: CC.Scheme, values : any) => {
             const rate = findRate(scheme, values.rateCode);
             return {
@@ -140,6 +154,7 @@ const DisbursementsModalAndTable = (props: any) => {
         modalNoun="Disbursement"
         tableComponent={DisbursementsTable}
         formComponent={AddDisbursementsForm}
+        useUplift={false}
         prepareValues={(scheme: CC.Scheme, values : any) => {
             let description, amount;
             if(values.code === 'custom'){
@@ -172,6 +187,7 @@ const DisbursementsModalAndTable = (props: any) => {
 
 const ConnectedCostsModalAndTable = connect((state) => ({
     defaults: RateSelector(state, 'rateCode', 'band'),
+    uplift:  RateSelector(state, 'uplift'),
 }), {submit: () => submit('addItem')})(CostsModalAndTable);
 
 const ConnectedDisbursementsModalAndTable = connect((state) => ({
@@ -413,6 +429,7 @@ export default reduxForm<{}>({
         scheme: 'High Court',
         rateCode: '1',
         band: 'A',
+        uplift: 0,
         costs: [],
         disbursements: []
     }

@@ -69,7 +69,12 @@ $body-bg:  #fff;
 
 .button-row{
     text-align:center;
-    & >  * {
+    & >  button {
+        margin: 4px 8px;
+    }
+}
+.button-row-left{
+    & >  button {
         margin: 4px 8px;
     }
 }

@@ -41,6 +41,16 @@ export const calculateAmount = (scheme: CC.Scheme, costCode: string, rate: numbe
     return days * rate;
 }
 
+export const normalizeUplift = (value: string | number) => {
+    if(!value){
+        return 0;
+    }
+    if(typeof value === 'string'){
+        return parseFloat(value) || 0;
+    }
+    return value;
+}
+
 
 interface SchemedFieldProps {
     scheme : CC.Scheme
@@ -256,6 +266,42 @@ export class AddItem extends React.PureComponent<AddItemFormProps> {
 }
 
 
+export class Uplift extends React.PureComponent<any, {showing: boolean}> {
+    constructor(props: AddItemFormProps) {
+        super(props);
+        this.show = this.show.bind(this);
+        this.hide = this.hide.bind(this);
+        this.state = {showing: false}
+    }
+
+    show() {
+        this.setState({showing: true})
+    }
+
+    hide() {
+        this.setState({showing: false})
+    }
+
+    render() {
+        const { error, handleSubmit, hasBands, cost } = this.props;
+        return  [
+            <Button key='button' bsStyle="info" onClick={this.show}>Uplift</Button>,
+            this.state.showing && <Modal key={1} show={true} onHide={this.hide}>
+            <Modal.Header closeButton>
+                <Modal.Title>Uplift</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <form className="form form-horizontal">
+            <Field title="Uplift Percentage" name="uplift"  component={NumberFieldRow} />
+            </form>
+           </Modal.Body>
+            <Modal.Footer>
+                <Button onClick={this.hide}>Close</Button>
+            </Modal.Footer>
+           </Modal>]
+    }
+}
+
 const bandedCostMap = (state: CC.State, ownProps: {scheme: CC.Scheme}) => {
     const costCode = AddItemSelector(state, 'costCode');
     const cost = ownProps.scheme.costMap[costCode];
@@ -378,7 +424,11 @@ export const SchemedCourtCosts = connect<{scheme: string}, {}, {itemsComponent: 
 
 export function prepareValues(scheme: CC.Scheme, values: any, fileSettings: any){
     const rate = findRate(scheme, values.rateCode);
-    const costTotal = values.costs.reduce((sum: number, costs: any) => sum + costs.amount, 0);
+    let costTotal = values.costs.reduce((sum: number, costs: any) => sum + costs.amount, 0);
+    let uplift = normalizeUplift(values.uplift);
+    if(uplift){
+        costTotal = costTotal + (uplift/100 * costTotal);
+    }
     const disbursementTotal = values.disbursements.reduce((sum: number, costs: any) => sum + costs.amount, 0)
     const result = {
         rateCode: values.rateCode,
@@ -400,6 +450,7 @@ export function prepareValues(scheme: CC.Scheme, values: any, fileSettings: any)
             dateString: moment(c.date).format(DATE_FORMAT) ,
             amount: formatCurrency(c.amount)
         })),
+        uplift,
         costsTotal: formatCurrency(costTotal),
         disbursementsTotal: formatCurrency(disbursementTotal),
         total: formatCurrency(costTotal + disbursementTotal)
@@ -415,12 +466,16 @@ export function prepareValues(scheme: CC.Scheme, values: any, fileSettings: any)
     }
 }
 
-export class DisplayTotal extends React.PureComponent<{lists: any}> {
+export class DisplayTotal extends React.PureComponent<{uplift: number | string, lists: any}> {
     render() {
         const lists = this.props.lists;
-        const costs = lists.costs.reduce((acc: number, item: CC.CostEntry) => {
+        let costs = lists.costs.reduce((acc: number, item: CC.CostEntry) => {
             return item.amount + acc
         }, 0);
+        let uplift = normalizeUplift(this.props.uplift);
+        if(uplift){
+            costs = costs + (uplift/100 * costs);
+        }
         const disbursements = lists.disbursements.reduce((acc: number, item: any) => {
             return item.amount + acc
         }, 0);
@@ -432,7 +487,8 @@ export class DisplayTotal extends React.PureComponent<{lists: any}> {
 }
 
 const ConnectedDisplayTotal = connect(state => ({
-    lists: RateSelector(state, 'costs', 'disbursements')
+    lists: RateSelector(state, 'costs', 'disbursements'),
+    uplift: RateSelector(state, 'uplift')
 }))(DisplayTotal as any);
 
 
