@@ -61,14 +61,19 @@ export class DisbursementsTable extends React.PureComponent<any> {
                 </thead>
                 <tbody>
                     { this.props.fields.getAll().map((item: any, index: number) => {
-                        return <tr key={index} onClick={() => this.props.editItem(item, index)}>
+                        return <tr key={index}>
                             <td>{ item.code }</td>
                             <td>{ item.description }</td>
                             <td>{ moment(item.date).format(DATE_FORMAT) }</td>
                             <td>{ `${formatCurrency(item.itemAmount)}` }</td>
                             <td>{ `${numberWithCommas(item.count)}` }</td>
                             <td>{ `${formatCurrency(item.amount)}` }</td>
-                            <td><Button bsSize='xs' onClick={(e) => this.props.remove(e, index)}><Glyphicon glyph="remove"/></Button> </td>
+                            <td>
+                               <ButtonGroup>
+                               <Button bsSize='sm' onClick={() => this.props.editItem(item, index)}><Glyphicon glyph="pencil"/></Button>
+                                <Button bsSize='sm' onClick={(e) => this.props.remove(e, index)}><Glyphicon glyph="remove"/></Button>
+                                </td>
+                                </ButtonGroup>
                         </tr>
                     }) }
                 </tbody>

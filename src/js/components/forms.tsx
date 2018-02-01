@@ -309,7 +309,7 @@ export class AddDisbursements extends React.PureComponent<AddDisbursementFormPro
         const disbursementList = this.props.scheme.disbursementMap[value];
         let description = ''
         if(disbursementList){
-            description = disbursementList.map((d: CC.Disbursement) => d.label).join('\n');
+            description = disbursementList.slice(1).map((d: CC.Disbursement) => d.label).join('\n');
         }
         this.props.change('description', description);
 
