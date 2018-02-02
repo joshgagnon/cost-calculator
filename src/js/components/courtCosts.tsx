@@ -95,7 +95,7 @@ export class TableAndModal extends React.PureComponent<AddItemProps & WrappedFie
              <Button bsStyle="primary"  onClick={this.handleShow}>
                {this.props.addText}
                 </Button>
-                { !!AdditionalButtons && <AdditionalButtons /> }
+                { !!AdditionalButtons && <AdditionalButtons hasUplift={!!uplift}/> }
 
                 { this.props.useUplift && !!uplift && <div className="pull-right">
                     <strong>Uplift: {uplift}% </strong>
@@ -247,6 +247,7 @@ export class SaveModal extends React.PureComponent<{handleClose: () => void, ent
                     <Modal.Title>Save</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                <p>Court Costs currently only saves your data to your browser, so you will not be able to access your records from another computer.</p>
                 <Form horizontal >
                     <ListGroup style={{ maxHeight: 200, overflowY: 'scroll' }}>
                     { this.props.entries.map((key: string) =>  <ListGroupItem key={key} onClick={() => this.props.change('name', key)}>{ key }</ListGroupItem>) }

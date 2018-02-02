@@ -285,7 +285,7 @@ export class Uplift extends React.PureComponent<any, {showing: boolean}> {
     render() {
         const { error, handleSubmit, hasBands, cost } = this.props;
         return  [
-            <Button key='button' bsStyle="info" onClick={this.show}>Uplift</Button>,
+            <Button key='button' bsStyle="info" onClick={this.show}>{this.props.hasUplift ? 'Update ': 'Add '}Uplift</Button>,
             this.state.showing && <Modal key={1} show={true} onHide={this.hide}>
             <Modal.Header closeButton>
                 <Modal.Title>Uplift</Modal.Title>

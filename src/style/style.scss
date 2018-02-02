@@ -47,6 +47,8 @@ $header-image:url("~catalex_shared/images/hero-bg.jpg");
 
 @import "loading";
 @import "footer";
+@import "logo";
+
 
 html {
   position: relative;
@@ -94,15 +96,7 @@ $body-bg:  #fff;
 
 
 
-.logo{
-    position: absolute;
-    left: 50%;
-    top: 35px;
-    font-size: 50px;
-    transform: translate(-50%,-50%);
-    color:white;
-    font-size:55px
-}
+
 .title{
 
     h1{
@@ -126,6 +120,7 @@ $body-bg:  #fff;
     .logo{
         top: 75px;
        font-size:100px;
+       zoom:1;
     }
     .title{
         margin-top:10px;
