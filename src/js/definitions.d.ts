@@ -28,7 +28,9 @@ declare namespace CC {
 
     interface Cost {
         label: string,
-        items: [CostItem]
+        items?: [CostItem],
+        implicit?: boolean
+
     }
 
     interface CostMap {
@@ -48,7 +50,7 @@ declare namespace CC {
 
     interface Scheme {
         rates: [Rate],
-        costs: [Cost],
+        costs: [Cost | CostItem],
         costMap: CostMap,
         disbursements: [Disbursement],
         disbursementMap: DisbursementMap

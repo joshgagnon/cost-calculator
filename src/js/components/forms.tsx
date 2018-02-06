@@ -187,11 +187,15 @@ export class CostSelect extends React.PureComponent<{scheme: CC.Scheme, onChange
         return <Field title={'Cost'} name={'costCode'} component={SelectFieldRow} validate={required} onChange={this.props.onChange}>
                 <option value="" disabled>Please Select...</option>
                 { this.props.scheme && this.props.scheme.costs.map((cost: any, index: number) => {
-                    return <optgroup key={index} label={cost.label}>
-                        { cost.items.map((item: any, index: number) => {
+                    const subItems = cost.items.map((item: any, index: number) => {
                             return <option key={index} value={item.costCode}>{ `${item.costCode} - ${item.label}` }</option>
-                        })}
-                    </optgroup>
+                        });
+                    if(!cost.implicit){
+                        return <optgroup key={index} label={cost.label}>
+                            { subItems }
+                        </optgroup>
+                    }
+                    return subItems;
                 }) }
             </Field>
     }

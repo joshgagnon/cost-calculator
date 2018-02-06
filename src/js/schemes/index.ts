@@ -1,4 +1,5 @@
 import * as HighCourt from '../data/High Court.json';
+import * as DistrictCourt from '../data/District Court.json';
 
 const massageScheme = (scheme: any) => {
     scheme.costMap = scheme.costs.reduce((acc: CC.CostMap, cost: CC.Cost) => {
@@ -25,7 +26,8 @@ const massageScheme = (scheme: any) => {
 }
 
 const Schemes = {
-    'High Court': massageScheme(HighCourt)
+    'High Court': massageScheme(HighCourt),
+    'District Court': massageScheme(DistrictCourt)
 } as CC.Schemes;
 
 export default  Schemes;

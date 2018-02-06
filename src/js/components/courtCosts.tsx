@@ -11,11 +11,6 @@ import { DisbursementsTable, ItemTable} from './tables';
 import { formatCurrency, numberWithCommas } from '../utils';
 
 
-
-
-
-
-
 interface AddItemProps {
     scheme: CC.Scheme, submit: () => void,
     defaults: {rateCode: number, band:string},
