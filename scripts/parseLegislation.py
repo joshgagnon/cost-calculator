@@ -83,66 +83,8 @@ def time_allocations(node):
                                     })
     return results
 
-def high_court_disbursements(table):
-    rows = table.findall('.//tbody/row')
-    parent_map = {}
-    for el in table.iter():
-        for child in el:
-            parent_map[child] = el
-    categories = []
-    category_cost = None
-    stack = []
 
-    def cost(value):
-        try:
-            return float(value.replace(',', ''))
-        except ValueError:
-            return value
-
-    for row in rows:
-        if not ET.tostring(row, 'utf8', 'text'):
-            continue
-
-        cells = row.findall('.//entry')
-        if cells[0].attrib.get('morerows'):
-            stack = [[]]
-            categories.append({'label': ET.tostring(cells[0], 'utf8', 'text'), 'items': stack[0]})
-
-        label_sub_code = None
-
-        if cells[-5].findall('.//label'):
-            for label in cells[-5].findall('.//label')[::-1]:
-                label_sub_code = ET.tostring(label, 'utf8', 'text')
-                # assume only one label per row, extract then remove
-                parent_map[label].remove(label)
-        code = ET.tostring(cells[-6], 'utf8', 'text')
-        # if first for are empty, then its a subsubitem
-        if not any(ET.tostring(cell, 'utf8', 'text') for cell in cells[0:4]):
-            stack[2].append({
-                            'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
-                            'label': ET.tostring(cells[-5], 'utf8', 'text'),
-                            'code': label_sub_code
-                            })
-        elif not code and label_sub_code:
-            stack = [stack[0], stack[1], []]
-            stack[1].append({
-                            'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
-                            'label': ET.tostring(cells[-5], 'utf8', 'text'),
-                            'code': label_sub_code,
-                            'items': stack[2]
-                            })
-        elif code:
-            stack = [stack[0], []]
-            category_cost = cost(ET.tostring(cells[-1], 'utf8', 'text'))
-            stack[0].append({
-                            'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
-                            'label': ET.tostring(cells[-5], 'utf8', 'text'),
-                            'code': code,
-                            'items': stack[1]
-                            })
-    return categories
-
-def district_court_disbursements(table):
+def disbursements(table, params):
     rows = table.findall('.//tbody/row')
     parent_map = {}
     for el in table.iter():
@@ -175,19 +117,19 @@ def district_court_disbursements(table):
                 # assume only one label per row, extract then remove
                 parent_map[label].remove(label)
 
-        code = ET.tostring(cells[-4], 'utf8', 'text')
-        # if first 4 are empty, then its a subsubitem
-        if not any(ET.tostring(cell, 'utf8', 'text') for cell in cells[0:4]) and ET.tostring(cells[-3], 'utf8', 'text'):
+        code = ET.tostring(cells[params['code']], 'utf8', 'text')
+        # if first for are empty, then its a subsubitem
+        if not any(ET.tostring(cell, 'utf8', 'text') for cell in cells[0:4]) and ET.tostring(cells[params['label']], 'utf8', 'text'):
             stack[2].append({
                             'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
-                            'label': ET.tostring(cells[-3], 'utf8', 'text'),
+                            'label': ET.tostring(cells[params['label']], 'utf8', 'text'),
                             'code': label_sub_code
                             })
         elif not code and label_sub_code:
             stack = [stack[0], stack[1], []]
             stack[1].append({
                             'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
-                            'label': ET.tostring(cells[-3], 'utf8', 'text'),
+                            'label': ET.tostring(cells[params['label']], 'utf8', 'text'),
                             'code': label_sub_code,
                             'items': stack[2]
                             })
@@ -196,11 +138,12 @@ def district_court_disbursements(table):
             category_cost = cost(ET.tostring(cells[-1], 'utf8', 'text'))
             stack[0].append({
                             'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
-                            'label': ET.tostring(cells[-3], 'utf8', 'text'),
+                            'label': ET.tostring(cells[params['label']], 'utf8', 'text'),
                             'code': code,
                             'items': stack[1]
                             })
     return categories
+
 
 def parse_high_court():
     rules_tree = ET.parse(os.path.join(path, '../src/xml/High Court Rules.xml'))
@@ -220,7 +163,10 @@ def parse_high_court():
 
     return {
         'costs': time_allocations(costs_node),
-        'disbursements': high_court_disbursements(disbursements_table),
+        'disbursements': disbursements(disbursements_table, {
+            'label': -5,
+            'code': -6
+        }),
         'rates': daily_rates(rate_node)
     }
 
@@ -245,7 +191,10 @@ def parse_district_court():
     return {
         'rates': daily_rates(rate_node, strip_alpha),
         'costs': time_allocations(cost_node),
-        'disbursements': district_court_disbursements(disbursements_table)
+        'disbursements': disbursements(disbursements_table, {
+            'label': -3,
+            'code': -4
+        })
 
     }
 
