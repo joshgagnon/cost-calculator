@@ -40,7 +40,7 @@ def daily_rates(node, category_parse=lambda x: x):
     return results
 
 
-def time_allocations(node):
+def time_allocations(node, columns = 5):
     table = node.find(".//table")
     rows = table.findall('.//tbody/row')
     lines = []
@@ -50,14 +50,15 @@ def time_allocations(node):
         cells = row.findall('.//entry')
         lines.append([ET.tostring(cell, 'utf8', 'text') for cell in cells])
     for line in lines:
-
+        if len(line) == 1:
+            continue
         if not line[0] and not line[1]:
-            pass
+            continue
         elif line[1] and not any([line[0]] + line[2:]):
             current_category = []
             results.append({'label': line[1], 'items': current_category})
 
-        elif line[0] and (not any(line[1:]) or ''.join(line[1:]) == "ABC") and len(line) == 5:
+        elif line[0] and (not any(line[1:]) or ''.join(line[1:]) == "ABC") and len(line) == columns:
             current_category = []
             results.append({'label': line[0], 'items': current_category})
 
@@ -74,13 +75,15 @@ def time_allocations(node):
             if current_category is None:
                 current_category = []
                 results.append({'label': 'Default', 'items': current_category, 'implicit': True})
-            current_category.append({
-                                    'costCode': line[0],
-                                    'label': line[1],
-                                    'A': to_float(line[3]),
-                                    'B': to_float(line[4]),
-                                    'C': to_float(line[5]),
-                                    })
+            values = {
+                'costCode': line[0],
+                'label': line[1],
+                'A': to_float(line[3]),
+                'B': to_float(line[4]),
+            }
+            if len(line) > 5:
+                values['C'] = to_float(line[5])
+            current_category.append(values)
     return results
 
 
@@ -119,6 +122,7 @@ def disbursements(table, params):
 
         code = ET.tostring(cells[params['code']], 'utf8', 'text')
         # if first for are empty, then its a subsubitem
+
         if not any(ET.tostring(cell, 'utf8', 'text') for cell in cells[0:4]) and ET.tostring(cells[params['label']], 'utf8', 'text'):
             stack[2].append({
                             'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
@@ -198,6 +202,42 @@ def parse_district_court():
 
     }
 
+def parse_court_of_appeal_civil():
+    rules_tree = ET.parse(os.path.join(path, '../src/xml/High Court Rules.xml'))
+    rules_root = rules_tree.getroot()
+
+    rate_id = "DLM6953317"
+    rate_node = rules_root.findall(".//*[@id='%s']" % rate_id)[0]
+
+    high_court_rates = daily_rates(rate_node)[1:]
+
+    rules_tree = ET.parse(os.path.join(path, '../src/xml/Court of Appeal - Civil.xml'))
+    rules_root = rules_tree.getroot()
+
+    costs_id = "DLM1411321"
+    cost_node = rules_root.findall(".//*[@id='%s']" % costs_id)[0]
+
+    fees_tree = ET.parse(os.path.join(path, '../src/xml/Court of Appeal Fees Regulations.xml'))
+    fees_root = fees_tree.getroot()
+
+    disbursements_id = "DLM5455742"
+    disbursements_table = fees_root.findall(".//*[@id='%s']" % disbursements_id)[0]
+
+    return {
+        'costs': time_allocations(cost_node, 4),
+        'disbursements': disbursements(disbursements_table, {
+            'label': -3,
+            'code': -4
+        }),
+        'rates': [{
+            "category": "Simple",
+            'rate': filter(lambda x: x["category"] == '2', high_court_rates)[0]["rate"]
+        }, {
+            "category": "Complex",
+            'rate': filter(lambda x: x["category"] == '3', high_court_rates)[0]["rate"]
+        }]
+    }
+
 def save_result(data, filename):
     with open(os.path.join(path, '../src/js/data/%s.json' % filename), 'wb') as out:
         out.write(json.dumps(data))
@@ -205,6 +245,7 @@ def save_result(data, filename):
 if __name__ == '__main__':
     save_result(parse_high_court(), 'High Court')
     save_result(parse_district_court(), 'District Court')
+    save_result(parse_court_of_appeal_civil(), 'Court of Appeal - Civil')
     print('Everything parsed')
 
 
