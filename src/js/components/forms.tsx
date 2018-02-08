@@ -342,7 +342,7 @@ const disbursementMap = (state: CC.State, ownProps: {scheme: CC.Scheme}) => {
 
 
 export const AddItemForm = reduxForm<{scheme: CC.Scheme}>({
-    form: 'addItem',
+    form: 'addItem'
 })(connect<{}, {}, {scheme: CC.Scheme}>(bandedCostMap)(AddItem)) as any;
 
 

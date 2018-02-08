@@ -185,7 +185,7 @@ const DisbursementsModalAndTable = (props: any) => {
 }
 
 const ConnectedCostsModalAndTable = connect((state) => ({
-    defaults: RateSelector(state, 'rateCode', 'band'),
+    defaults: {...RateSelector(state, 'rateCode', 'band'), days: '0.25'},
     uplift:  RateSelector(state, 'uplift'),
 }), {submit: () => submit('addItem')})(CostsModalAndTable);
 

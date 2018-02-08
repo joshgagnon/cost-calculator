@@ -40,16 +40,24 @@ def daily_rates(node, category_parse=lambda x: x):
     return results
 
 
-def time_allocations(node, columns = 5):
+def time_allocations(node, columns=5, use_prefix=False):
     table = node.find(".//table")
     rows = table.findall('.//tbody/row')
     lines = []
     results = []
     current_category = None
+    prefix = None
+
+    def label(line):
+        if not use_prefix or not use_prefix(line):
+            return line[1]
+        return '%s %s' % (prefix, line[1])
+
     for row in rows:
         cells = row.findall('.//entry')
         lines.append([ET.tostring(cell, 'utf8', 'text') for cell in cells])
     for line in lines:
+
         if len(line) == 1:
             continue
         if not line[0] and not line[1]:
@@ -68,7 +76,7 @@ def time_allocations(node, columns = 5):
                 results.append({'label': 'Default', 'items': current_category, 'implicit': True})
             current_category.append({
                                     'costCode': line[0],
-                                    'label': line[1],
+                                    'label': label(line),
                                     'explaination': line[3]
                                     })
         elif all(line[0:2] + line[3:]):
@@ -77,13 +85,15 @@ def time_allocations(node, columns = 5):
                 results.append({'label': 'Default', 'items': current_category, 'implicit': True})
             values = {
                 'costCode': line[0],
-                'label': line[1],
+                'label': label(line),
                 'A': to_float(line[3]),
                 'B': to_float(line[4]),
             }
             if len(line) > 5:
                 values['C'] = to_float(line[5])
             current_category.append(values)
+        elif use_prefix is not None:
+            prefix = line[1]
     return results
 
 
@@ -192,9 +202,10 @@ def parse_district_court():
     disbursements_id = "DLM5455655"
     disbursements_table = fees_root.findall(".//*[@id='%s']" % disbursements_id)[0]
 
+
     return {
         'rates': daily_rates(rate_node, strip_alpha),
-        'costs': time_allocations(cost_node),
+        'costs': time_allocations(cost_node, 5, use_prefix=lambda lines: '.' in lines[0]),
         'disbursements': disbursements(disbursements_table, {
             'label': -3,
             'code': -4
