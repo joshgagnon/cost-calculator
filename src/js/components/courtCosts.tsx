@@ -1,5 +1,5 @@
 import * as React from "react";
-import { reduxForm, InjectedFormProps, Field, WrappedFieldProps, formValues, FormSection, FieldArray, formValueSelector, getFormValues, WrappedFieldArrayProps, submit, initialize } from 'redux-form';
+import { reduxForm, InjectedFormProps, Field, WrappedFieldProps, formValues, FormSection, FieldArray, formValueSelector, getFormValues, WrappedFieldArrayProps, submit, initialize, reset } from 'redux-form';
 import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Button, Glyphicon, ProgressBar, Modal, ButtonGroup, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Schemes from '../schemes';
 import { connect } from 'react-redux';
@@ -92,8 +92,12 @@ export class TableAndModal extends React.PureComponent<AddItemProps & WrappedFie
                 </Button>
                 { !!AdditionalButtons && <AdditionalButtons hasUplift={!!uplift}/> }
 
-                { this.props.useUplift && !!uplift && <div className="pull-right">
+                { this.props.useUplift && !!uplift && <div className="pull-right" >
                     <strong>Uplift: {uplift}% </strong>
+                </div> }
+
+                { this.props.useUplift && !!uplift && <div className="pull-right"    style={{clear: 'right'}}>
+                    <strong>Uplift Amount: { formatCurrency(uplift/100 * subtotal) }  </strong>
                 </div> }
 
                 <div className="pull-right "  style={{clear: 'right'}}>
@@ -199,6 +203,7 @@ interface DownloadProps {
     scheme: CC.Scheme,
     download: (values: any) => void,
     submit: () => void
+    reset: () => void
 }
 
 interface DownloadState {
@@ -355,6 +360,7 @@ export class Controls extends React.PureComponent<DownloadProps, DownloadState> 
                 <Button bsStyle="primary" onClick={this.showDownload}>Download</Button>
                 <Button bsStyle="info" onClick={this.showSave}>Save</Button>
                 <Button bsStyle="info" onClick={this.showLoad}>Load</Button>
+                <Button bsStyle="default" onClick={this.props.reset}>Reset</Button>
                 { this.state.showingDownload && <DownloadModal  submit={this.props.submit} download={this.download} handleClose={this.handleClose} /> }
                 { this.state.showingSave && <ConnectedSaveModal  handleClose={this.handleClose} /> }
                 { this.state.showingLoad && <ConnectedLoadModal  handleClose={this.handleClose} /> }
@@ -366,7 +372,7 @@ export class Controls extends React.PureComponent<DownloadProps, DownloadState> 
 const ConnectedControls = connect((state: CC.State) => ({
     values: getFormValues('cc')(state),
     scheme: Schemes[RateSelector(state, 'scheme')]
-}), {download: (values: any) => render(values), submit: () => submit('download')})(Controls as any)
+}), {download: (values: any) => render(values), submit: () => submit('download'),  reset: () => reset('cc')})(Controls as any)
 
 
 

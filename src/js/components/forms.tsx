@@ -218,6 +218,9 @@ export class DisbursementsSelect extends React.PureComponent<{scheme: CC.Scheme,
                 <option value="" disabled>Please Select...</option>
                 <option value="custom">Custom Disbursement</option>
                 { this.props.scheme && this.props.scheme.disbursements.map((cost: any, index: number) => {
+                    if(cost.amount){
+                        return <option key={index} value={cost.code}>{ `${cost.code} - ${cost.label}` }</option>;
+                    }
                     return <optgroup key={index} label={cost.label}>
                         { cost.items.reduce(recurse, []) }
 
@@ -359,7 +362,12 @@ export class AddDisbursements extends React.PureComponent<AddDisbursementFormPro
         const disbursementList = this.props.scheme.disbursementMap[value];
         let description = ''
         if(disbursementList){
-            description = disbursementList.slice(1).map((d: CC.Disbursement) => d.label).join('\n');
+            if(disbursementList.length === 1){
+                description = disbursementList[0].label;
+            }
+            else{
+                description = disbursementList.slice(1).map((d: CC.Disbursement) => d.label).join('\n');
+            }
         }
         this.props.change('description', description);
 

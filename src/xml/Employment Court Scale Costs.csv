@@ -1,0 +1,64 @@
+,Commencement,,,
+1,Commencement of proceeding by way of challenge by plaintiff,1.5,2,4
+2,Commencement of defence to challenge by defendant,0.5,1.5,3
+3,Commencement of other proceeding by plaintiff,1.6,3,8
+4,Commencement of defence to other proceeding by defendant,1,2,4
+,Other pleadings and notices,,,
+5,Application for special leave to remove matter,1,1.5,3
+6,Filing opposition to application for special leave to remove matter,0.5,1,2
+7,Application for rehearing,0.5,1,2
+8,Filing opposition to application for rehearing,0.5,1,2
+9,Notice of objection to jurisdiction,0.3,0.6,1
+10,Pleading in response to amended pleading (payable regardless of outcome except when formal or consented to),0.6,0.6,1
+,Case management,,,
+11,Preparation for first directions conference,0.2,0.4,0.5
+12,Filing Memorandum for first or subsequent directions conference,0.2,0.4,0.5
+13,Appearance at first or subsequent directions conference,0.2,0.2,0.4
+14,Preparation for case management meeting,0.2,0.4,0.5
+15,Filing Memorandum for case management meeting,0.2,0.4,0.5
+16,Appearance at case management meeting for sole or principal representative,The time occupied by the meeting measured in quarter days,,
+17,Second or subsequent representative if allowed by court,50% of allowance for appearance of principal representative,,
+,"Disclosure, inspection and interrogatories",,,
+18,Notice to answer interrogatories,0.4,1,2
+19,Answer to interrogatories,0.4,1,2
+20,Notice to admit facts,0.4,0.8,1
+21,Admissions to facts,0.4,0.8,1
+22,Notice requiring disclosure,0.4,0.8,1
+23,List of documents on disclosure,0.5,2,4
+24,Notice of objection to disclosure,0.2,0.2,0.5
+25,Notice of challenge to objection to disclosure,0.2,0.2,0.5
+26,Application for verification order,0.2,0.2,0.5
+27,Inspection of documents,0.5,1,2
+,"Interlocutory applications (including applications for stay, security for costs)",,,
+28,Filing interlocutory application,0.3,0.6,1
+29,Filing opposition to interlocutory application,0.3,0.6,1
+30,Preparation of written submissions,0.5,1,1.5
+31,Preparation of bundle for hearing,0.4,0.6,0.8
+32,Appearance at hearing of defended application for sole or principal representative,The time occupied by the meeting measured in quarter days,,
+33,Second and subsequent representative if allowed by court,50% of allowance for appearance of principal representative,,
+34,Obtaining judgment without appearance,0.3,0.3,0.5
+35,Obtaining certificate of judgment,0.2,0.2,0.2
+,Trial preparation and appearance for challenge,,,
+36,Plaintiff's or defendant's preparation of briefs or affidavits,1,2,4
+37,"Plaintiff's preparation of list of issues, agreed facts, authorities and common bundle",1,2,4
+38,"Defendant's preparation of list of issues, agreed facts, authorities and common bundle",0.5,1,2
+39,Preparation for hearing,1.5,2,4
+40,Appearance at hearing for sole or principal representative,The time occupied by the meeting measured in quarter days,,
+41,Second and subsequent representative if allowed by court,50% of allowance for appearance of principal representative,,
+42,Other steps in proceeding not specifically mentioned,As allowed by the court,,
+,Trial preparation and appearance for other proceedings,,,
+43,Plaintiff's or defendant's preparation of briefs or affidavits,1.5,2.5,5
+44,"Plaintiff's preparation of list of issues, agreed facts, authorities and common bundle",1,2,4
+45,"Defendant's preparation of list of issues, agreed facts, authorities and common bundle",0.5,1,2
+46,Preparation for hearing,1.5,2,4
+47,Appearance at hearing for sole or principal representative,The time occupied by the hearing measured in quarter days,,
+48,Second and subsequent representative if allowed by court,50% of allowance for appearance of principal representative,,
+49,Other steps in proceeding not specifically mentioned,As allowed by the court,,
+,"Originating applications (including applications for freezing and search orders, interim injunction)",,,
+50,Filing application and supporting affidavits,1,2,3
+51,Filing notice of opposition and supporting affidavits,1,2,3
+52,"Case management (as for ordinary proceeding, refer items 11-17 above)",,,
+53,Preparation of written submissions,0.5,1,1.5
+54,Preparation of bundle for hearing,0.4,0.6,0.8
+55,Appearance at hearing for sole or principal representative,The time occupied by the hearing measured in quarter days,,
+56,Second and subsequent representative if allowed by court,50% of allowance for appearance of principal representative,,

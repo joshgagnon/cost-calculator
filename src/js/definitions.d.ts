@@ -40,8 +40,9 @@ declare namespace CC {
 
     interface Disbursement {
         label: string,
-        items: [any]
-        code: string
+        items: [Disbursement]
+        code: string,
+        amount?: number
     }
 
     interface DisbursementMap {

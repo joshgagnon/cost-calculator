@@ -4,7 +4,7 @@ import json
 import xml.etree.ElementTree as ET
 import pprint
 import re
-
+import csv
 
 path = os.path.dirname(__file__)
 
@@ -238,6 +238,64 @@ def parse_court_of_appeal_civil():
         }]
     }
 
+def parse_employment_court():
+    rules_tree = ET.parse(os.path.join(path, '../src/xml/High Court Rules.xml'))
+    rules_root = rules_tree.getroot()
+    rate_id = "DLM6953317"
+    rate_node = rules_root.findall(".//*[@id='%s']" % rate_id)[0]
+
+    cost_results = []
+    current_category = None
+
+    with open(os.path.join(path, '../src/xml/Employment Court Scale Costs.csv')) as csv_file:
+        reader = csv.reader(csv_file)
+        for line in reader:
+            if not line[0]:
+                current_category = []
+                cost_results.append({'label': line[1], 'items': current_category})
+            else:
+                current_category.append({
+                    'costCode': line[0],
+                    'label': line[1],
+                    'A': to_float(line[2]),
+                    'B': to_float(line[3]),
+                    'C': to_float(line[4]),
+                })
+
+    fees_tree = ET.parse(os.path.join(path, '../src/xml/Employment Court Regulations.xml'))
+    fees_root = fees_tree.getroot()
+    disbursements_id = "DLM2034902"
+    disbursements_table = fees_root.findall(".//*[@id='%s']//table" % disbursements_id)[0]
+    disbursements = []
+
+    parent_map = {}
+    for el in disbursements_table.iter():
+        for child in el:
+            parent_map[child] = el
+
+    rows = disbursements_table.findall('.//tbody/row')
+    code = None
+    for row in rows:
+        if row.findall('.//label'):
+            for label in row.findall('.//label')[::-1]:
+                code = ET.tostring(label, 'utf8', 'text')
+                # assume only one label per row, extract then remove
+                parent_map[label].remove(label)
+        cells = row.findall('.//entry')
+        disbursements.append({
+                            'amount': to_float(ET.tostring(cells[1], 'utf8', 'text')),
+                            'label': ET.tostring(cells[0], 'utf8', 'text'),
+                            'code': code,
+                            'items': []
+                        })
+
+    return {
+        'costs': cost_results,
+        'disbursements': disbursements,
+        'rates': daily_rates(rate_node)
+    }
+
+
 def save_result(data, filename):
     with open(os.path.join(path, '../src/js/data/%s.json' % filename), 'wb') as out:
         out.write(json.dumps(data))
@@ -246,6 +304,7 @@ if __name__ == '__main__':
     save_result(parse_high_court(), 'High Court')
     save_result(parse_district_court(), 'District Court')
     save_result(parse_court_of_appeal_civil(), 'Court of Appeal - Civil')
+    save_result(parse_employment_court(), 'Employment Court')
     print('Everything parsed')
 
 
