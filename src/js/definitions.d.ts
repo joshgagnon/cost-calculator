@@ -105,9 +105,21 @@ declare namespace CC {
         confirmation?: Confirmation
     }
 
+
+    interface SavedItemSummary {
+        saved_id: any,
+        name: string,
+    }
+
+    interface Saved {
+        status?: DownloadStatus,
+        list: [SavedItemSummary]
+    }
+
     interface State {
         document: DocumentState,
-        dialogs: DialogState
+        dialogs: DialogState,
+        saved: Saved
     }
 }
 
@@ -117,7 +129,12 @@ declare namespace CC.Actions {
         RENDER = 'RENDER',
         UPDATE_RENDER = 'UPDATE_RENDER',
         SHOW_CONFIRMATION = 'SHOW_CONFIRMATION',
-        HIDE_CONFIRMATION = 'HIDE_CONFIRMATION'
+        HIDE_CONFIRMATION = 'HIDE_CONFIRMATION',
+        REQUEST_SAVED_LIST = 'REQUEST_SAVED_LIST',
+        UPDATE_SAVED_LIST = 'UPDATE_SAVED_LIST',
+        SAVE_STATE = 'SAVE_STATE',
+        LOAD_STATE = 'LOAD_STATE',
+        DELETE_STATE = 'DELETE_STATE'
     }
 
     interface ActionCreator<T> {
@@ -150,6 +167,36 @@ declare namespace CC.Actions {
 
     interface ShowConfirmation extends ActionCreator<ShowConfirmationPayload> {}
     interface HideConfirmation extends ActionCreator<HideConfirmationPayload> {}
+
+    interface RequestSavedListPayload {
+
+    }
+
+    interface UpdateSavedListPayload {
+        status: CC.DownloadStatus,
+        list?: [CC.SavedItemSummary]
+    }
+
+    interface SaveStatePayload {
+        saved_id?: any,
+        name: string,
+        data: any
+    }
+
+    interface LoadStatePayload {
+        saved_id: any
+    }
+
+    interface DeleteStatePayload {
+        saved_id: any;
+    }
+
+    interface RequestSavedList extends ActionCreator<RequestSavedListPayload> {}
+    interface UpdateSavedList extends ActionCreator<UpdateSavedListPayload> {}
+    interface SaveState extends ActionCreator<SaveStatePayload> {}
+    interface LoadState extends ActionCreator<LoadStatePayload> {}
+    interface DeleteState extends ActionCreator<DeleteStatePayload> {}
+
 
 }
 

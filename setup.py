@@ -11,6 +11,7 @@ setup(name='cost-calculator',
           'flask',
           'requests',
           'psycopg2',
+          'flask_restful',
           'raven[flask]'
       ],
         dependency_links=[

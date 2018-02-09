@@ -114,3 +114,78 @@ def get_user_info(user_id):
             return result
         except TypeError:
             return None
+
+
+def get_saved_data(user_id, data_id):
+    database = get_db()
+    with database.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
+        query = """
+            SELECT data from saved where user_id = %(user_id)s and data_id = %(data_id)s
+        """
+        cursor.execute(query, {'user_id': user_id, 'data_id': data_id})
+        try:
+            result = dict(cursor.fetchone())
+            return result
+        except TypeError:
+            return None
+
+
+def del_saved_data(user_id, data_id):
+    database = get_db()
+    with database.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
+        query = """
+            DELETE FROM saved where user_id = %(user_id)s and data_id = %(data_id)s
+        """
+        cursor.execute(query, {'user_id': user_id, 'data_id': data_id})
+        try:
+            result = dict(cursor.fetchone())
+            database.commit()
+            return result
+        except TypeError:
+            return None
+
+
+def update_saved_data(user_id, data_id, args):
+    database = get_db()
+    with database.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
+        query = """
+            UPDATE saved SET data = %(data)s where user_id = %(user_id)s and data_id = %(data_id)s
+        """
+        cursor.execute(query, {'user_id': user_id, 'data_id': data_id, 'data': psycopg2.extras.Json(args)})
+        try:
+            result = dict(cursor.fetchone())
+            database.commit()
+            return result
+        except TypeError:
+            return None
+
+
+def get_saved_list(user_id):
+    database = get_db()
+    with database.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
+        query = """
+            SELECT saved_id, name FROM saved where user_id = %(user_id)s
+        """
+        cursor.execute(query, {'user_id': user_id})
+        try:
+            result = cursor.fetchall()
+            database.commit()
+            return result
+        except TypeError:
+            return None
+
+
+def create_saved_data(user_id, args):
+    database = get_db()
+    with database.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
+        query = """
+            INSERT INTO saved (user_id, name, data) VALUES (%(user_id)s, %(name)s, %(data)s)
+        """
+        cursor.execute(query, {'user_id': user_id, 'name': args['name'], 'data': psycopg2.extras.Json(args['data'])})
+        try:
+            result = cursor.fetchall()
+            database.commit()
+            return result
+        except TypeError:
+            return None
+

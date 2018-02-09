@@ -1,6 +1,6 @@
 import { select, takeEvery, put, take, call, all } from 'redux-saga/effects';
 import { SagaMiddleware, delay, eventChannel, END } from 'redux-saga';
-import { updateRender } from '../actions';
+import { updateRender, updateSavedList } from '../actions';
 import * as Axios from 'axios';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
@@ -28,7 +28,9 @@ axios.interceptors.request.use(function (config) {
 
 export default function *rootSaga(): any {
     yield all([
-        renderSaga()
+        renderSaga(),
+        savedListSaga(),
+        saveSaga()
     ]);
 }
 
@@ -60,4 +62,52 @@ function *renderSaga() {
         }
     }
 
+}
+
+
+function *saveSaga() {
+    yield takeEvery(CC.Actions.Types.SAVE_STATE, save);
+    function *save(action: CC.Actions.SaveState) {
+        yield put(updateSavedList({
+            status: CC.DownloadStatus.InProgress
+        }));
+        let data;
+        try {
+            const response = yield call(axios.post, `/api/saved`, action.payload);
+            data = response.data;
+            yield put(updateSavedList({
+                status: CC.DownloadStatus.Complete
+            }));
+
+        } catch(e) {
+            yield put(updateSavedList({
+                status: CC.DownloadStatus.Failed,
+            }));
+        }
+    }
+
+}
+
+
+function *savedListSaga() {
+    yield takeEvery(CC.Actions.Types.REQUEST_SAVED_LIST, handle);
+    function *handle(action: CC.Actions.RequestSavedList) {
+        yield put(updateSavedList({
+            status: CC.DownloadStatus.InProgress
+        }));
+        let data;
+        try {
+            const response = yield call(axios.get, `/api/saved`);
+            data = response.data;
+            yield put(updateSavedList({
+                status: CC.DownloadStatus.Complete,
+                list: data
+            }));
+
+        } catch(e) {
+            yield put(updateSavedList({
+                status: CC.DownloadStatus.Failed,
+            }));
+        }
+    }
 }

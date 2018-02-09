@@ -36,8 +36,15 @@ SET default_with_oids = false;
 --
 -- Name: saved; Type: TABLE; Schema: public; Owner: -
 --
+CREATE SEQUENCE public.saved_saved_id_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
 
 CREATE TABLE saved (
+    saved_id bigint NOT NULL DEFAULT nextval('saved_saved_id_seq'::regclass),
     user_id integer NOT NULL,
     name text,
     data jsonb,

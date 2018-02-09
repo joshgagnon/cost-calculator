@@ -4,7 +4,7 @@ import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Butto
 import Schemes from '../schemes';
 import { connect } from 'react-redux';
 import * as moment from 'moment';
-import { render, hideConfirmation, showConfirmation } from'../actions';
+import { render, hideConfirmation, showConfirmation, requestSavedList, saveState, loadState, deleteState } from'../actions';
 import { LoadingOverlay } from './loading';
 import { AddDisbursementsForm, AddItemForm, Uplift, findRate, hasBand, findDays, calculateAmount, prepareValues, SelectFieldRow,  SchemedCourtCosts, RateSelector, ConnectedDownloadForm, TextFieldRow, required, normalizeUplift } from './forms';
 import { DisbursementsTable, ItemTable} from './tables';
@@ -232,7 +232,11 @@ export class DownloadModal extends React.PureComponent<{download: (values: any) 
 }
 
 
-export class SaveModal extends React.PureComponent<{handleClose: () => void, entries: string[], courtCostsValues: any} & InjectedFormProps> {
+export class SaveModal extends React.PureComponent<{handleClose: () => void, entries: string[], courtCostsValues: any, request: () => void} & InjectedFormProps> {
+
+    componentWillMount() {
+        this.props.request();
+    }
 
     save(values: any) {
         localStorage.setItem(values.name, JSON.stringify(this.props.courtCostsValues));
@@ -271,6 +275,8 @@ const ConnectedSaveModal = connect<{entries: string[], courtCostsValues: any}, {
         courtCostsValues: getFormValues('cc')(state),
 
     };
+}, {
+    request: () => requestSavedList({})
 })(reduxForm<{}>({form: 'save'})(SaveModal as any) as any);
 
 

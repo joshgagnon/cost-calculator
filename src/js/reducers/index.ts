@@ -20,11 +20,20 @@ const dialogs = (state: CC.DialogState = {}, action: any) => {
     return state;
 }
 
+const saved = (state: CC.Saved = {list: [] as [CC.SavedItemSummary]}, action: any) => {
+    switch(action.type){
+        case CC.Actions.Types.UPDATE_SAVED_LIST:
+            return {...action.payload}
+    }
+    return state;
+}
+
 const appReducer: Reducer<any> = combineReducers<any>({
     routing,
     form,
     document,
-    dialogs
+    dialogs,
+    saved
 });
 
 
