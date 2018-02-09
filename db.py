@@ -1,0 +1,116 @@
+"""
+
+Functions for working with the database
+
+"""
+
+import psycopg2
+import psycopg2.extras
+from flask import g, current_app
+import uuid
+import json
+from collections import defaultdict
+
+def get_db():
+    """
+    Return a connected database instance and save it to flask globals for next time
+    """
+    if not hasattr(g, 'db') or g.db.closed:
+        g.db = connect_db_config(current_app.config)
+    return g.db
+
+
+def close_db():
+    """
+    If we have saved a conencted database instance to flask globals, close the connection
+    """
+    if hasattr(g, 'db') and not g.db.closed:
+        g.db.close()
+
+
+def connect_db_config(config):
+    """
+    Create a psycopg2 connection to the database
+    """
+    connection = psycopg2.connect(
+        database=config['DB_NAME'],
+        user=config['DB_USER'],
+        password=config['DB_PASS'],
+        host=config['DB_HOST'])
+    return connection
+
+
+def upsert_user(user):
+    """
+    Create or update a user
+    """
+    database = get_db()
+
+    user_dict = defaultdict(lambda: False)
+    user_dict.update(user)
+
+    user = user_dict
+
+    if current_app.config.get('USE_DB_UPSERT'):
+        if user.get('subscribed', None) is not None:
+            query = """
+                INSERT INTO users (user_id, name, email, subscribed, email_verified)
+                VALUES (%(user_id)s, %(name)s, %(email)s, %(subscribed)s, %(email_verified)s)
+                ON CONFLICT (user_id) DO UPDATE SET name = %(name)s, email = %(email)s, subscribed = %(subscribed)s;
+            """
+        else:
+            query = """
+                INSERT INTO users (user_id, name, email)
+                VALUES (%(user_id)s, %(name)s, %(email)s)
+                ON CONFLICT (user_id) DO UPDATE SET name = %(name)s, email = %(email)s
+            """
+        with database.cursor() as cursor:
+            cursor.execute(query, user)
+        database.commit()
+    else:
+        try:
+            if user.get('subscribed', None) is not None:
+                query = """
+                    INSERT INTO users (user_id, name, email, subscribed, email_verified)
+                    VALUES (%(user_id)s, %(name)s, %(email)s, %(subscribed)s, %(email_verified)s)
+                """
+            else:
+                query = """
+                    INSERT INTO users (user_id, name, email)
+                    VALUES (%(user_id)s, %(name)s, %(email)s)
+                """
+            with database.cursor() as cursor:
+                cursor.execute(query, user)
+
+        except:
+            database.rollback()
+            if user.get('subscribed', None) is not None:
+                query = """
+                    UPDATE users SET name = %(name)s, email = %(email)s, subscribed = %(subscribed)s, email_verified = %(email_verified)s where user_id = %(user_id)s;
+                """
+            else:
+                query = """
+                    UPDATE users SET name = %(name)s, email = %(email)s where user_id = %(user_id)s;
+                """
+            with database.cursor() as cursor:
+                cursor.execute(query, user)
+        database.commit()
+    return
+
+
+def get_user_info(user_id):
+    """
+    Get a user's basic info
+    """
+    database = get_db()
+    with database.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
+        query = """
+            SELECT user_id, name, email, email_verified, subscribed from users where user_id = %(user_id)s
+        """
+        cursor.execute(query, {'user_id': user_id})
+        try:
+            result = dict(cursor.fetchone())
+            database.commit()
+            return result
+        except TypeError:
+            return None

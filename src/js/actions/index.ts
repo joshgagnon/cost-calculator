@@ -12,3 +12,21 @@ export function updateRender(payload: CC.Actions.UpdateRenderPayload): CC.Action
         payload
     };
 }
+
+
+
+
+export function showConfirmation(payload: CC.Actions.ShowConfirmationPayload): CC.Actions.ShowConfirmation{
+    return {
+        type: CC.Actions.Types.SHOW_CONFIRMATION,
+        payload
+    };
+}
+
+
+export function hideConfirmation(payload: CC.Actions.HideConfirmationPayload): CC.Actions.HideConfirmation{
+    return {
+        type: CC.Actions.Types.HIDE_CONFIRMATION,
+        payload
+    };
+}

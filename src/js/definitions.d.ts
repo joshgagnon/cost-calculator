@@ -1,5 +1,8 @@
 declare let DEV : boolean;
 
+interface Window {
+     _CSRF_TOKEN: string;
+}
 
 
 declare namespace CC {
@@ -88,8 +91,23 @@ declare namespace CC {
 
     }
 
+    interface Confirmation {
+        title: string,
+        message: string,
+        acceptLabel: string,
+        rejectLabel: string,
+        acceptActions?: [any],
+        rejectActions?: [any]
+    }
+
+    interface DialogState {
+        showing?: string,
+        confirmation?: Confirmation
+    }
+
     interface State {
         document: DocumentState,
+        dialogs: DialogState
     }
 }
 
@@ -98,6 +116,8 @@ declare namespace CC.Actions {
     const enum Types {
         RENDER = 'RENDER',
         UPDATE_RENDER = 'UPDATE_RENDER',
+        SHOW_CONFIRMATION = 'SHOW_CONFIRMATION',
+        HIDE_CONFIRMATION = 'HIDE_CONFIRMATION'
     }
 
     interface ActionCreator<T> {
@@ -121,6 +141,15 @@ declare namespace CC.Actions {
     }
 
     interface UpdateRender extends ActionCreator<UpdateRenderPayload> {}
+
+    interface ShowConfirmationPayload extends CC.Confirmation {
+
+    }
+
+    interface HideConfirmationPayload {}
+
+    interface ShowConfirmation extends ActionCreator<ShowConfirmationPayload> {}
+    interface HideConfirmation extends ActionCreator<HideConfirmationPayload> {}
 
 }
 

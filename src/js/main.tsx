@@ -12,6 +12,12 @@ momentLocalizer(moment);
 const store = configureStore(browserHistory, {});
 const history = syncHistoryWithStore(browserHistory, store);
 
+try{
+    const input : any = JSON.parse(document.getElementById("token").textContent)
+    window._CSRF_TOKEN = input['_csrf_token'];
+}catch(e){
+
+}
 
 ReactDOM.render(
      <Root store={store} history={history} />,

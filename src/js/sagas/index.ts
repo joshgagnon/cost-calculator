@@ -5,6 +5,27 @@ import * as Axios from 'axios';
 import axios from 'axios';
 import { saveAs } from 'file-saver';
 
+axios.interceptors.request.use(function (config) {
+    // Do something before request is sent
+
+    if(config.method !== 'get') {
+
+        if(config.data && config.data.set){
+            config.data.set('_csrf_token', window._CSRF_TOKEN);
+        }
+        else{
+            config.data = config.data || {};
+            config.data['_csrf_token'] = window._CSRF_TOKEN;
+        }
+    }
+    return config;
+  }, function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  });
+
+
+
 export default function *rootSaga(): any {
     yield all([
         renderSaga()

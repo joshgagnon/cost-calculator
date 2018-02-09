@@ -4,7 +4,7 @@ import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Butto
 import Schemes from '../schemes';
 import { connect } from 'react-redux';
 import * as moment from 'moment';
-import { render } from'../actions';
+import { render, hideConfirmation, showConfirmation } from'../actions';
 import { LoadingOverlay } from './loading';
 import { AddDisbursementsForm, AddItemForm, Uplift, findRate, hasBand, findDays, calculateAmount, prepareValues, SelectFieldRow,  SchemedCourtCosts, RateSelector, ConnectedDownloadForm, TextFieldRow, required, normalizeUplift } from './forms';
 import { DisbursementsTable, ItemTable} from './tables';
@@ -372,23 +372,74 @@ export class Controls extends React.PureComponent<DownloadProps, DownloadState> 
 const ConnectedControls = connect((state: CC.State) => ({
     values: getFormValues('cc')(state),
     scheme: Schemes[RateSelector(state, 'scheme')]
-}), {download: (values: any) => render(values), submit: () => submit('download'),  reset: () => reset('cc')})(Controls as any)
+}), {download: (values: any) => render(values), submit: () => submit('download'),
+    reset: () => showConfirmation({title: 'Reset Form',
+                                  message: 'Are you sure you wish to reset the form?',
+                                  rejectLabel: 'Cancel', acceptLabel: 'Reset',
+                                  acceptActions: [reset('cc')]})}
+                                  )(Controls as any)
 
 
+interface ConfirmationProps extends CC.Confirmation{
+    hide: () => void,
+    accept: () => void,
+    reject: () => void
+}
 
-
-export class Modals extends React.PureComponent<{downloading: boolean}> {
+export class ConfirmationDialog extends React.PureComponent<ConfirmationProps> {
     render() {
-        if(!this.props.downloading){
-            return false;
+        return <Modal show={true} onHide={this.props.reject}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{ this.props.title }</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                <p>{ this.props.message }</p>
+               </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={this.props.reject}>{ this.props.rejectLabel }</Button>
+                    <Button bsStyle="primary" onClick={this.props.accept}>{ this.props.acceptLabel }</Button>
+                </Modal.Footer>
+               </Modal>
+    }
+}
+
+const ConnectedConfirmationDialog = connect((state: CC.State) => ({
+    ...state.dialogs.confirmation
+}), (dispatch) => ({ dispatch }), (ownProps: CC.Confirmation, dispatchProps: {dispatch: (args: any) => void}) => {
+    return {
+    ...ownProps,
+    hide: () => dispatchProps.dispatch(hideConfirmation({})),
+    reject: () => {
+        dispatchProps.dispatch(hideConfirmation({}));
+        (ownProps.rejectActions || []).map((action: any) => {
+            return dispatchProps.dispatch(action)
+        });
+    },
+    accept: () => {
+        dispatchProps.dispatch(hideConfirmation({}));
+        (ownProps.acceptActions || []).map((action: any) => {
+            return dispatchProps.dispatch(action)
+        });
+    }
+}})(ConfirmationDialog as any)
+
+
+export class Modals extends React.PureComponent<{downloading: boolean, showing: string}> {
+    render() {
+        if(this.props.downloading){
+            return <LoadingOverlay />
         }
-        return <LoadingOverlay />
+        if(this.props.showing === 'confirmation'){
+            return <ConnectedConfirmationDialog />
+        }
+        return false;
     }
 }
 
 
 const ConnectedModals = connect((state: CC.State) => ({
-    downloading: state.document.downloadStatus === CC.DownloadStatus.InProgress
+    downloading: state.document.downloadStatus === CC.DownloadStatus.InProgress,
+    showing: state.dialogs.showing
 }))(Modals as any)
 
 

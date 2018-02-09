@@ -10,11 +10,21 @@ const document = (state: CC.DocumentState = {}, action: any) => {
     return state;
 }
 
+const dialogs = (state: CC.DialogState = {}, action: any) => {
+    switch(action.type){
+        case CC.Actions.Types.SHOW_CONFIRMATION:
+            return {...state, showing: 'confirmation', confirmation: action.payload}
+        case CC.Actions.Types.HIDE_CONFIRMATION:
+            return {...state, showing: null, confirmation: null}
+    }
+    return state;
+}
 
 const appReducer: Reducer<any> = combineReducers<any>({
     routing,
     form,
-    document
+    document,
+    dialogs
 });
 
 

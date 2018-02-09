@@ -7,6 +7,15 @@
         <link rel="icon" type="image/png" href="/favicon.png" >
     </head>
 <body>
+
+        <script type="application/json" id="token">
+        {{ token|tojson|safe }}
+        </script>
+        <script type="application/json" id="data">
+        {{ store|tojson|safe }}
+        </script>
+
+
   <% if(!DEV){ %>
    <iframe id="promo" src="https://catalex.nz/promo.html"
    frameborder="0"
@@ -50,9 +59,10 @@
         <a href="https://catalex.nz">© <%= (new Date()).getFullYear() %>  CataLex®</a>
         </div>
     </div>
+      <% if(!DEV){ %>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.10/iframeResizer.js"></script>
     <script>iFrameResize({log:false}, '#promo')</script>
-
+<% } %>
     </body>
 
 </html>
