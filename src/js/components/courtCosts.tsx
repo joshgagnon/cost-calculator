@@ -1,5 +1,5 @@
 import * as React from "react";
-import { reduxForm, InjectedFormProps, Field, WrappedFieldProps, formValues, FormSection, FieldArray, formValueSelector, getFormValues, WrappedFieldArrayProps, submit,  reset } from 'redux-form';
+import { reduxForm, InjectedFormProps, Field, WrappedFieldProps, formValues, FormSection, FieldArray, formValueSelector, getFormValues, WrappedFieldArrayProps, submit,  initialize } from 'redux-form';
 import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Button, Glyphicon, ProgressBar, Modal, ButtonGroup, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Schemes from '../schemes';
 import { connect } from 'react-redux';
@@ -10,6 +10,15 @@ import { AddDisbursementsForm, AddItemForm, Uplift, findRate, hasBand, findDays,
 import { DisbursementsTable, ItemTable} from './tables';
 import { formatCurrency, numberWithCommas } from '../utils';
 import Loading from './loading';
+
+const INITIAL_VALUES = {
+        scheme: 'High Court',
+        rateCode: '1',
+        band: 'A',
+        uplift: 0,
+        costs: [],
+        disbursements: []
+    } as any;
 
 
 interface AddItemProps {
@@ -404,7 +413,7 @@ const ConnectedControls = connect((state: CC.State) => ({
     reset: () => showConfirmation({title: 'Reset Form',
                                   message: 'Are you sure you wish to reset the form?',
                                   rejectLabel: 'Cancel', acceptLabel: 'Reset',
-                                  acceptActions: [reset('cc')]})}
+                                  acceptActions: [initialize('cc', INITIAL_VALUES)]})}
                                   )(Controls as any)
 
 
@@ -512,12 +521,5 @@ export class CourtCosts extends React.PureComponent<{}> {
 
 export default reduxForm<{}>({
     form: 'cc',
-    initialValues: {
-        scheme: 'High Court',
-        rateCode: '1',
-        band: 'A',
-        uplift: 0,
-        costs: [],
-        disbursements: []
-    }
+    initialValues: INITIAL_VALUES
 })(CourtCosts as any);

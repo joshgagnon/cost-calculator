@@ -50,7 +50,7 @@ class SavedData(Resource):
 
     def put(self, id):
         args = request.get_json()
-        return db.update_saved_data(session['user_id'], id, args), 201
+        return db.update_saved_data(session['user_id'], id, args['data']), 201
 
 
 

@@ -143,13 +143,13 @@ def del_saved_data(user_id, saved_id):
             return None
 
 
-def update_saved_data(user_id, saved_id, args):
+def update_saved_data(user_id, saved_id, data):
     database = get_db()
     with database.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
         query = """
             UPDATE saved SET data = %(data)s where user_id = %(user_id)s and saved_id = %(saved_id)s
         """
-        cursor.execute(query, {'user_id': user_id, 'saved_id': saved_id, 'data': psycopg2.extras.Json(args)})
+        cursor.execute(query, {'user_id': user_id, 'saved_id': saved_id, 'data': psycopg2.extras.Json(data)})
         try:
             database.commit()
         except TypeError:
