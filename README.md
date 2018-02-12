@@ -5,9 +5,7 @@
 tests for structure
 
 server save/load
-config file
 
-confirmation dialog
 delete save
 
 

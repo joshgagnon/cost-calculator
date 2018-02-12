@@ -134,7 +134,11 @@ declare namespace CC.Actions {
         UPDATE_SAVED_LIST = 'UPDATE_SAVED_LIST',
         SAVE_STATE = 'SAVE_STATE',
         LOAD_STATE = 'LOAD_STATE',
-        DELETE_STATE = 'DELETE_STATE'
+        DELETE_STATE = 'DELETE_STATE',
+        SHOW_SAVE = 'SHOW_SAVE',
+        HIDE_SAVE = 'HIDE_SAVE',
+        SHOW_LOAD = 'SHOW_LOAD',
+        HIDE_LOAD = 'HIDE_LOAD'
     }
 
     interface ActionCreator<T> {
@@ -196,6 +200,11 @@ declare namespace CC.Actions {
     interface SaveState extends ActionCreator<SaveStatePayload> {}
     interface LoadState extends ActionCreator<LoadStatePayload> {}
     interface DeleteState extends ActionCreator<DeleteStatePayload> {}
+
+    interface ShowSave extends ActionCreator<void> {}
+    interface HideSave extends ActionCreator<void> {}
+    interface ShowLoad extends ActionCreator<void> {}
+    interface HideLoad extends ActionCreator<void> {}
 
 
 }

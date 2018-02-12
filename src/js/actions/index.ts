@@ -13,6 +13,33 @@ export function updateRender(payload: CC.Actions.UpdateRenderPayload): CC.Action
     };
 }
 
+export function showSave(): CC.Actions.ShowSave{
+    return {
+        type: CC.Actions.Types.SHOW_SAVE,
+        payload: null
+    };
+}
+
+export function hideSave(): CC.Actions.HideSave{
+    return {
+        type: CC.Actions.Types.HIDE_SAVE,
+        payload: null
+    };
+}
+
+export function showLoad(): CC.Actions.ShowLoad{
+    return {
+        type: CC.Actions.Types.SHOW_LOAD,
+        payload: null
+    };
+}
+
+export function hideLoad(): CC.Actions.HideLoad{
+    return {
+        type: CC.Actions.Types.HIDE_LOAD,
+        payload: null
+    };
+}
 
 
 export function showConfirmation(payload: CC.Actions.ShowConfirmationPayload): CC.Actions.ShowConfirmation{

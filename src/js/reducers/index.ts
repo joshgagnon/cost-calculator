@@ -16,6 +16,14 @@ const dialogs = (state: CC.DialogState = {}, action: any) => {
             return {...state, showing: 'confirmation', confirmation: action.payload}
         case CC.Actions.Types.HIDE_CONFIRMATION:
             return {...state, showing: null, confirmation: null}
+        case CC.Actions.Types.SHOW_SAVE:
+            return {...state, showing: 'save'}
+        case CC.Actions.Types.HIDE_SAVE:
+            return {...state, showing: null}
+        case CC.Actions.Types.SHOW_LOAD:
+            return {...state, showing: 'load'}
+        case CC.Actions.Types.HIDE_LOAD:
+            return {...state, showing: null}
     }
     return state;
 }

@@ -1,14 +1,15 @@
 import * as React from "react";
-import { reduxForm, InjectedFormProps, Field, WrappedFieldProps, formValues, FormSection, FieldArray, formValueSelector, getFormValues, WrappedFieldArrayProps, submit, initialize, reset } from 'redux-form';
+import { reduxForm, InjectedFormProps, Field, WrappedFieldProps, formValues, FormSection, FieldArray, formValueSelector, getFormValues, WrappedFieldArrayProps, submit,  reset } from 'redux-form';
 import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Button, Glyphicon, ProgressBar, Modal, ButtonGroup, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Schemes from '../schemes';
 import { connect } from 'react-redux';
 import * as moment from 'moment';
-import { render, hideConfirmation, showConfirmation, requestSavedList, saveState, loadState, deleteState } from'../actions';
+import { render, hideConfirmation, showConfirmation, requestSavedList, saveState, loadState, deleteState, showSave, showLoad, hideSave, hideLoad } from'../actions';
 import { LoadingOverlay } from './loading';
 import { AddDisbursementsForm, AddItemForm, Uplift, findRate, hasBand, findDays, calculateAmount, prepareValues, SelectFieldRow,  SchemedCourtCosts, RateSelector, ConnectedDownloadForm, TextFieldRow, required, normalizeUplift } from './forms';
 import { DisbursementsTable, ItemTable} from './tables';
 import { formatCurrency, numberWithCommas } from '../utils';
+import Loading from './loading';
 
 
 interface AddItemProps {
@@ -198,20 +199,6 @@ const ConnectedDisbursementsModalAndTable = connect((state) => ({
 
 
 
-interface DownloadProps {
-    values: any,
-    scheme: CC.Scheme,
-    download: (values: any) => void,
-    submit: () => void
-    reset: () => void
-}
-
-interface DownloadState {
-    showingDownload: boolean
-    showingSave: boolean
-    showingLoad: boolean
-}
-
 
 export class DownloadModal extends React.PureComponent<{download: (values: any) => void, submit: () => void, handleClose: () => void}> {
     render(){
@@ -232,68 +219,50 @@ export class DownloadModal extends React.PureComponent<{download: (values: any) 
 }
 
 
-export class SaveModal extends React.PureComponent<{handleClose: () => void, entries: string[], courtCostsValues: any, request: () => void} & InjectedFormProps> {
+export class SaveModal extends React.PureComponent<{
+    saveMode: boolean,
+    handleClose: () => void,
+    loading: boolean,
+    entries: [CC.SavedItemSummary],
+    courtCostsValues: any,
+    request: () => void,
+    save: (args: CC.Actions.SaveStatePayload) => void,
+    overwrite: (args: CC.Actions.SaveStatePayload) => void,
+    deleteEntry: (args: CC.Actions.DeleteStatePayload) => void,
+    load: (args: CC.Actions.LoadStatePayload) => void,
+
+    } & InjectedFormProps> {
 
     componentWillMount() {
         this.props.request();
     }
 
     save(values: any) {
-        localStorage.setItem(values.name, JSON.stringify(this.props.courtCostsValues));
+        //localStorage.setItem(values.name, JSON.stringify(this.props.courtCostsValues));
+        // if name collides, add id
+        const match = this.props.entries.find((item: CC.SavedItemSummary) => {
+            return item.name === values.name;
+        })
         this.props.handleClose();;
+        if(match){
+            this.props.overwrite({name: values.name, data: this.props.courtCostsValues, saved_id: match.saved_id});
+        }
+        else{
+            this.props.save({name: values.name, data: this.props.courtCostsValues});
+        }
     }
 
-
-    render(){
-        const { handleSubmit } = this.props;
-        return <Modal show={true} onHide={this.props.handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Save</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                <p>Court Costs currently only saves your data to your browser, so you will not be able to access your records from another computer.</p>
-                <Form horizontal >
-                    <ListGroup style={{ maxHeight: 200, overflowY: 'scroll' }}>
-                    { this.props.entries.map((key: string) =>  <ListGroupItem key={key} onClick={() => this.props.change('name', key)}>{ key }</ListGroupItem>) }
-                  </ListGroup>
-                <Field name="name" title="Name" component={TextFieldRow} validate={required}/>
-                </Form>
-               </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={this.props.handleClose}>Close</Button>
-                    <Button bsStyle="primary" onClick={handleSubmit((values) => this.save(values))}>Save</Button>
-                </Modal.Footer>
-               </Modal>
-    }
-}
-
-const ConnectedSaveModal = connect<{entries: string[], courtCostsValues: any}, {}, {handleClose: () => void}>((state: CC.State) => {
-    const keys = Object.keys(localStorage);
-    keys.sort();
-    return {
-        entries: keys,
-        courtCostsValues: getFormValues('cc')(state),
-
-    };
-}, {
-    request: () => requestSavedList({})
-})(reduxForm<{}>({form: 'save'})(SaveModal as any) as any);
-
-
-export class LoadModal extends React.PureComponent<{handleClose: () => void, entries: string[], courtCostsValues: any, setForm: (values: any) => void} & InjectedFormProps, {selected?: string}> {
-
-    constructor(props: any) {
-        super(props);
-        this.load = this.load.bind(this);
-        this.state = {};
+    deleteItem(e: React.MouseEvent<Button>, saved_id: number) {
+        e.stopPropagation();
+        this.props.deleteEntry({saved_id});
     }
 
-    load() {
-        if(this.state.selected && localStorage.getItem(this.state.selected)){
-            try{
-                this.props.setForm(JSON.parse(localStorage.getItem(this.state.selected)));
-                this.props.handleClose();
-            }catch(e){};
+    handleClick(item: CC.SavedItemSummary) {
+        if(this.props.saveMode){
+             this.props.change('name', item.name)
+        }
+        else{
+            this.props.load({saved_id: item.saved_id});
         }
     }
 
@@ -302,31 +271,93 @@ export class LoadModal extends React.PureComponent<{handleClose: () => void, ent
         const { handleSubmit } = this.props;
         return <Modal show={true} onHide={this.props.handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Load</Modal.Title>
+                    <Modal.Title>{ this.props.saveMode ? 'Save' : 'Load' }</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                <Form horizontal >
+                 { this.props.loading && <Loading />}
                     <ListGroup style={{ maxHeight: 200, overflowY: 'scroll' }}>
-                    { this.props.entries.map((key: string) =>  <ListGroupItem key={key} onClick={() => this.setState({'selected': key})}>{ key }</ListGroupItem>) }
+                    { this.props.entries.map((item: CC.SavedItemSummary) =>
+                            <a className="btn btn-default list-group-item text-left" key={item.saved_id} onClick={() => this.handleClick(item)}>
+                         { item.name }
+                         <Button bsSize="xs" className="pull-right" onClick={(e) => this.deleteItem(e, item.saved_id) }><Glyphicon glyph="remove"/></Button>
+                         </a>) }
                   </ListGroup>
+                 { this.props.saveMode && <Field name="name" title="Name" component={TextFieldRow} validate={required}/> }
+                </Form>
                </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={this.props.handleClose}>Close</Button>
-                    <Button bsStyle="primary" onClick={this.load}>Load</Button>
+                    { this.props.saveMode && <Button bsStyle="primary" onClick={handleSubmit((values) => this.save(values))}>Save</Button> }
                 </Modal.Footer>
                </Modal>
     }
 }
 
-const ConnectedLoadModal = connect<{entries: string[]}, {}, {handleClose: () => void}>(() => {
-    const keys = Object.keys(localStorage);
-    keys.sort();
-    return {
-        entries: keys
-    };
-} ,{
-    setForm: (values: any) => initialize('cc', values)
-})(LoadModal);
 
+const ConnectedSaveModal = connect<{entries: [CC.SavedItemSummary], courtCostsValues: any, saveMode: boolean}, {}, {}>((state: CC.State) => {
+    return {
+        entries: state.saved.list || ([] as [CC.SavedItemSummary]),
+        loading: state.saved.status !== CC.DownloadStatus.Complete,
+        courtCostsValues: getFormValues('cc')(state),
+        saveMode: true,
+    };
+}, {
+    request: () => requestSavedList({}),
+    save: (args: CC.Actions.SaveStatePayload) => saveState(args),
+    overwrite: (args: CC.Actions.SaveStatePayload) => showConfirmation({title: 'Overwrite',
+                                  message: 'Are you sure you wish to save over this entry?',
+                                  rejectLabel: 'Cancel', acceptLabel: 'Overwrite',
+                                  acceptActions: [saveState(args)],
+                                  rejectActions: [showSave()]
+                              }),
+    deleteEntry: (args: CC.Actions.DeleteStatePayload) => showConfirmation({title: 'Deleted Saved Entry',
+                                  message: 'Are you sure you wish to delete this entry?',
+                                  rejectLabel: 'Cancel', acceptLabel: 'Delete',
+                                  acceptActions: [deleteState(args), showSave()],
+                                  rejectActions: [showSave()]
+                              }),
+    handleClose: () => hideSave()
+})(reduxForm<{}>({form: 'save'})(SaveModal as any) as any);
+
+const ConnectedLoadModal = connect<{entries: [CC.SavedItemSummary], courtCostsValues: any, saveMode: boolean}, {}, {}>((state: CC.State) => {
+    return {
+        entries: state.saved.list || ([] as [CC.SavedItemSummary]),
+        loading: state.saved.status !== CC.DownloadStatus.Complete,
+        courtCostsValues: getFormValues('cc')(state),
+        saveMode: false,
+    };
+}, {
+    request: () => requestSavedList({}),
+    deleteEntry: (args: CC.Actions.DeleteStatePayload) => showConfirmation({title: 'Deleted Saved Entry',
+                                  message: 'Are you sure you wish to delete this entry?',
+                                  rejectLabel: 'Cancel', acceptLabel: 'Delete',
+                                  acceptActions: [deleteState(args), showLoad()],
+                                  rejectActions: [showLoad()]
+                              }),
+    load: (args: CC.Actions.LoadStatePayload) => showConfirmation({title: 'Load Saved Entry',
+                                  message: 'Are you sure load this entry? All unsaved changes will be lost.',
+                                  rejectLabel: 'Cancel', acceptLabel: 'Load',
+                                  acceptActions: [loadState(args)],
+                                  rejectActions: [showLoad()]
+                              }),
+    handleClose: () => hideLoad()
+})(reduxForm<{}>({form: 'save'})(SaveModal as any) as any);
+
+
+interface DownloadProps {
+    values: any,
+    scheme: CC.Scheme,
+    download: (values: any) => void,
+    submit: () => void
+    reset: () => void,
+    showSave: () => void,
+    showLoad: () => void,
+}
+
+interface DownloadState {
+    showingDownload: boolean
+}
 
 export class Controls extends React.PureComponent<DownloadProps, DownloadState> {
 
@@ -335,27 +366,18 @@ export class Controls extends React.PureComponent<DownloadProps, DownloadState> 
         this.download = this.download.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.showDownload = this.showDownload.bind(this);
-        this.showSave = this.showSave.bind(this);
-        this.showLoad = this.showLoad.bind(this);
-        this.state = {showingDownload: false, showingLoad: false, showingSave: false}
+        this.state = {showingDownload: false}
     }
 
 
     handleClose() {
-        this.setState({showingDownload: false, showingLoad: false, showingSave: false});
+        this.setState({showingDownload: false});
     }
 
     showDownload() {
         this.setState({ showingDownload: true });
     }
 
-    showSave() {
-        this.setState({ showingSave: true });
-    }
-
-    showLoad() {
-        this.setState({ showingLoad: true });
-    }
     download(values: any) {
         this.props.download(prepareValues(this.props.scheme, this.props.values, values));
         this.handleClose();
@@ -364,13 +386,10 @@ export class Controls extends React.PureComponent<DownloadProps, DownloadState> 
     render() {
         return  <div className="button-row">
                 <Button bsStyle="primary" onClick={this.showDownload}>Download</Button>
-                <Button bsStyle="info" onClick={this.showSave}>Save</Button>
-                <Button bsStyle="info" onClick={this.showLoad}>Load</Button>
+                <Button bsStyle="info" onClick={this.props.showSave}>Save</Button>
+                <Button bsStyle="info" onClick={this.props.showLoad}>Load</Button>
                 <Button bsStyle="default" onClick={this.props.reset}>Reset</Button>
                 { this.state.showingDownload && <DownloadModal  submit={this.props.submit} download={this.download} handleClose={this.handleClose} /> }
-                { this.state.showingSave && <ConnectedSaveModal  handleClose={this.handleClose} /> }
-                { this.state.showingLoad && <ConnectedLoadModal  handleClose={this.handleClose} /> }
-
             </div>
     }
 }
@@ -378,7 +397,10 @@ export class Controls extends React.PureComponent<DownloadProps, DownloadState> 
 const ConnectedControls = connect((state: CC.State) => ({
     values: getFormValues('cc')(state),
     scheme: Schemes[RateSelector(state, 'scheme')]
-}), {download: (values: any) => render(values), submit: () => submit('download'),
+}), {download: (values: any) => render(values),
+    submit: () => submit('download'),
+    showSave: () => showSave(),
+    showLoad: () => showLoad(),
     reset: () => showConfirmation({title: 'Reset Form',
                                   message: 'Are you sure you wish to reset the form?',
                                   rejectLabel: 'Cancel', acceptLabel: 'Reset',
@@ -437,6 +459,12 @@ export class Modals extends React.PureComponent<{downloading: boolean, showing: 
         }
         if(this.props.showing === 'confirmation'){
             return <ConnectedConfirmationDialog />
+        }
+        if(this.props.showing === 'save'){
+            return <ConnectedSaveModal  />
+        }
+        if(this.props.showing === 'load'){
+            return <ConnectedLoadModal/>
         }
         return false;
     }

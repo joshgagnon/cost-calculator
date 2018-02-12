@@ -116,13 +116,13 @@ def get_user_info(user_id):
             return None
 
 
-def get_saved_data(user_id, data_id):
+def get_saved_data(user_id, saved_id):
     database = get_db()
     with database.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
         query = """
-            SELECT data from saved where user_id = %(user_id)s and data_id = %(data_id)s
+            SELECT data from saved where user_id = %(user_id)s and saved_id = %(saved_id)s
         """
-        cursor.execute(query, {'user_id': user_id, 'data_id': data_id})
+        cursor.execute(query, {'user_id': user_id, 'saved_id': saved_id})
         try:
             result = dict(cursor.fetchone())
             return result
@@ -130,32 +130,28 @@ def get_saved_data(user_id, data_id):
             return None
 
 
-def del_saved_data(user_id, data_id):
+def del_saved_data(user_id, saved_id):
     database = get_db()
     with database.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
         query = """
-            DELETE FROM saved where user_id = %(user_id)s and data_id = %(data_id)s
+            DELETE FROM saved where user_id = %(user_id)s and saved_id = %(saved_id)s
         """
-        cursor.execute(query, {'user_id': user_id, 'data_id': data_id})
+        cursor.execute(query, {'user_id': user_id, 'saved_id': saved_id})
         try:
-            result = dict(cursor.fetchone())
             database.commit()
-            return result
         except TypeError:
             return None
 
 
-def update_saved_data(user_id, data_id, args):
+def update_saved_data(user_id, saved_id, args):
     database = get_db()
     with database.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
         query = """
-            UPDATE saved SET data = %(data)s where user_id = %(user_id)s and data_id = %(data_id)s
+            UPDATE saved SET data = %(data)s where user_id = %(user_id)s and saved_id = %(saved_id)s
         """
-        cursor.execute(query, {'user_id': user_id, 'data_id': data_id, 'data': psycopg2.extras.Json(args)})
+        cursor.execute(query, {'user_id': user_id, 'saved_id': saved_id, 'data': psycopg2.extras.Json(args)})
         try:
-            result = dict(cursor.fetchone())
             database.commit()
-            return result
         except TypeError:
             return None
 
@@ -170,7 +166,7 @@ def get_saved_list(user_id):
         try:
             result = cursor.fetchall()
             database.commit()
-            return result
+            return [dict(x) for x in result]
         except TypeError:
             return None
 
@@ -183,9 +179,7 @@ def create_saved_data(user_id, args):
         """
         cursor.execute(query, {'user_id': user_id, 'name': args['name'], 'data': psycopg2.extras.Json(args['data'])})
         try:
-            result = cursor.fetchall()
             database.commit()
-            return result
         except TypeError:
             return None
 
