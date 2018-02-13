@@ -250,9 +250,23 @@ export class Controls extends React.PureComponent<DownloadProps, DownloadState> 
         this.download = this.download.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.showDownload = this.showDownload.bind(this);
+        this.navWillLeave = this.navWillLeave.bind(this);
         this.state = {showingDownload: false}
     }
 
+    navWillLeave() {
+        if(localStorage){
+            localStorage.set('saved', this.props.values);
+        }
+    }
+
+    componentDidMount() {
+        window.addEventListener('beforeunload', this.navWillLeave);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('beforeunload', this.navWillLeave);
+    }
 
     handleClose() {
         this.setState({showingDownload: false});

@@ -153,6 +153,8 @@ declare namespace CC.Actions {
         HIDE_SIGN_UP = 'HIDE_SIGN_UP',
         SHOW_UPGRADE = 'SHOW_UPGRADE',
         HIDE_UPGRADE = 'HIDE_UPGRADE',
+        SHOW_RESTORE = 'SHOW_RESTORE',
+        HIDE_RESTORE = 'HIDE_RESTORE'
     }
 
     interface ActionCreator<T> {
@@ -225,6 +227,9 @@ declare namespace CC.Actions {
 
     interface ShowUpgrade extends ActionCreator<void> {}
     interface HideUpgrade extends ActionCreator<void> {}
+
+    interface ShowRestore extends ActionCreator<void> {}
+    interface HideRestore extends ActionCreator<void> {}
 }
 
 
