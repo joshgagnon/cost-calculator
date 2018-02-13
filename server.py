@@ -92,6 +92,19 @@ def login():
         print(e)
         raise InvalidUsage('Could not log in', status_code=500, error=e)
 
+@app.route('/upgrade', methods=['GET'])
+def upgrade():
+    return redirect(app.config.get('AUTH_SERVER') + '/my-services')
+
+
+@app.route('/signup', methods=['GET'])
+def signup():
+    return redirect(app.config.get('OAUTH_URL'))
+
+@app.route('/account', methods=['GET'])
+def account():
+    return redirect(app.config.get('OAUTH_URL'))
+
 @app.route('/logout', methods=['GET'])
 def logout():
     session.clear()
@@ -106,7 +119,6 @@ def render_root():
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
-@login_redirect
 def catch_all(path):
     return render_root()
 

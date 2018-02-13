@@ -41,6 +41,35 @@ export function hideLoad(): CC.Actions.HideLoad{
     };
 }
 
+export function showSignUp(): CC.Actions.ShowSignUp{
+    return {
+        type: CC.Actions.Types.SHOW_SIGN_UP,
+        payload: null
+    };
+}
+
+export function hideSignUp(): CC.Actions.HideSignUp{
+    return {
+        type: CC.Actions.Types.HIDE_SIGN_UP,
+        payload: null
+    };
+}
+
+
+export function showUpgrade(): CC.Actions.ShowUpgrade{
+    return {
+        type: CC.Actions.Types.SHOW_UPGRADE,
+        payload: null
+    };
+}
+
+
+export function hideUpgrade(): CC.Actions.HideUpgrade{
+    return {
+        type: CC.Actions.Types.HIDE_UPGRADE,
+        payload: null
+    };
+}
 
 export function showConfirmation(payload: CC.Actions.ShowConfirmationPayload): CC.Actions.ShowConfirmation{
     return {

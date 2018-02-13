@@ -24,6 +24,15 @@ const dialogs = (state: CC.DialogState = {}, action: any) => {
             return {...state, showing: 'load'}
         case CC.Actions.Types.HIDE_LOAD:
             return {...state, showing: null}
+        case CC.Actions.Types.SHOW_SIGN_UP:
+            return {...state, showing: 'signUp'}
+        case CC.Actions.Types.HIDE_SIGN_UP:
+            return {...state, showing: null}
+        case CC.Actions.Types.SHOW_UPGRADE:
+            return {...state, showing: 'upgrade'}
+        case CC.Actions.Types.HIDE_UPGRADE:
+            return {...state, showing: null}
+
     }
     return state;
 }
@@ -36,12 +45,17 @@ const saved = (state: CC.Saved = {list: [] as [CC.SavedItemSummary]}, action: an
     return state;
 }
 
+const user = (state: CC.CurrentUser = {}) => {
+    return state;
+}
+
 const appReducer: Reducer<any> = combineReducers<any>({
     routing,
     form,
     document,
     dialogs,
-    saved
+    saved,
+    user
 });
 
 

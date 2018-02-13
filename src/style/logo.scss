@@ -24,7 +24,7 @@
         bottom: 40px;
         animation:  hit-gavel 0.7s 2 ease-in-out;
         animation-delay: 1.3s;
-
+        left: -20px;
         .handle{
             width: 180px;
             height: 15px;
@@ -71,7 +71,7 @@
     .block{
     position: absolute;
         bottom: 45px;
-    left: 130px;
+    left: 110px;
         .top{
             background-color:white;
             border-radius: 10px 10px 0 0;

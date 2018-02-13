@@ -116,10 +116,20 @@ declare namespace CC {
         list: [SavedItemSummary]
     }
 
+    interface CurrentUser {
+        name?: string;
+        userId?: number;
+        email?: string;
+        emailVerified?: boolean;
+        subscribed?: boolean;
+    }
+
     interface State {
         document: DocumentState,
         dialogs: DialogState,
-        saved: Saved
+        saved: Saved,
+        user: CurrentUser;
+
     }
 }
 
@@ -138,7 +148,11 @@ declare namespace CC.Actions {
         SHOW_SAVE = 'SHOW_SAVE',
         HIDE_SAVE = 'HIDE_SAVE',
         SHOW_LOAD = 'SHOW_LOAD',
-        HIDE_LOAD = 'HIDE_LOAD'
+        HIDE_LOAD = 'HIDE_LOAD',
+        SHOW_SIGN_UP = 'SHOW_SIGN_UP',
+        HIDE_SIGN_UP = 'HIDE_SIGN_UP',
+        SHOW_UPGRADE = 'SHOW_UPGRADE',
+        HIDE_UPGRADE = 'HIDE_UPGRADE',
     }
 
     interface ActionCreator<T> {
@@ -206,7 +220,11 @@ declare namespace CC.Actions {
     interface ShowLoad extends ActionCreator<void> {}
     interface HideLoad extends ActionCreator<void> {}
 
+    interface ShowSignUp extends ActionCreator<void> {}
+    interface HideSignUp extends ActionCreator<void> {}
 
+    interface ShowUpgrade extends ActionCreator<void> {}
+    interface HideUpgrade extends ActionCreator<void> {}
 }
 
 

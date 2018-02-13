@@ -4,6 +4,7 @@ import { routerMiddleware } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './sagas';
+import { accountMiddleware } from './middleware'
 
 // using any for history due to changes in ts definition
 export default function configureStore(history :any, initialState={}) {
@@ -11,10 +12,12 @@ export default function configureStore(history :any, initialState={}) {
     const sagaMiddleware = createSagaMiddleware();
 
     const middleware =  DEV ?  applyMiddleware(
+        accountMiddleware,
         sagaMiddleware,
         loggerMiddleware,
         routerMiddleware(history)
     ) : applyMiddleware(
+        accountMiddleware,
         sagaMiddleware,
         routerMiddleware(history)
     )
