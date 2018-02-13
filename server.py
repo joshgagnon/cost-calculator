@@ -103,7 +103,7 @@ def signup():
 
 @app.route('/account', methods=['GET'])
 def account():
-    return redirect(app.config.get('OAUTH_URL'))
+    return redirect(app.config.get('AUTH_SERVER'))
 
 @app.route('/logout', methods=['GET'])
 def logout():
