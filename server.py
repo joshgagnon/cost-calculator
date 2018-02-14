@@ -82,7 +82,7 @@ def login():
             user_data['user_id'] = user_data['id']
             user_data['name'] = user_data['name']
             user_data['subscribed'] = ('Court Costs' in user_data['services']) or app.config.get('ALL_SUBSCRIBED', False)
-            print(user_data)
+
 
         db.upsert_user(user_data)
         session['user_id'] = user_data['user_id']
