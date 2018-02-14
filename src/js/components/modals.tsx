@@ -210,8 +210,7 @@ export class Upgrade extends React.PureComponent<{handleClose: any}> {
                 <Modal.Body>
                 <p>
                     The free version of Court Costs allows you to calculate High Court costs only.
-                    Please upgrade to calculate costs for the District Court, Court of Appeal, and Employment Court, download formatted costs schedules (in PDF, DOCX, or ODT).  It costs just $5 per month or $50 per year.”
-
+                    Please upgrade to calculate costs for the District Court, Court of Appeal, and Employment Court, download formatted costs schedules (in PDF, DOCX, or ODT).  It costs just $5 per month or $50 per year.
                 </p>
                </Modal.Body>
                 <Modal.Footer>
