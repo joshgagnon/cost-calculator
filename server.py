@@ -93,6 +93,7 @@ def login():
         print(e)
         raise InvalidUsage('Could not log in', status_code=500, error=e)
 
+
 @app.route('/upgrade', methods=['GET'])
 def upgrade():
     return redirect(app.config.get('AUTH_SERVER') + '/my-services')
@@ -102,9 +103,11 @@ def upgrade():
 def signup():
     return redirect(app.config.get('OAUTH_URL'))
 
+
 @app.route('/account', methods=['GET'])
 def account():
     return redirect(app.config.get('AUTH_SERVER'))
+
 
 @app.route('/logout', methods=['GET'])
 def logout():

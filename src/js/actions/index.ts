@@ -71,6 +71,21 @@ export function hideUpgrade(): CC.Actions.HideUpgrade{
     };
 }
 
+export function showRestore(): CC.Actions.ShowRestore{
+    return {
+        type: CC.Actions.Types.SHOW_RESTORE,
+        payload: null
+    };
+}
+
+
+export function hideRestore(): CC.Actions.HideRestore{
+    return {
+        type: CC.Actions.Types.HIDE_RESTORE,
+        payload: null
+    };
+}
+
 export function showConfirmation(payload: CC.Actions.ShowConfirmationPayload): CC.Actions.ShowConfirmation{
     return {
         type: CC.Actions.Types.SHOW_CONFIRMATION,

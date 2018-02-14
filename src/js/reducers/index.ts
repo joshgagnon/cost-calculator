@@ -32,7 +32,10 @@ const dialogs = (state: CC.DialogState = {}, action: any) => {
             return {...state, showing: 'upgrade'}
         case CC.Actions.Types.HIDE_UPGRADE:
             return {...state, showing: null}
-
+        case CC.Actions.Types.SHOW_RESTORE:
+            return {...state, showing: 'restore'}
+        case CC.Actions.Types.HIDE_RESTORE:
+            return {...state, showing: null}
     }
     return state;
 }

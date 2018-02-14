@@ -4,7 +4,7 @@ import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Butto
 import Schemes from '../schemes';
 import { connect } from 'react-redux';
 import * as moment from 'moment';
-import { render, hideConfirmation, showConfirmation, requestSavedList, saveState, loadState, deleteState, showSave, showLoad, hideSave, hideLoad } from'../actions';
+import { render, hideConfirmation, showConfirmation, requestSavedList, saveState, loadState, deleteState, showSave, showLoad, hideSave, hideLoad, showRestore } from'../actions';
 import { AddDisbursementsForm, AddItemForm, Uplift, findRate, hasBand, findDays, calculateAmount, prepareValues, SelectFieldRow,  SchemedCourtCosts, RateSelector, ConnectedDownloadForm, TextFieldRow, required, normalizeUplift } from './forms';
 import { DisbursementsTable, ItemTable} from './tables';
 import { formatCurrency, numberWithCommas } from '../utils';
@@ -237,6 +237,8 @@ interface DownloadProps {
     reset: () => void,
     showSave: () => void,
     showLoad: () => void,
+    showRestore: () => void,
+    dirty: boolean
 }
 
 interface DownloadState {
@@ -255,13 +257,23 @@ export class Controls extends React.PureComponent<DownloadProps, DownloadState> 
     }
 
     navWillLeave() {
-        if(localStorage){
-            localStorage.set('saved', this.props.values);
+        if(localStorage && this.props.dirty){
+            localStorage.setItem('saved', JSON.stringify(this.props.values));
         }
     }
 
     componentDidMount() {
         window.addEventListener('beforeunload', this.navWillLeave);
+        if(localStorage.getItem('saved')){
+            try{
+                const state = JSON.parse(localStorage.getItem('saved'));
+                // if parses, a good start
+                this.props.showRestore();
+            }
+            catch(e){
+                localStorage.removeItem('saved');
+            }
+        }
     }
 
     componentWillUnmount() {
@@ -282,6 +294,7 @@ export class Controls extends React.PureComponent<DownloadProps, DownloadState> 
     }
 
     render() {
+        console.log("DIRE", this.props.dirty)
         return  <div className="button-row">
                 <Button bsStyle="primary" onClick={this.showDownload}>Download</Button>
                 <Button bsStyle="info" onClick={this.props.showSave}>Save</Button>
@@ -292,13 +305,14 @@ export class Controls extends React.PureComponent<DownloadProps, DownloadState> 
     }
 }
 
-const ConnectedControls = connect((state: CC.State) => ({
+const ConnectedControls = connect<{}, {}, {dirty: boolean}>((state: CC.State) => ({
     values: getFormValues('cc')(state),
     scheme: Schemes[RateSelector(state, 'scheme')]
 }), {download: (values: any) => render(values),
     submit: () => submit('download'),
     showSave: () => showSave(),
     showLoad: () => showLoad(),
+    showRestore: () => showRestore(),
     reset: () => showConfirmation({title: 'Reset Form',
                                   message: 'Are you sure you wish to reset the form?',
                                   rejectLabel: 'Cancel', acceptLabel: 'Reset',
@@ -309,7 +323,7 @@ const ConnectedControls = connect((state: CC.State) => ({
 
 
 
-export class CourtCostsForm extends React.PureComponent<{}> {
+export class CourtCostsForm extends React.PureComponent<{dirty: boolean}> {
     render() {
         return <Form horizontal>
             <div className="row">
@@ -322,18 +336,18 @@ export class CourtCostsForm extends React.PureComponent<{}> {
                 </div>
             </div>
              <SchemedCourtCosts itemsComponent={ConnectedCostsModalAndTable} disbursementsComponent={ConnectedDisbursementsModalAndTable}/>
-            <ConnectedControls />
+            <ConnectedControls dirty={this.props.dirty}/>
             <Modals />
         </Form>
     }
 }
 
-export class CourtCosts extends React.PureComponent<{}> {
+export class CourtCosts extends React.PureComponent<{dirty: boolean}> {
     render() {
         return <div>
             <Header />
             <div className="container">
-            <CourtCostsForm />
+            <CourtCostsForm dirty={this.props.dirty}/>
         </div>
         </div>
     }

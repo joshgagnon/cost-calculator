@@ -1,6 +1,6 @@
 import * as React from "react";
 import { FormGroup, ControlLabel, FormControl, Form, Col, Grid, Tabs, Tab, Button, Glyphicon, ProgressBar, Modal, ButtonGroup, ListGroup, ListGroupItem } from 'react-bootstrap';
-import { render, hideConfirmation, showConfirmation, requestSavedList, saveState, loadState, deleteState, showSave, showLoad, hideSave, hideLoad, hideUpgrade, hideSignUp } from'../actions';
+import { render, hideConfirmation, showConfirmation, requestSavedList, saveState, loadState, deleteState, showSave, showLoad, hideSave, hideLoad, hideUpgrade, hideSignUp, hideRestore } from'../actions';
 import Loading, { LoadingOverlay } from './loading';
 import { reduxForm, InjectedFormProps, Field, WrappedFieldProps, formValues, FormSection, FieldArray, formValueSelector, getFormValues, WrappedFieldArrayProps, submit,  initialize } from 'redux-form';
 import { connect } from 'react-redux';
@@ -209,7 +209,9 @@ export class Upgrade extends React.PureComponent<{handleClose: any}> {
                 </Modal.Header>
                 <Modal.Body>
                 <p>
-                    Subscribe to CataLex Court Costs today to access other cost schemes and download your schedules in PDF, Word, and ODT formats.
+                    The free version of Court Costs allows you to calculate High Court costs only.
+                    Please upgrade to calculate costs for the District Court, Court of Appeal, and Employment Court, download formatted costs schedules (in PDF, DOCX, or ODT).  It costs just $5 per month or $50 per year.”
+
                 </p>
                </Modal.Body>
                 <Modal.Footer>
@@ -221,8 +223,56 @@ export class Upgrade extends React.PureComponent<{handleClose: any}> {
 }
 
 const ConnectedUpgrade = connect(undefined, {
-    handleClose: hideSignUp
+    handleClose: hideSignUp,
 })(Upgrade)
+
+interface RestoreProps {
+    handleClose: () => void;
+    setForm: (args: any) => void;
+}
+
+export class Restore extends React.PureComponent<RestoreProps> {
+    constructor(props: RestoreProps) {
+        super(props);
+        this.handleNo = this.handleNo.bind(this);
+        this.handleRestore = this.handleRestore.bind(this);
+    }
+
+    handleNo() {
+        localStorage.removeItem('saved');
+        this.props.handleClose();
+    }
+
+    handleRestore() {
+        this.props.setForm(JSON.parse(localStorage.getItem('saved')));
+        localStorage.removeItem('saved');
+        this.props.handleClose();
+    }
+
+    render() {
+        return <Modal show={true} onHide={this.props.handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Restore Previous Session</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                <p>
+                    Would you like to restore your previous Court Cost's session?
+                </p>
+               </Modal.Body>
+                <Modal.Footer>
+                <Button onClick={this.handleNo}>No</Button>
+                <Button onClick={this.handleRestore} bsStyle="primary">Restore</Button>
+                </Modal.Footer>
+               </Modal>
+    }
+
+}
+
+const ConnectedRestore = connect(undefined, {
+    handleClose: hideSignUp,
+    setForm: (args: any) => initialize('cc', args)
+})(Restore as any)
+
 
 export class Modals extends React.PureComponent<{downloading: boolean, showing: string}> {
     render() {
@@ -243,6 +293,9 @@ export class Modals extends React.PureComponent<{downloading: boolean, showing: 
         }
         if(this.props.showing === 'upgrade'){
             return <ConnectedUpgrade />
+        }
+        if(this.props.showing === 'restore'){
+            return <ConnectedRestore />
         }
         return false;
     }
