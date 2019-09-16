@@ -1,1 +1,1377 @@
-{"costs": [{"items": [{"A": 1.6, "C": 10.0, "B": 3.0, "costCode": "1", "label": "Commencement of proceeding by plaintiff"}, {"A": 1.0, "C": 6.0, "B": 2.0, "costCode": "2", "label": "Commencement of defence by defendant"}], "label": "Commencement"}, {"items": [{"A": 0.4, "C": 2.4, "B": 0.8, "costCode": "3", "label": "Reply"}, {"A": 0.8, "C": 4.8, "B": 1.6, "costCode": "4", "label": "Counterclaim"}, {"A": 0.6, "C": 4.0, "B": 1.2, "costCode": "5", "label": "Cross-notice between defendants"}, {"A": 1.2, "C": 7.0, "B": 2.4, "costCode": "6", "label": "Third party notice and statement of claim"}, {"A": 0.2, "C": 0.2, "B": 0.2, "costCode": "7", "label": "Notice of appearance"}, {"A": 0.3, "C": 2.0, "B": 0.6, "costCode": "8", "label": "Notice of appearance with protest to jurisdiction"}, {"A": 0.3, "C": 2.0, "B": 0.6, "costCode": "9", "label": "Pleading in response to amended pleading (payable regardless of outcome except when formal or consented to)"}], "label": "Other pleadings and notices"}, {"items": [{"A": 0.2, "C": 1.0, "B": 0.4, "costCode": "10", "label": "Preparation for first case management conference (including discussion about discovery)"}, {"A": 0.2, "C": 1.0, "B": 0.4, "costCode": "11", "label": "Filing memorandum for first or subsequent case management conference or mentions hearing"}, {"A": 0.2, "C": 0.2, "B": 0.2, "costCode": "12", "label": "Appearance at mentions hearing or callover"}, {"A": 0.3, "C": 0.7, "B": 0.3, "costCode": "13", "label": "Appearance at first or subsequent case management conference"}, {"A": null, "C": 1.0, "B": 0.5, "costCode": "14", "label": "Preparation for and appearance at issues conference"}, {"A": null, "C": 1.0, "B": 0.5, "costCode": "15", "label": "Preparation for and appearance at pre-trial conference"}], "label": "Case management"}, {"items": [{"A": 0.4, "C": 4.0, "B": 1.0, "costCode": "16", "label": "Notice to answer interrogatories"}, {"A": 0.4, "C": 4.0, "B": 1.0, "costCode": "17", "label": "Answer to interrogatories"}, {"A": 0.4, "C": 2.4, "B": 0.8, "costCode": "18", "label": "Notice to admit facts"}, {"A": 0.4, "C": 2.4, "B": 0.8, "costCode": "19", "label": "Admissions of facts"}, {"A": 0.7, "C": 7.0, "B": 2.5, "costCode": "20", "label": "List of documents on discovery"}, {"A": 0.5, "C": 6.0, "B": 1.5, "costCode": "21", "label": "Inspection of documents"}], "label": "Interrogatories, discovery and inspection"}, {"items": [{"A": 0.3, "C": 2.0, "B": 0.6, "costCode": "22", "label": "Filing interlocutory application"}, {"A": 0.3, "C": 2.0, "B": 0.6, "costCode": "23", "label": "Filing opposition to interlocutory application"}, {"A": 0.5, "C": 3.0, "B": 1.5, "costCode": "24", "label": "Preparation of written submissions"}, {"A": 0.4, "C": 1.0, "B": 0.6, "costCode": "25", "label": "Preparation by applicant of bundle for hearing"}, {"explaination": "The time occupied by the hearing measured in quarter days", "costCode": "26", "label": "Appearance at hearing of defended application for sole or principal counsel"}, {"explaination": "50% of allowance for appearance for principal counsel", "costCode": "27", "label": "Second and subsequent counsel if allowed by court"}, {"A": 0.3, "C": 0.5, "B": 0.3, "costCode": "28", "label": "Obtaining judgment without appearance"}, {"A": 0.2, "C": 0.2, "B": 0.2, "costCode": "29", "label": "Sealing order or judgment"}], "label": "Interlocutory applications (including applications for summary judgment and for review of interlocutory decisions)"}, {"items": [{"A": 1.5, "C": 5.0, "B": 2.5, "costCode": "30", "label": "Plaintiff's or defendant's preparation of briefs or affidavits"}, {"A": 1.5, "C": 5.0, "B": 2.5, "costCode": "31", "label": "Plaintiff's preparation of list of issues, authorities, and common bundle"}, {"A": 1.0, "C": 4.0, "B": 2.0, "costCode": "32", "label": "Defendant's preparation of list of issues, authorities, and common bundle"}, {"A": 2.0, "C": 5.0, "B": 3.0, "costCode": "33", "label": "Preparation for hearing"}, {"explaination": "The time occupied by the hearing measured in quarter days", "costCode": "34", "label": "Appearance at hearing for sole or principal counsel"}, {"explaination": "50% of allowance for appearance for principal counsel", "costCode": "35", "label": "Second and subsequent counsel if allowed by court"}, {"explaination": "As allowed by the court", "costCode": "36", "label": "Other steps in proceeding not specifically mentioned"}], "label": "Trial preparation and appearance"}, {"items": [{"A": 1.0, "C": 6.0, "B": 2.0, "costCode": "37", "label": "Filing application and supporting affidavits"}, {"A": 1.0, "C": 6.0, "B": 2.0, "costCode": "38", "label": "Filing note of opposition and supporting affidavits"}, {"A": 0.5, "C": 3.0, "B": 1.5, "costCode": "40", "label": "Preparation of written submissions"}, {"A": 0.4, "C": 1.0, "B": 0.6, "costCode": "41", "label": "Preparation by applicant of bundle for hearing"}, {"explaination": "The time occupied by the hearing measured in quarter days", "costCode": "42", "label": "Appearance at hearing for sole or principal counsel"}, {"explaination": "50% of allowance for appearance for principal counsel", "costCode": "43", "label": "Second and subsequent counsel if allowed by court"}], "label": "Originating applications"}, {"items": [{"A": 0.1, "C": 0.6, "B": 0.2, "costCode": "44", "label": "Filing and serving bankruptcy notice"}, {"A": 0.3, "C": 1.8, "B": 0.6, "costCode": "45", "label": "Filing application for adjudication by creditor"}, {"A": 0.2, "C": 1.2, "B": 0.4, "costCode": "46", "label": "Appearance at hearing"}, {"A": 0.2, "C": 1.2, "B": 0.4, "costCode": "47", "label": "Supporting party on bankruptcy"}], "label": "Bankruptcy proceedings"}, {"items": [{"A": 0.1, "C": 0.6, "B": 0.2, "costCode": "48", "label": "Issuing statutory demand"}, {"A": 0.3, "C": 1.8, "B": 0.6, "costCode": "49", "label": "Filing statement of claim and other documents"}, {"A": 0.2, "C": 1.2, "B": 0.4, "costCode": "50", "label": "Appearance at hearing"}, {"A": 0.2, "C": 1.2, "B": 0.4, "costCode": "51", "label": "Supporting party on liquidation"}], "label": "Company liquidation proceedings"}, {"items": [{"A": 0.5, "C": 3.0, "B": 1.0, "costCode": "52", "label": "Commencement of appeal or cross-appeal"}, {"A": 0.3, "C": 1.0, "B": 0.5, "costCode": "53", "label": "Commencement of response to appeal or cross-appeal"}, {"A": 0.5, "C": 2.0, "B": 1.0, "costCode": "55", "label": "Preparation of Case on Appeal"}, {"A": 1.0, "C": 6.0, "B": 3.0, "costCode": "56", "label": "Preparation of written submissions"}, {"explaination": "The time occupied by the hearing measured in quarter days", "costCode": "57", "label": "Appearance at hearing for sole or principal counsel"}, {"explaination": "50% of allowance for appearance for principal counsel", "costCode": "58", "label": "Second and subsequent counsel if allowed by court"}], "label": "Appeals"}, {"items": [{"A": 0.3, "C": 0.3, "B": 0.3, "costCode": "58A", "label": "Preparing and filing an application under section 56 of the Trans-Tasman Proceedings Act 2010 to register in the court an Australian judgment"}], "label": "Australian judgment proceedings"}, {"items": [{"A": 0.3, "C": 1.0, "B": 0.3, "costCode": "59", "label": "Charging order without application"}, {"A": 0.5, "C": 1.4, "B": 0.5, "costCode": "60", "label": "Charging order with application, including any unopposed order"}, {"A": 0.5, "C": 0.7, "B": 0.5, "costCode": "61", "label": "Sale order, including sale of seized property"}, {"A": 0.5, "C": 0.7, "B": 0.5, "costCode": "62", "label": "Other enforcement process"}], "label": "Enforcement of judgment or order"}], "rates": [{"category": "1", "rate": 1480.0}, {"category": "2", "rate": 2230.0}, {"category": "3", "rate": 3300.0}], "disbursements": [{"items": [{"items": [], "amount": "no fee", "code": "1", "label": "Filing an exempt application (as defined in regulation 4)"}, {"items": [], "amount": 540.0, "code": "2", "label": "Filing an application to put a company into liquidation to which Part 31 of the High Court Rules applies"}, {"items": [], "amount": 540.0, "code": "3", "label": "Filing an initiating document (as defined in regulation 4) that commences\u2014an application for review under the Judicial Review Procedure Act 2016; ora proceeding to which Part 18 (applications in equity and under statutes), Part 19 (originating applications) (other than an application for habeas corpus), or Part 30 (judicial review), but no other Part, of the High Court Rules applies; oran appeal or cross-appeal to the court under any enactment"}, {"items": [], "amount": 1350.0, "code": "4", "label": "Filing any other initiating document (as defined in regulation 4), unless a different filing fee is prescribed for that document elsewhere in the fees table"}, {"items": [], "amount": 110.0, "code": "5", "label": "Filing a statement of claim between defendants"}, {"items": [], "amount": 110.0, "code": "6", "label": "Filing an amended statement of claim"}], "label": "Documents initiating proceedings (including appeals)"}, {"items": [{"items": [], "amount": "no fee", "code": "7", "label": "Filing an exempt interlocutory application (as defined in regulation 4)"}, {"items": [], "amount": "no fee", "code": "8", "label": "Filing an application on notice for summary judgment (HCR 12.4)"}, {"items": [{"items": [], "amount": 200.0, "code": "a", "label": "application without notice"}, {"items": [], "amount": 200.0, "code": "b", "label": "application on notice relating to a proceeding to which item 2, 3, 46, or 48 applies"}, {"items": [], "amount": 500.0, "code": "c", "label": "any other application on notice"}], "amount": "", "code": "9", "label": "Filing any other interlocutory application (unless a different filing fee is prescribed for that application elsewhere in the fees table\u2014see items 35(b), 64A, and 64B) as follows:"}], "label": "Interlocutory applications"}, {"items": [{"items": [{"items": [], "amount": "no\u00a0fee", "code": "a", "label": "if included in the same document as a counterclaim, and providing that the fee for filing a counterclaim is paid (see item 13)"}, {"items": [], "amount": 110.0, "code": "b", "label": "in any other case"}], "amount": "", "code": "10", "label": "Filing a statement of defence,\u2014"}, {"items": [], "amount": 110.0, "code": "11", "label": "Filing a statement of defence between defendants"}, {"items": [], "amount": 110.0, "code": "12", "label": "Filing an amended statement of defence"}, {"items": [{"items": [], "amount": 540.0, "code": "a", "label": "a proceeding to which item 2 or 3 applies"}, {"items": [], "amount": 1350.0, "code": "b", "label": "any other proceeding"}], "amount": "", "code": "13", "label": "Filing a counterclaim (which may include in the same document, for no additional fee, a statement of defence) for\u2014"}, {"items": [{"items": [], "amount": "no fee", "code": "a", "label": "in the case of a notice of opposition against an exempt application or an exempt interlocutory application"}, {"items": [], "amount": 110.0, "code": "b", "label": "in the case of a notice of opposition against an interlocutory application for summary judgment"}, {"items": [], "amount": 110.0, "code": "c", "label": "in any other case (unless a different filing fee is prescribed for that notice of opposition elsewhere in the fees table\u2014see item 49)"}], "amount": "", "code": "14", "label": "Filing a notice of opposition,\u2014"}, {"items": [], "amount": 110.0, "code": "15", "label": "Filing an appearance (HCR 5.49, 5.50, 5.51)"}, {"items": [], "amount": 110.0, "code": "16", "label": "Filing a third or subsequent party notice"}], "label": "Statements of defence and other documents in response"}, {"items": [{"items": [{"items": [], "amount": "no fee", "code": "a", "label": "in the case of an exempt application"}, {"items": [], "amount": "no fee", "code": "b", "label": "in the case of an interlocutory application"}, {"items": [], "amount": 640.0, "code": "c", "label": "in the case of an application or proceeding to which item 2, 3, or 48 applies"}, {"items": [], "amount": 1600.0, "code": "d", "label": "in any other case"}], "amount": "", "code": "17", "label": "For scheduling the hearing date for an application or proceeding,\u2014"}], "label": "Scheduling"}, {"items": [{"items": [], "amount": "no fee", "code": "18", "label": "Hearing an exempt application or an exempt interlocutory application"}, {"items": [], "amount": 640.0, "code": "19", "label": "Hearing an application or proceeding to which item 2, 3, or 48 applies, for each half-day or part half-day after the first half-day"}, {"items": [], "amount": 1600.0, "code": "20", "label": "Hearing any other application or proceeding, for each half-day or part half-day after the first half-day"}, {"items": [], "amount": 640.0, "code": "21", "label": "Judicial settlement conference"}], "label": "Hearings (see regulation 7)"}, {"items": [{"items": [], "amount": 400.0, "code": "22", "label": "Issuing an order for examination (HCR 17.12)"}, {"items": [], "amount": 200.0, "code": "23", "label": "Issuing an order that money owing under a judgment be paid by instalments (HCR 17.17)"}, {"items": [], "amount": 200.0, "code": "24", "label": "Issuing an attachment order (HCR 17.33)"}, {"items": [], "amount": 200.0, "code": "25", "label": "Issuing a charging order with leave (HCR 17.41)"}, {"items": [], "amount": 200.0, "code": "26", "label": "Issuing a charging order without leave (HCR 17.42)"}, {"items": [], "amount": 1500.0, "code": "27", "label": "Issuing a sale order (HCR 17.63)"}, {"items": [], "amount": 500.0, "code": "28", "label": "Selling property under a sale order"}, {"items": [], "amount": "no fee", "code": "29", "label": "Filing an application for an order protecting a secured party's interests"}, {"items": [], "amount": 1500.0, "code": "30", "label": "Issuing a possession order (HCR 17.81)"}, {"items": [], "amount": 1500.0, "code": "31", "label": "Issuing a combined sale and possession order (HCR 17.82)"}, {"items": [], "amount": 1500.0, "code": "32", "label": "Issuing an arrest order (where a party does not comply with an original court order) (HCR 17.84)"}, {"items": [], "amount": 1500.0, "code": "33", "label": "Issuing a sequestration order (HCR 17.87)"}, {"items": [], "amount": 1500.0, "code": "34", "label": "Issuing an order to arrest and imprison an absconding debtor under section 40 of the Senior Courts Act 2016 (HCR 17.88)"}, {"items": [], "amount": 200.0, "code": "35", "label": "Filing any of the following:an application in common form for probate or letters of administration:an application relating to a deceased person\u2019s estate made prior or subsequent to a grant of administration:an application for an order that is made under section 14 or 31, or for the purpose of section 18, of the Wills Act 2007"}, {"items": [], "amount": "no fee", "code": "36", "label": "Sealing a grant of administration obtained by way of an application under HCR 27.4 or 27.6"}, {"items": [], "amount": 50.0, "code": "37", "label": "Sealing an exemplification of administration (HCR 27.33(1))"}, {"items": [], "amount": 50.0, "code": "38", "label": "Sealing a duplicate of a grant of administration (HCR 27.33(2)\ufeff(a))"}, {"items": [], "amount": 50.0, "code": "39", "label": "Sealing and certifying a copy or photocopy of a grant of administration (HCR 27.33(2)\ufeff(b))"}, {"items": [], "amount": 30.0, "code": "40", "label": "Issuing a certificate of administration under section 18 of the Administration Act 1969"}, {"items": [], "amount": 50.0, "code": "41", "label": "Resealing, under section 71 of the Administration Act 1969, probate or letters of administration granted by an overseas court"}, {"items": [], "amount": 30.0, "code": "42", "label": "Filing an election to administer under Part 6 of the Public Trust Act 2001, Part 3 of the Trustee Companies Act 1967, or section 12A or 12B of the M\u0101ori Trustee Act 1953"}, {"items": [], "amount": 30.0, "code": "43", "label": "Issuing a certified copy of an election to administer filed under Part 6 of the Public Trust Act 2001, Part 3 of the Trustee Companies Act 1967, or section 12A or 12B of the M\u0101ori Trustee Act 1953"}, {"items": [{"items": [], "amount": "no fee", "code": "a", "label": "if a fee has been paid under item 55 to search or inspect the formal court record in relation to the grant"}, {"items": [], "amount": 30.0, "code": "b", "label": "in any other case"}], "amount": "", "code": "44", "label": "Searching or inspecting a document or a court file that relates to an application or action for a grant of administration under the Administration Act 1969 or to a proceeding for the recall of any such grant (HCR 3.7(2)),\u2014"}, {"items": [{"items": [], "amount": "no fee", "code": "a", "label": "if a fee has been paid under item 44 in respect of the will"}, {"items": [], "amount": 20.0, "code": "b", "label": "in any other case"}], "amount": "", "code": "45", "label": "Supplying a copy of a will,\u2014"}, {"items": [], "amount": 200.0, "code": "46", "label": "Filing a request for issue of a bankruptcy notice (HCR 24.8)"}, {"items": [], "amount": "", "code": "47", "label": "[Revoked]"}, {"items": [], "amount": 500.0, "code": "48", "label": "Filing a creditor\u2019s application for adjudication (HCR 24.11)"}, {"items": [], "amount": 110.0, "code": "49", "label": "Filing a notice of opposition to application for adjudication (HCR 24.18)"}, {"items": [], "amount": 50.0, "code": "50", "label": "Sealing an order for bankruptcy"}], "label": "Enforcing judgments"}, {"items": [{"items": [], "amount": 50.0, "code": "51", "label": "Sealing the original copy of any judgment (HCR 11.11), order (other than an order to which item 60 applies), or letter of request (HCR 9.26)"}, {"items": [{"items": [], "amount": 50.0, "code": "a", "label": "any document that is part of the formal court record or on the court file"}, {"items": [], "amount": 50.0, "code": "b", "label": "any Registrar\u2019s certificate"}], "amount": "", "code": "52", "label": "Issuing a certified copy of\u2014"}, {"items": [{"items": [], "amount": "no fee", "code": "a", "label": "for the first copy of any part or parts of the court file or any document relating to the proceeding that is provided to a party to the proceeding or that party's counsel"}, {"items": [], "amount": "no fee", "code": "b", "label": "if a fee under item 44 has been paid to search or inspect the document, or the court file containing the document"}, {"items": [{"amount": 0.2, "code": "i", "label": "for each black and white page"}, {"amount": 0.4, "code": "ii", "label": "for each colour page"}, {"amount": "actual and reasonable costs", "code": "iii", "label": "for documents in electronic form"}], "amount": "", "code": "c", "label": "where paragraphs (a) and (b) do not apply,\u2014"}], "amount": "", "code": "53", "label": "Copying any document (other than a judgment),\u2014"}, {"items": [{"items": [], "amount": "no fee", "code": "a", "label": "for the first copy that is provided to a party to the proceeding or that party's counsel"}, {"items": [], "amount": 30.0, "code": "b", "label": "where paragraph (a) does not apply"}], "amount": "", "code": "54", "label": "Copying a judgment,\u2014"}], "label": "Administrative fees"}, {"items": [{"items": [{"items": [], "amount": 30.0, "code": "a", "label": "for the first name or case searched"}, {"items": [], "amount": 5.0, "code": "b", "label": "for each additional name or case searched"}], "amount": "", "code": "55", "label": "Searching or inspecting the formal court record (HCR 3.7(1),\u2014"}, {"items": [{"items": [], "amount": "no fee", "code": "a", "label": "if the request is made by a party to a proceeding or that party's counsel (HCR 3.8) in respect of a document or court file relating to the proceeding"}, {"items": [], "amount": "no fee", "code": "b", "label": "if a fee has been paid under item 55(a) in respect of the court file or the formal court record"}, {"items": [], "amount": 30.0, "code": "c", "label": "in any other case"}], "amount": "", "code": "56", "label": "Requesting access to a document or court file as follows:"}], "label": "Searching and accessing court records"}, {"items": [{"items": [], "amount": 600.0, "code": "57", "label": "Attendance before a Registrar in an inquiry or reference"}, {"items": [], "amount": 600.0, "code": "58", "label": "Examination of witnesses by a Registrar under an order of the court"}, {"items": [], "amount": 120.0, "code": "59", "label": "Filing an application for admission as a barrister and solicitor under section 57 of the Lawyers and Conveyancers Act 2006"}, {"items": [], "amount": "no fee", "code": "60", "label": "Sealing an order for admission as a barrister and solicitor"}, {"items": [], "amount": 50.0, "code": "61", "label": "Issuing a certified copy of an order for admission as a barrister and solicitor"}, {"items": [], "amount": 50.0, "code": "62", "label": "Issuing a certificate of enrolment on the roll of barristers and solicitors kept under the Lawyers and Conveyancers Act 2006"}, {"items": [], "amount": 120.0, "code": "63", "label": "Filing an application for registration, in respect of admission as a barrister and solicitor, under section 19 of the Trans-Tasman Mutual Recognition Act 1997"}, {"items": [], "amount": 50.0, "code": "64", "label": "Issuing a Registrar\u2019s certificate following notice under section 19 of the Trans-Tasman Mutual Recognition Act 1997"}], "label": "Matters conducted by Registrar"}, {"items": [{"items": [], "amount": 100.0, "code": "64A", "label": "Filing an application under section 56 of the Trans-Tasman Proceedings Act 2010 to register in the court under subpart 5 of Part 2 of that Act a registrable Australian judgment"}, {"items": [{"items": [], "amount": 250.0, "code": "a", "label": "an application to set aside registration of an Australian judgment (under section 61 of the Trans-Tasman Proceedings Act 2010):"}, {"items": [], "amount": 250.0, "code": "b", "label": "an application for a stay of enforcement of a registered Australian judgment (under section 65 of the Trans-Tasman Proceedings Act 2010)"}], "amount": 250.0, "code": "64B", "label": "Filing either of the following applications:"}], "label": "Applications under Trans-Tasman Proceedings Act 2010"}, {"items": [{"items": [], "amount": 300.0, "code": "65", "label": "Filing an application to enforce a judgment for rates under section 67 of the Local Government (Rating) Act 2002"}, {"items": [], "amount": 800.0, "code": "66", "label": "Selling or leasing a rating unit under section 70 of the Local Government (Rating) Act 2002"}, {"items": [], "amount": 1500.0, "code": "67", "label": "Application for Registrar to conduct a sale for a vendor mortgagee under section 187 of the Property Law Act 2007Note: For the minimum and maximum commission that is payable, if the land is sold, by the vendor mortgagee to the Registrar under section 194(1)\ufeff(c) of that Act, see regulation 8"}, {"items": [], "amount": 1500.0, "code": "68", "label": "Filing an application for the issue of a warrant of arrest (of property) (HCR 25.34)"}, {"items": [], "amount": 2000.0, "code": "69", "label": "Filing a request for a commission for the appraisement and sale of any property (HCR 25.51)"}, {"items": [], "amount": 500.0, "code": "70", "label": "Selling property under a commission for sale (HCR 25.51)"}], "label": "Matters under Local Government (Rating) Act 2002"}]}
+{
+   "costs":[
+      {
+         "items":[
+            {
+               "A":1.6,
+               "C":10.0,
+               "B":3.0,
+               "costCode":"1",
+               "label":"Commencement of proceeding by plaintiff"
+            },
+            {
+               "A":1.0,
+               "C":6.0,
+               "B":2.0,
+               "costCode":"2",
+               "label":"Commencement of defence by defendant"
+            }
+         ],
+         "label":"Commencement"
+      },
+      {
+         "items":[
+            {
+               "A":0.4,
+               "C":2.4,
+               "B":0.8,
+               "costCode":"3",
+               "label":"Reply"
+            },
+            {
+               "A":0.8,
+               "C":4.8,
+               "B":1.6,
+               "costCode":"4",
+               "label":"Counterclaim"
+            },
+            {
+               "A":0.6,
+               "C":4.0,
+               "B":1.2,
+               "costCode":"5",
+               "label":"Cross-notice between defendants"
+            },
+            {
+               "A":1.2,
+               "C":7.0,
+               "B":2.4,
+               "costCode":"6",
+               "label":"Third party notice and statement of claim"
+            },
+            {
+               "A":0.2,
+               "C":0.2,
+               "B":0.2,
+               "costCode":"7",
+               "label":"Notice of appearance"
+            },
+            {
+               "A":0.3,
+               "C":2.0,
+               "B":0.6,
+               "costCode":"8",
+               "label":"Notice of appearance with protest to jurisdiction"
+            },
+            {
+               "A":0.3,
+               "C":2.0,
+               "B":0.6,
+               "costCode":"9",
+               "label":"Pleading in response to amended pleading (payable regardless of outcome except when formal or consented to)"
+            }
+         ],
+         "label":"Other pleadings and notices"
+      },
+      {
+         "items":[
+            {
+               "A":0.2,
+               "C":1.0,
+               "B":0.4,
+               "costCode":"10",
+               "label":"Preparation for first case management conference (including discussion about discovery)"
+            },
+            {
+               "A":0.2,
+               "C":1.0,
+               "B":0.4,
+               "costCode":"11",
+               "label":"Filing memorandum for first or subsequent case management conference or mentions hearing"
+            },
+            {
+               "A":0.2,
+               "C":0.2,
+               "B":0.2,
+               "costCode":"12",
+               "label":"Appearance at mentions hearing or callover"
+            },
+            {
+               "A":0.3,
+               "C":0.7,
+               "B":0.3,
+               "costCode":"13",
+               "label":"Appearance at first or subsequent case management conference"
+            },
+            {
+               "A":null,
+               "C":1.0,
+               "B":0.5,
+               "costCode":"14",
+               "label":"Preparation for and appearance at issues conference"
+            },
+            {
+               "A":null,
+               "C":1.0,
+               "B":0.5,
+               "costCode":"15",
+               "label":"Preparation for and appearance at pre-trial conference"
+            }
+         ],
+         "label":"Case management"
+      },
+      {
+         "items":[
+            {
+               "A":0.4,
+               "C":4.0,
+               "B":1.0,
+               "costCode":"16",
+               "label":"Notice to answer interrogatories"
+            },
+            {
+               "A":0.4,
+               "C":4.0,
+               "B":1.0,
+               "costCode":"17",
+               "label":"Answer to interrogatories"
+            },
+            {
+               "A":0.4,
+               "C":2.4,
+               "B":0.8,
+               "costCode":"18",
+               "label":"Notice to admit facts"
+            },
+            {
+               "A":0.4,
+               "C":2.4,
+               "B":0.8,
+               "costCode":"19",
+               "label":"Admissions of facts"
+            },
+            {
+               "A":0.7,
+               "C":7.0,
+               "B":2.5,
+               "costCode":"20",
+               "label":"List of documents on discovery"
+            },
+            {
+               "A":0.5,
+               "C":6.0,
+               "B":1.5,
+               "costCode":"21",
+               "label":"Inspection of documents"
+            }
+         ],
+         "label":"Interrogatories, discovery and inspection"
+      },
+      {
+         "items":[
+            {
+               "A":0.3,
+               "C":2.0,
+               "B":0.6,
+               "costCode":"22",
+               "label":"Filing interlocutory application"
+            },
+            {
+               "A":0.3,
+               "C":2.0,
+               "B":0.6,
+               "costCode":"23",
+               "label":"Filing opposition to interlocutory application"
+            },
+            {
+               "A":0.5,
+               "C":3.0,
+               "B":1.5,
+               "costCode":"24",
+               "label":"Preparation of written submissions"
+            },
+            {
+               "A":0.4,
+               "C":1.0,
+               "B":0.6,
+               "costCode":"25",
+               "label":"Preparation by applicant of bundle for hearing"
+            },
+            {
+               "explaination":"The time occupied by the hearing measured in quarter days",
+               "costCode":"26",
+               "label":"Appearance at hearing of defended application for sole or principal counsel"
+            },
+            {
+               "explaination":"50% of allowance for appearance for principal counsel",
+               "costCode":"27",
+               "label":"Second and subsequent counsel if allowed by court"
+            },
+            {
+               "A":0.3,
+               "C":0.5,
+               "B":0.3,
+               "costCode":"28",
+               "label":"Obtaining judgment without appearance"
+            },
+            {
+               "A":0.2,
+               "C":0.2,
+               "B":0.2,
+               "costCode":"29",
+               "label":"Sealing order or judgment"
+            }
+         ],
+         "label":"Interlocutory applications (including applications for summary judgment and for review of interlocutory decisions)"
+      },
+      {
+         "items":[
+            {
+               "A":1.5,
+               "C":5.0,
+               "B":2.5,
+               "costCode":"30",
+               "label":"Plaintiff's or defendant's preparation of briefs or affidavits"
+            },
+            {
+               "A":1.5,
+               "C":5.0,
+               "B":2.5,
+               "costCode":"31",
+               "label":"Plaintiff's preparation of list of issues, authorities, and common bundle"
+            },
+            {
+               "A":1.0,
+               "C":4.0,
+               "B":2.0,
+               "costCode":"32",
+               "label":"Defendant's preparation of list of issues, authorities, and common bundle"
+            },
+            {
+               "A":2.0,
+               "C":5.0,
+               "B":3.0,
+               "costCode":"33",
+               "label":"Preparation for hearing"
+            },
+            {
+               "explaination":"The time occupied by the hearing measured in quarter days",
+               "costCode":"34",
+               "label":"Appearance at hearing for sole or principal counsel"
+            },
+            {
+               "explaination":"50% of allowance for appearance for principal counsel",
+               "costCode":"35",
+               "label":"Second and subsequent counsel if allowed by court"
+            },
+            {
+               "explaination":"As allowed by the court",
+               "costCode":"36",
+               "label":"Other steps in proceeding not specifically mentioned"
+            }
+         ],
+         "label":"Trial preparation and appearance"
+      },
+      {
+         "items":[
+            {
+               "A":1.0,
+               "C":6.0,
+               "B":2.0,
+               "costCode":"37",
+               "label":"Filing application and supporting affidavits"
+            },
+            {
+               "A":1.0,
+               "C":6.0,
+               "B":2.0,
+               "costCode":"38",
+               "label":"Filing note of opposition and supporting affidavits"
+            },
+            {
+               "A":0.5,
+               "C":3.0,
+               "B":1.5,
+               "costCode":"40",
+               "label":"Preparation of written submissions"
+            },
+            {
+               "A":0.4,
+               "C":1.0,
+               "B":0.6,
+               "costCode":"41",
+               "label":"Preparation by applicant of bundle for hearing"
+            },
+            {
+               "explaination":"The time occupied by the hearing measured in quarter days",
+               "costCode":"42",
+               "label":"Appearance at hearing for sole or principal counsel"
+            },
+            {
+               "explaination":"50% of allowance for appearance for principal counsel",
+               "costCode":"43",
+               "label":"Second and subsequent counsel if allowed by court"
+            }
+         ],
+         "label":"Originating applications"
+      },
+      {
+         "items":[
+            {
+               "A":0.1,
+               "C":0.6,
+               "B":0.2,
+               "costCode":"44",
+               "label":"Filing and serving bankruptcy notice"
+            },
+            {
+               "A":0.3,
+               "C":1.8,
+               "B":0.6,
+               "costCode":"45",
+               "label":"Filing application for adjudication by creditor"
+            },
+            {
+               "A":0.2,
+               "C":1.2,
+               "B":0.4,
+               "costCode":"46",
+               "label":"Appearance at hearing"
+            },
+            {
+               "A":0.2,
+               "C":1.2,
+               "B":0.4,
+               "costCode":"47",
+               "label":"Supporting party on bankruptcy"
+            }
+         ],
+         "label":"Bankruptcy proceedings"
+      },
+      {
+         "items":[
+            {
+               "A":0.1,
+               "C":0.6,
+               "B":0.2,
+               "costCode":"48",
+               "label":"Issuing statutory demand"
+            },
+            {
+               "A":0.3,
+               "C":1.8,
+               "B":0.6,
+               "costCode":"49",
+               "label":"Filing statement of claim and other documents"
+            },
+            {
+               "A":0.2,
+               "C":1.2,
+               "B":0.4,
+               "costCode":"50",
+               "label":"Appearance at hearing"
+            },
+            {
+               "A":0.2,
+               "C":1.2,
+               "B":0.4,
+               "costCode":"51",
+               "label":"Supporting party on liquidation"
+            }
+         ],
+         "label":"Company liquidation proceedings"
+      },
+      {
+         "items":[
+            {
+               "A":0.5,
+               "C":3.0,
+               "B":1.0,
+               "costCode":"52",
+               "label":"Commencement of appeal or cross-appeal"
+            },
+            {
+               "A":0.3,
+               "C":1.0,
+               "B":0.5,
+               "costCode":"53",
+               "label":"Commencement of response to appeal or cross-appeal"
+            },
+            {
+               "A":0.5,
+               "C":2.0,
+               "B":1.0,
+               "costCode":"55",
+               "label":"Preparation of Case on Appeal"
+            },
+            {
+               "A":1.0,
+               "C":6.0,
+               "B":3.0,
+               "costCode":"56",
+               "label":"Preparation of written submissions"
+            },
+            {
+               "explaination":"The time occupied by the hearing measured in quarter days",
+               "costCode":"57",
+               "label":"Appearance at hearing for sole or principal counsel"
+            },
+            {
+               "explaination":"50% of allowance for appearance for principal counsel",
+               "costCode":"58",
+               "label":"Second and subsequent counsel if allowed by court"
+            }
+         ],
+         "label":"Appeals"
+      },
+      {
+         "items":[
+            {
+               "A":0.3,
+               "C":0.3,
+               "B":0.3,
+               "costCode":"58A",
+               "label":"Preparing and filing an application under section 56 of the Trans-Tasman Proceedings Act 2010 to register in the court an Australian judgment"
+            }
+         ],
+         "label":"Australian judgment proceedings"
+      },
+      {
+         "items":[
+            {
+               "A":0.3,
+               "C":1.0,
+               "B":0.3,
+               "costCode":"59",
+               "label":"Charging order without application"
+            },
+            {
+               "A":0.5,
+               "C":1.4,
+               "B":0.5,
+               "costCode":"60",
+               "label":"Charging order with application, including any unopposed order"
+            },
+            {
+               "A":0.5,
+               "C":0.7,
+               "B":0.5,
+               "costCode":"61",
+               "label":"Sale order, including sale of seized property"
+            },
+            {
+               "A":0.5,
+               "C":0.7,
+               "B":0.5,
+               "costCode":"62",
+               "label":"Other enforcement process"
+            }
+         ],
+         "label":"Enforcement of judgment or order"
+      }
+   ],
+   "rates":[
+      {
+         "category":"1",
+         "rate":1590.0
+      },
+      {
+         "category":"2",
+         "rate":2390.0
+      },
+      {
+         "category":"3",
+         "rate":3530.0
+      }
+   ],
+   "disbursements":[
+      {
+         "items":[
+            {
+               "items":[
+
+               ],
+               "amount":"no fee",
+               "code":"1",
+               "label":"Filing an exempt application (as defined in regulation 4)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":540.0,
+               "code":"2",
+               "label":"Filing an application to put a company into liquidation to which Part 31 of the High Court Rules applies"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":540.0,
+               "code":"3",
+               "label":"Filing an initiating document (as defined in regulation 4) that commences\u2014an application for review under the Judicial Review Procedure Act 2016; ora proceeding to which Part 18 (applications in equity and under statutes), Part 19 (originating applications) (other than an application for habeas corpus), or Part 30 (judicial review), but no other Part, of the High Court Rules applies; oran appeal or cross-appeal to the court under any enactment"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":1350.0,
+               "code":"4",
+               "label":"Filing any other initiating document (as defined in regulation 4), unless a different filing fee is prescribed for that document elsewhere in the fees table"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":110.0,
+               "code":"5",
+               "label":"Filing a statement of claim between defendants"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":110.0,
+               "code":"6",
+               "label":"Filing an amended statement of claim"
+            }
+         ],
+         "label":"Documents initiating proceedings (including appeals)"
+      },
+      {
+         "items":[
+            {
+               "items":[
+
+               ],
+               "amount":"no fee",
+               "code":"7",
+               "label":"Filing an exempt interlocutory application (as defined in regulation 4)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":"no fee",
+               "code":"8",
+               "label":"Filing an application on notice for summary judgment (HCR 12.4)"
+            },
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":200.0,
+                     "code":"a",
+                     "label":"application without notice"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":200.0,
+                     "code":"b",
+                     "label":"application on notice relating to a proceeding to which item 2, 3, 46, or 48 applies"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":500.0,
+                     "code":"c",
+                     "label":"any other application on notice"
+                  }
+               ],
+               "amount":"",
+               "code":"9",
+               "label":"Filing any other interlocutory application (unless a different filing fee is prescribed for that application elsewhere in the fees table\u2014see items 35(b), 64A, and 64B) as follows:"
+            }
+         ],
+         "label":"Interlocutory applications"
+      },
+      {
+         "items":[
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no\u00a0fee",
+                     "code":"a",
+                     "label":"if included in the same document as a counterclaim, and providing that the fee for filing a counterclaim is paid (see item 13)"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":110.0,
+                     "code":"b",
+                     "label":"in any other case"
+                  }
+               ],
+               "amount":"",
+               "code":"10",
+               "label":"Filing a statement of defence,\u2014"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":110.0,
+               "code":"11",
+               "label":"Filing a statement of defence between defendants"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":110.0,
+               "code":"12",
+               "label":"Filing an amended statement of defence"
+            },
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":540.0,
+                     "code":"a",
+                     "label":"a proceeding to which item 2 or 3 applies"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":1350.0,
+                     "code":"b",
+                     "label":"any other proceeding"
+                  }
+               ],
+               "amount":"",
+               "code":"13",
+               "label":"Filing a counterclaim (which may include in the same document, for no additional fee, a statement of defence) for\u2014"
+            },
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"a",
+                     "label":"in the case of a notice of opposition against an exempt application or an exempt interlocutory application"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":110.0,
+                     "code":"b",
+                     "label":"in the case of a notice of opposition against an interlocutory application for summary judgment"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":110.0,
+                     "code":"c",
+                     "label":"in any other case (unless a different filing fee is prescribed for that notice of opposition elsewhere in the fees table\u2014see item 49)"
+                  }
+               ],
+               "amount":"",
+               "code":"14",
+               "label":"Filing a notice of opposition,\u2014"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":110.0,
+               "code":"15",
+               "label":"Filing an appearance (HCR 5.49, 5.50, 5.51)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":110.0,
+               "code":"16",
+               "label":"Filing a third or subsequent party notice"
+            }
+         ],
+         "label":"Statements of defence and other documents in response"
+      },
+      {
+         "items":[
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"a",
+                     "label":"in the case of an exempt application"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"b",
+                     "label":"in the case of an interlocutory application"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":640.0,
+                     "code":"c",
+                     "label":"in the case of an application or proceeding to which item 2, 3, or 48 applies"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":1600.0,
+                     "code":"d",
+                     "label":"in any other case"
+                  }
+               ],
+               "amount":"",
+               "code":"17",
+               "label":"For scheduling the hearing date for an application or proceeding,\u2014"
+            }
+         ],
+         "label":"Scheduling"
+      },
+      {
+         "items":[
+            {
+               "items":[
+
+               ],
+               "amount":"no fee",
+               "code":"18",
+               "label":"Hearing an exempt application or an exempt interlocutory application"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":640.0,
+               "code":"19",
+               "label":"Hearing an application or proceeding to which item 2, 3, or 48 applies, for each half-day or part half-day after the first half-day"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":1600.0,
+               "code":"20",
+               "label":"Hearing any other application or proceeding, for each half-day or part half-day after the first half-day"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":640.0,
+               "code":"21",
+               "label":"Judicial settlement conference"
+            }
+         ],
+         "label":"Hearings (see regulation 7)"
+      },
+      {
+         "items":[
+            {
+               "items":[
+
+               ],
+               "amount":400.0,
+               "code":"22",
+               "label":"Issuing an order for examination (HCR 17.12)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":200.0,
+               "code":"23",
+               "label":"Issuing an order that money owing under a judgment be paid by instalments (HCR 17.17)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":200.0,
+               "code":"24",
+               "label":"Issuing an attachment order (HCR 17.33)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":200.0,
+               "code":"25",
+               "label":"Issuing a charging order with leave (HCR 17.41)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":200.0,
+               "code":"26",
+               "label":"Issuing a charging order without leave (HCR 17.42)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":1500.0,
+               "code":"27",
+               "label":"Issuing a sale order (HCR 17.63)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":500.0,
+               "code":"28",
+               "label":"Selling property under a sale order"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":"no fee",
+               "code":"29",
+               "label":"Filing an application for an order protecting a secured party's interests"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":1500.0,
+               "code":"30",
+               "label":"Issuing a possession order (HCR 17.81)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":1500.0,
+               "code":"31",
+               "label":"Issuing a combined sale and possession order (HCR 17.82)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":1500.0,
+               "code":"32",
+               "label":"Issuing an arrest order (where a party does not comply with an original court order) (HCR 17.84)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":1500.0,
+               "code":"33",
+               "label":"Issuing a sequestration order (HCR 17.87)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":1500.0,
+               "code":"34",
+               "label":"Issuing an order to arrest and imprison an absconding debtor under section 40 of the Senior Courts Act 2016 (HCR 17.88)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":200.0,
+               "code":"35",
+               "label":"Filing any of the following:an application in common form for probate or letters of administration:an application relating to a deceased person\u2019s estate made prior or subsequent to a grant of administration:an application for an order that is made under section 14 or 31, or for the purpose of section 18, of the Wills Act 2007"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":"no fee",
+               "code":"36",
+               "label":"Sealing a grant of administration obtained by way of an application under HCR 27.4 or 27.6"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":50.0,
+               "code":"37",
+               "label":"Sealing an exemplification of administration (HCR 27.33(1))"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":50.0,
+               "code":"38",
+               "label":"Sealing a duplicate of a grant of administration (HCR 27.33(2)\ufeff(a))"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":50.0,
+               "code":"39",
+               "label":"Sealing and certifying a copy or photocopy of a grant of administration (HCR 27.33(2)\ufeff(b))"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":30.0,
+               "code":"40",
+               "label":"Issuing a certificate of administration under section 18 of the Administration Act 1969"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":50.0,
+               "code":"41",
+               "label":"Resealing, under section 71 of the Administration Act 1969, probate or letters of administration granted by an overseas court"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":30.0,
+               "code":"42",
+               "label":"Filing an election to administer under Part 6 of the Public Trust Act 2001, Part 3 of the Trustee Companies Act 1967, or section 12A or 12B of the M\u0101ori Trustee Act 1953"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":30.0,
+               "code":"43",
+               "label":"Issuing a certified copy of an election to administer filed under Part 6 of the Public Trust Act 2001, Part 3 of the Trustee Companies Act 1967, or section 12A or 12B of the M\u0101ori Trustee Act 1953"
+            },
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"a",
+                     "label":"if a fee has been paid under item 55 to search or inspect the formal court record in relation to the grant"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":30.0,
+                     "code":"b",
+                     "label":"in any other case"
+                  }
+               ],
+               "amount":"",
+               "code":"44",
+               "label":"Searching or inspecting a document or a court file that relates to an application or action for a grant of administration under the Administration Act 1969 or to a proceeding for the recall of any such grant (HCR 3.7(2)),\u2014"
+            },
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"a",
+                     "label":"if a fee has been paid under item 44 in respect of the will"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":20.0,
+                     "code":"b",
+                     "label":"in any other case"
+                  }
+               ],
+               "amount":"",
+               "code":"45",
+               "label":"Supplying a copy of a will,\u2014"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":200.0,
+               "code":"46",
+               "label":"Filing a request for issue of a bankruptcy notice (HCR 24.8)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":"",
+               "code":"47",
+               "label":"[Revoked]"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":500.0,
+               "code":"48",
+               "label":"Filing a creditor\u2019s application for adjudication (HCR 24.11)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":110.0,
+               "code":"49",
+               "label":"Filing a notice of opposition to application for adjudication (HCR 24.18)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":50.0,
+               "code":"50",
+               "label":"Sealing an order for bankruptcy"
+            }
+         ],
+         "label":"Enforcing judgments"
+      },
+      {
+         "items":[
+            {
+               "items":[
+
+               ],
+               "amount":50.0,
+               "code":"51",
+               "label":"Sealing the original copy of any judgment (HCR 11.11), order (other than an order to which item 60 applies), or letter of request (HCR 9.26)"
+            },
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":50.0,
+                     "code":"a",
+                     "label":"any document that is part of the formal court record or on the court file"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":50.0,
+                     "code":"b",
+                     "label":"any Registrar\u2019s certificate"
+                  }
+               ],
+               "amount":"",
+               "code":"52",
+               "label":"Issuing a certified copy of\u2014"
+            },
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"a",
+                     "label":"for the first copy of any part or parts of the court file or any document relating to the proceeding that is provided to a party to the proceeding or that party's counsel"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"b",
+                     "label":"if a fee under item 44 has been paid to search or inspect the document, or the court file containing the document"
+                  },
+                  {
+                     "items":[
+                        {
+                           "amount":0.2,
+                           "code":"i",
+                           "label":"for each black and white page"
+                        },
+                        {
+                           "amount":0.4,
+                           "code":"ii",
+                           "label":"for each colour page"
+                        },
+                        {
+                           "amount":"actual and reasonable costs",
+                           "code":"iii",
+                           "label":"for documents in electronic form"
+                        }
+                     ],
+                     "amount":"",
+                     "code":"c",
+                     "label":"where paragraphs (a) and (b) do not apply,\u2014"
+                  }
+               ],
+               "amount":"",
+               "code":"53",
+               "label":"Copying any document (other than a judgment),\u2014"
+            },
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"a",
+                     "label":"for the first copy that is provided to a party to the proceeding or that party's counsel"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":30.0,
+                     "code":"b",
+                     "label":"where paragraph (a) does not apply"
+                  }
+               ],
+               "amount":"",
+               "code":"54",
+               "label":"Copying a judgment,\u2014"
+            }
+         ],
+         "label":"Administrative fees"
+      },
+      {
+         "items":[
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":30.0,
+                     "code":"a",
+                     "label":"for the first name or case searched"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":5.0,
+                     "code":"b",
+                     "label":"for each additional name or case searched"
+                  }
+               ],
+               "amount":"",
+               "code":"55",
+               "label":"Searching or inspecting the formal court record (HCR 3.7(1),\u2014"
+            },
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"a",
+                     "label":"if the request is made by a party to a proceeding or that party's counsel (HCR 3.8) in respect of a document or court file relating to the proceeding"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"b",
+                     "label":"if a fee has been paid under item 55(a) in respect of the court file or the formal court record"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":30.0,
+                     "code":"c",
+                     "label":"in any other case"
+                  }
+               ],
+               "amount":"",
+               "code":"56",
+               "label":"Requesting access to a document or court file as follows:"
+            }
+         ],
+         "label":"Searching and accessing court records"
+      },
+      {
+         "items":[
+            {
+               "items":[
+
+               ],
+               "amount":600.0,
+               "code":"57",
+               "label":"Attendance before a Registrar in an inquiry or reference"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":600.0,
+               "code":"58",
+               "label":"Examination of witnesses by a Registrar under an order of the court"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":120.0,
+               "code":"59",
+               "label":"Filing an application for admission as a barrister and solicitor under section 57 of the Lawyers and Conveyancers Act 2006"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":"no fee",
+               "code":"60",
+               "label":"Sealing an order for admission as a barrister and solicitor"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":50.0,
+               "code":"61",
+               "label":"Issuing a certified copy of an order for admission as a barrister and solicitor"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":50.0,
+               "code":"62",
+               "label":"Issuing a certificate of enrolment on the roll of barristers and solicitors kept under the Lawyers and Conveyancers Act 2006"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":120.0,
+               "code":"63",
+               "label":"Filing an application for registration, in respect of admission as a barrister and solicitor, under section 19 of the Trans-Tasman Mutual Recognition Act 1997"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":50.0,
+               "code":"64",
+               "label":"Issuing a Registrar\u2019s certificate following notice under section 19 of the Trans-Tasman Mutual Recognition Act 1997"
+            }
+         ],
+         "label":"Matters conducted by Registrar"
+      },
+      {
+         "items":[
+            {
+               "items":[
+
+               ],
+               "amount":100.0,
+               "code":"64A",
+               "label":"Filing an application under section 56 of the Trans-Tasman Proceedings Act 2010 to register in the court under subpart 5 of Part 2 of that Act a registrable Australian judgment"
+            },
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":250.0,
+                     "code":"a",
+                     "label":"an application to set aside registration of an Australian judgment (under section 61 of the Trans-Tasman Proceedings Act 2010):"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":250.0,
+                     "code":"b",
+                     "label":"an application for a stay of enforcement of a registered Australian judgment (under section 65 of the Trans-Tasman Proceedings Act 2010)"
+                  }
+               ],
+               "amount":250.0,
+               "code":"64B",
+               "label":"Filing either of the following applications:"
+            }
+         ],
+         "label":"Applications under Trans-Tasman Proceedings Act 2010"
+      },
+      {
+         "items":[
+            {
+               "items":[
+
+               ],
+               "amount":300.0,
+               "code":"65",
+               "label":"Filing an application to enforce a judgment for rates under section 67 of the Local Government (Rating) Act 2002"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":800.0,
+               "code":"66",
+               "label":"Selling or leasing a rating unit under section 70 of the Local Government (Rating) Act 2002"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":1500.0,
+               "code":"67",
+               "label":"Application for Registrar to conduct a sale for a vendor mortgagee under section 187 of the Property Law Act 2007Note: For the minimum and maximum commission that is payable, if the land is sold, by the vendor mortgagee to the Registrar under section 194(1)\ufeff(c) of that Act, see regulation 8"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":1500.0,
+               "code":"68",
+               "label":"Filing an application for the issue of a warrant of arrest (of property) (HCR 25.34)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":2000.0,
+               "code":"69",
+               "label":"Filing a request for a commission for the appraisement and sale of any property (HCR 25.51)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":500.0,
+               "code":"70",
+               "label":"Selling property under a commission for sale (HCR 25.51)"
+            }
+         ],
+         "label":"Matters under Local Government (Rating) Act 2002"
+      }
+   ]
+}

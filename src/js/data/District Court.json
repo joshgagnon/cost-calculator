@@ -1,1 +1,1135 @@
-{"costs": [{"items": [{"A": 0.75, "C": 3.0, "B": 1.5, "costCode": "1", "label": "Preparing statement of claim (receiving instructions, researching facts and law, and filing and serving that document)"}, {"A": 0.75, "C": 2.0, "B": 1.0, "costCode": "2", "label": "Statement of defence by defendant (receiving instructions, researching facts and law, and preparing and serving that document)"}, {"A": 0.75, "C": 2.0, "B": 1.0, "costCode": "2A", "label": "Notice of response by defendant (receiving instructions, researching facts and law, and preparing and serving that document) but only in respect of steps taken on or after 1\u00a0July 2014, under the District Courts Rules 2009"}, {"A": 1.0, "C": 3.0, "B": 2.0, "costCode": "3", "label": "Preparing and serving information capsule by plaintiff and defendant under rules 2.14 and 2.15 of the District Courts Rules 2009, but only in respect of steps taken on or after 1\u00a0July 2014 under those rules"}, {"A": 0.25, "C": 0.25, "B": 0.25, "costCode": "4", "label": "Filing notice of proceeding, notice of response, and preparing, filing, and serving notice of pursuit of claim under the District Courts Rules 2009, but only in respect of steps taken on or after 1\u00a0July 2014"}, {"A": 1.0, "C": 4.0, "B": 2.0, "costCode": "5", "label": "Preparing, filing, and serving originating application"}, {"A": 1.0, "C": 3.0, "B": 1.5, "costCode": "6", "label": "Preparing and serving notice of opposition"}, {"A": 0.5, "C": 1.0, "B": 0.5, "costCode": "7.1", "label": "Other pleadings and notices: Counterclaim"}, {"A": 0.5, "C": 2.0, "B": 1.0, "costCode": "7.2", "label": "Other pleadings and notices: Claims between defendants"}, {"A": 0.75, "C": 3.0, "B": 1.5, "costCode": "7.3", "label": "Other pleadings and notices: Commencement of proceedings against third parties, including notice of claim"}, {"A": 0.75, "C": 3.0, "B": 1.5, "costCode": "7.3A", "label": "Other pleadings and notices: Notice of claim against third party, but only in relation to steps taken on or after 1\u00a0July 2014 in relation to a claim under rule 2.19 of the District Courts Rules 2009"}, {"A": 0.3, "C": 0.75, "B": 0.4, "costCode": "7.4", "label": "Other pleadings and notices: Pleading in response to other party\u2019s amended pleading (payable regardless of outcome except where formal or consented to)"}, {"A": 0.25, "C": 0.25, "B": 0.25, "costCode": "8.1", "label": "Judicial settlement conference: Preparation for judicial settlement conference"}, {"explaination": "The time occupied by the judicial settlement conference measured in quarter days", "costCode": "8.2", "label": "Judicial settlement conference: Appearance at judicial settlement conference"}, {"A": 0.3, "C": 2.0, "B": 1.0, "costCode": "9.1", "label": "Interlocutory proceedings and related steps: Notice to answer interrogatories"}, {"A": 0.3, "C": 2.0, "B": 1.0, "costCode": "9.2", "label": "Interlocutory proceedings and related steps: Answer to interrogatories"}, {"A": 0.3, "C": 1.0, "B": 0.5, "costCode": "9.3", "label": "Interlocutory proceedings and related steps: Notice to admit facts"}, {"A": 0.3, "C": 1.0, "B": 0.5, "costCode": "9.4", "label": "Interlocutory proceedings and related steps: Admission of facts"}, {"A": 0.5, "C": 4.0, "B": 1.0, "costCode": "9.5", "label": "Interlocutory proceedings and related steps: List of documents on discovery"}, {"A": 0.5, "C": 2.0, "B": 0.75, "costCode": "9.6", "label": "Interlocutory proceedings and related steps: Production of documents for inspection"}, {"A": 0.4, "C": 4.0, "B": 1.0, "costCode": "9.7", "label": "Interlocutory proceedings and related steps: Inspection of documents"}, {"A": 0.2, "C": 0.75, "B": 0.25, "costCode": "9.8", "label": "Interlocutory proceedings and related steps: Filing and serving memorandum in anticipation of judicial conference"}, {"A": 0.3, "C": 0.3, "B": 0.3, "costCode": "9.9", "label": "Interlocutory proceedings and related steps: Appearance at judicial conference"}, {"A": 0.25, "C": 1.0, "B": 0.4, "costCode": "9.10", "label": "Interlocutory proceedings and related steps: Preparing and filing interlocutory application (excluding summary judgment application) and supporting affidavits"}, {"A": 0.25, "C": 1.0, "B": 0.4, "costCode": "9.11", "label": "Interlocutory proceedings and related steps: Preparing and filing opposition to interlocutory application (excluding summary judgment application) and supporting affidavits"}, {"A": 0.5, "C": 2.0, "B": 1.0, "costCode": "9.12", "label": "Interlocutory proceedings and related steps: Preparing written submissions"}, {"A": 0.25, "C": 1.0, "B": 0.4, "costCode": "9.13", "label": "Interlocutory proceedings and related steps: Preparation of bundle for hearing"}, {"explaination": "Appearance in court measured in quarter days", "costCode": "9.14", "label": "Interlocutory proceedings and related steps: Appearance at hearing of defended interlocutory application (excluding summary judgment application) for sole or principal counsel"}, {"explaination": "Fifty percent of allowance for appearance for principal counsel", "costCode": "9.15", "label": "Interlocutory proceedings and related steps: Second and subsequent counsel if allowed by court"}, {"A": 0.2, "C": 0.2, "B": 0.2, "costCode": "9.16", "label": "Interlocutory proceedings and related steps: Sealing order or judgment"}, {"A": 0.25, "C": 1.5, "B": 0.4, "costCode": "10.1", "label": "Summary judgment application (additional to costs in items 1 to 5): Preparing and filing summary judgment application and supporting affidavits"}, {"A": 0.25, "C": 1.5, "B": 0.4, "costCode": "10.2", "label": "Summary judgment application (additional to costs in items 1 to 5): Preparing and filing opposition and supporting affidavits"}, {"explaination": "The time occupied by the hearing measured in quarter days", "costCode": "10.3", "label": "Summary judgment application (additional to costs in items 1 to 5): Preparing for hearing of defended summary judgment application"}, {"explaination": "Appearance in court measured in quarter days", "costCode": "10.4", "label": "Summary judgment application (additional to costs in items 1 to 5): Arguing defended summary judgment application for sole or principal counsel"}, {"explaination": "Fifty percent of allowance for appearance of principal counsel", "costCode": "10.5", "label": "Summary judgment application (additional to costs in items 1 to 5): Second and subsequent counsel if allowed by court"}, {"A": 0.2, "C": 0.3, "B": 0.2, "costCode": "11.1", "label": "Obtaining judgment without appearance (additional to costs in items 1 to 7): By default/admission"}, {"A": 0.3, "C": 0.4, "B": 0.3, "costCode": "11.2", "label": "Obtaining judgment without appearance (additional to costs in items 1 to 7): By formal proof (including affidavit preparations)"}], "implicit": true, "label": "Default"}, {"items": [{"A": 0.5, "C": 0.5, "B": 0.5, "costCode": "12", "label": "Preparation"}, {"A": 1.0, "C": 1.5, "B": 1.5, "costCode": "13", "label": "Appearance at hearing"}], "label": "Short trial"}, {"items": [{"A": 1.0, "C": 2.5, "B": 1.25, "costCode": "14", "label": "Preparation"}, {"explaination": "Twice the time occupied by the hearing measured in half days", "costCode": "15", "label": "Appearance at hearing"}], "label": "Simplified trial"}, {"items": [{"A": 1.25, "C": 3.5, "B": 2.25, "costCode": "16.1", "label": "Preparation for hearing following setting down or direction for trial if trial does not eventuate: Plaintiff\u2019s preparation of affidavits or written or oral statements of evidence to be used at hearing"}, {"A": 1.25, "C": 3.5, "B": 2.25, "costCode": "16.2", "label": "Preparation for hearing following setting down or direction for trial if trial does not eventuate: Plaintiff\u2019s preparation of lists of issues and authorities, selecting documents for common bundle of documents, and all other preparation"}, {"A": 1.0, "C": 3.0, "B": 2.0, "costCode": "16.3", "label": "Preparation for hearing following setting down or direction for trial if trial does not eventuate: Defendant\u2019s preparation of affidavits or written or oral statements of evidence to be used at hearing"}, {"A": 1.0, "C": 3.0, "B": 2.0, "costCode": "16.4", "label": "Preparation for hearing following setting down or direction for trial if trial does not eventuate: Defendant\u2019s preparation of lists of issues and authorities, selecting documents for common bundle of documents, and all other preparation"}, {"explaination": "Twice the time occupied by the hearing measured in half days", "costCode": "17.1", "label": "Preparation: Where case proceeds to hearing"}, {"explaination": "1 day", "costCode": "17.2", "label": "Preparation: Where case proceeds by formal proof"}, {"explaination": "", "costCode": "18", "label": "Appearance at hearing:"}, {"explaination": "Appearance in court measured in half days", "costCode": "18.1", "label": "Preparation: For sole or principal counsel"}, {"explaination": "Fifty percent of allowance for principal counsel", "costCode": "18.2", "label": "Preparation: Second and subsequent counsel if allowed for by court"}, {"explaination": "Appearance in court measured in quarter days", "costCode": "18.3", "label": "Preparation: Appearance for formal proof"}], "label": "Full trial"}, {"items": [{"A": 0.4, "C": 0.4, "B": 0.4, "costCode": "19", "label": "Enforcement of judgment or order:"}, {"A": 0.4, "C": 0.4, "B": 0.4, "costCode": "19.1", "label": "Preparation: Application for charging order"}, {"A": 0.1, "C": 0.1, "B": 0.1, "costCode": "19.2", "label": "Preparation: Completion of financial statement under section 84A of Act"}, {"A": 0.1, "C": 0.1, "B": 0.1, "costCode": "19.3", "label": "Preparation: Application for assessment of financial means under section 84C of Act"}, {"A": 0.1, "C": 0.1, "B": 0.1, "costCode": "19.4", "label": "Preparation: Application for financial assessment hearing"}, {"A": 0.1, "C": 0.1, "B": 0.1, "costCode": "19.5", "label": "Preparation: Each attendance at financial assessment hearing (if the judgment debtor attends)"}, {"A": 0.1, "C": 0.1, "B": 0.1, "costCode": "19.6", "label": "Preparation: Application for arrest warrant if debtor fails to appear at financial assessment hearing or contempt of enforcement proceedings hearing"}, {"A": 0.2, "C": 0.2, "B": 0.2, "costCode": "19.7", "label": "Preparation: Application for contempt of enforcement proceedings"}, {"A": 0.1, "C": 0.1, "B": 0.1, "costCode": "19.8", "label": "Preparation: Each attendance at contempt of enforcement proceedings hearing (if the judgment debtor attends)"}, {"A": 0.1, "C": 0.1, "B": 0.1, "costCode": "19.9", "label": "Preparation: Application for attachment order under section 84G(1)\ufeff(c) of Act (excluding application to vary, discharge, or suspend attachment order and filing agreed attachment order in accordance with section 79(5C) of Act)"}, {"A": 0.1, "C": 0.1, "B": 0.1, "costCode": "19.10", "label": "Preparation: Application to vary, discharge, or suspend attachment order"}, {"A": 0.05, "C": 0.05, "B": 0.05, "costCode": "19.11", "label": "Preparation: Agreeing terms of attachment order and filing agreed attachment order in accordance with section 79(5C) of Act"}, {"A": 0.2, "C": 0.2, "B": 0.2, "costCode": "19.12", "label": "Preparation: Application for warrant of enforcement: recovery of chattels/seizure of property/recovery of land"}, {"A": 0.25, "C": 1.0, "B": 0.4, "costCode": "19.13", "label": "Preparation: Preparing and filing interlocutory application (excluding an application to vary, discharge, or suspend attachment order) and supporting affidavits"}, {"A": 0.2, "C": 0.2, "B": 0.2, "costCode": "19.14", "label": "Preparation: Application for warrant of committal"}, {"A": 0.2, "C": 0.2, "B": 0.2, "costCode": "19.15", "label": "Preparation: Application for writ of arrest"}, {"A": 0.4, "C": 0.4, "B": 0.4, "costCode": "19.16", "label": "Preparation: Garnishee proceedings"}, {"A": 0.4, "C": 0.4, "B": 0.4, "costCode": "19.17", "label": "Preparation: Third party claim proceedings (including service)"}, {"A": 0.4, "C": 0.4, "B": 0.4, "costCode": "19.18", "label": "Preparation: Other enforcement process"}, {"explaination": "As allowed by court", "costCode": "20", "label": "Other steps in the proceeding not specifically mentioned"}, {"A": 0.2, "C": 2.0, "B": 0.5, "costCode": "21", "label": "Commencement of appeal (including assessing original decision, noting appealable points, and filing and serving notice of appeal and points of appeal)"}, {"A": 0.2, "C": 0.5, "B": 0.2, "costCode": "22", "label": "Commencement of response to appeal"}, {"A": 0.1, "C": 0.4, "B": 0.2, "costCode": "23", "label": "Case management (as for ordinary proceeding)"}, {"A": 0.5, "C": 1.0, "B": 0.5, "costCode": "24", "label": "Preparing of case on appeal"}, {"A": 0.5, "C": 3.0, "B": 1.5, "costCode": "24A", "label": "Preparation of written submissions"}, {"explaination": "The time occupied by the hearing measured in quarter days", "costCode": "25", "label": "Appearance at hearing as principal counsel"}, {"explaination": "Fifty percent of allowance for appearance by principal counsel", "costCode": "26", "label": "Second and subsequent counsel, if allowed by court"}], "label": "Enforcement and other steps"}], "rates": [{"category": "1", "rate": 1180.0}, {"category": "2", "rate": 1780.0}, {"category": "3", "rate": 2640.0}], "disbursements": [{"items": [{"items": [], "amount": 200.0, "code": "1", "label": "Filing an initiating document (as defined in regulation 3A), unless a different filing fee is prescribed for that document elsewhere in the fees table"}, {"items": [], "amount": 50.0, "code": "2", "label": "Filing a claim, an objection, an application, or other proceedings under section 21 of the Land Valuation Proceedings Act 1948"}], "label": "Documents initiating proceedings"}, {"items": [{"items": [{"items": [], "amount": "no fee", "code": "a", "label": "in the case of an application made under DCR\u00a05.44"}, {"items": [], "amount": "no fee", "code": "b", "label": "in the case of an application to vary, discharge, or suspend an attachment order made under section 84M of the District Courts Act 1947"}, {"items": [], "amount": "no fee", "code": "ba", "label": "in the case of an application under rule\u00a016 (review of Registrar's decision on application to register Australian judgment) of the Trans-Tasman Proceedings Regulations and Rules\u00a02013"}, {"items": [], "amount": 250.0, "code": "c", "label": "in any other case"}], "amount": "", "code": "3", "label": "Filing an interlocutory application (including an application for summary judgment and a review of a Registrar's decision unless a different filing fee is prescribed for that application elsewhere in the fees table\u2014see items 19A and 19B),\u2014"}, {"items": [], "amount": 180.0, "code": "4", "label": "Filing an application under DCR 9.17 for an order that a witness be examined otherwise than at the time and place appointed for the hearing of the proceeding"}], "label": "Interlocutory applications"}, {"items": [{"items": [{"items": [], "amount": 75.0, "code": "a", "label": "a statement of defence"}, {"items": [], "amount": 75.0, "code": "b", "label": "an amended statement of defence"}, {"items": [], "amount": 75.0, "code": "c", "label": "an amended statement of claim"}, {"items": [], "amount": "", "code": "d", "label": ""}, {"items": [], "amount": 75.0, "code": "e", "label": "an appearance"}], "amount": "", "code": "5", "label": "Filing\u2014"}, {"items": [], "amount": 200.0, "code": "6", "label": "Filing a counterclaim (which may include in the same document, for no additional fee, a statement of defence)"}, {"items": [], "amount": 90.0, "code": "7", "label": "Filing the first affidavit filed by a party in answer to an affidavit filed in support of an interlocutory application for summary judgment"}], "label": "Statements of defence and other documents in response"}, {"items": [{"items": [], "amount": "", "code": "8", "label": "[Revoked]"}, {"items": [{"items": [], "amount": 90.0, "code": "a", "label": "default judgment (the fee for this item also covers sealing of the judgment)"}, {"items": [], "amount": 90.0, "code": "b", "label": "judgment as admission of facts (the fee for this item also covers sealing of the judgment)"}, {"items": [], "amount": 90.0, "code": "c", "label": "judgment for costs following a discontinuance of a statement of claim or counterclaim (the fee for this item also covers sealing of the judgment)"}], "amount": "", "code": "9", "label": "Filing an application for\u2014"}], "label": "Other filing fees"}, {"items": [{"items": [{"items": [], "amount": "no fee", "code": "a", "label": "in the case of an interlocutory application"}, {"items": [], "amount": "no fee", "code": "b", "label": "in the case of an appeal to the District Court"}, {"items": [], "amount": "no fee", "code": "c", "label": "in the case of a limited licence application under section 103 of the Land Transport Act 1998"}, {"items": [], "amount": 900.0, "code": "d", "label": "in any other case"}], "amount": "", "code": "10", "label": "For scheduling the hearing date for an application or a proceeding,\u2014"}, {"items": [], "amount": 900.0, "code": "10A", "label": "Judicial settlement conference"}, {"items": [], "amount": 900.0, "code": "11", "label": "Hearing fee for each half-day or part of a half-day after the first half-day"}], "label": "Scheduling"}, {"items": [{"items": [], "amount": 400.0, "code": "12", "label": "Attendance before a Registrar in an inquiry or a reference"}, {"items": [], "amount": 400.0, "code": "13", "label": "Examination of witnesses by Registrar under an order of the court"}], "label": "Attendance before Registrar"}, {"items": [{"items": [], "amount": 30.0, "code": "13A", "label": "Filing a judgment or an order for the payment of money under section 79(5C) of the District Courts Act 1947"}, {"items": [], "amount": 65.0, "code": "13B", "label": "Filing a financial statement under section 84A of the District Courts Act 1947"}, {"items": [], "amount": 80.0, "code": "13C", "label": "Filing an application for a financial assessment under section 84C of the District Courts Act 1947"}, {"items": [], "amount": 130.0, "code": "13D", "label": "Filing an application for a financial assessment hearing under section 84E of the District Courts Act 1947"}, {"items": [], "amount": 50.0, "code": "13E", "label": "Requesting service by an authorised process server of a summons to attend a financial assessment hearing issued under section 84E of the District Courts Act 1947"}, {"items": [], "amount": 50.0, "code": "13F", "label": "Filing an application for an attachment order under section 84G(1)\ufeff(c) of the District Courts Act 1947"}, {"items": [], "amount": 200.0, "code": "13G", "label": "Filing an application for an order for contempt of enforcement proceedings under section 84O(3) of the District Courts Act 1947"}, {"items": [], "amount": 50.0, "code": "13H", "label": "Requesting service by an authorised process server of a copy of an application and notification of the time and place for the hearing of that application that is required to be served under section 84OA(5) of the District Courts Act 1947"}, {"items": [], "amount": 200.0, "code": "13I", "label": "Filing an application for 1 of the following, or more than 1 if applied for at the same time and in respect of the same execution address:a warrant to seize property:a warrant for recovery of chattels:a warrant for recovery of land (including filing a possession order under section 106 of the Residential Tenancies Act 1986)"}, {"items": [], "amount": "no fee", "code": "13J", "label": "Obtaining a warrant to seize property for the value of chattels under section 104(2) of the District Courts Act 1947"}, {"items": [], "amount": 180.0, "code": "14", "label": "Filing an application under DCR 19.3 for an order that any party be examined, for each party"}, {"items": [], "amount": 250.0, "code": "15", "label": "Filing an application for an interim charging order or a final charging order"}, {"items": [], "amount": 250.0, "code": "16", "label": "Filing an affidavit in support of garnishee summons"}, {"items": [], "amount": 50.0, "code": "16A", "label": "Filing a new address for service where service is by an authorised process server, or where execution of a warrant pursuant to Part 6 of the District Courts Act 1947 is by a bailiff or constable (provided that a maximum of 1 fee only may be added to the judgment debt)"}, {"items": [], "amount": "actual expenses", "code": "17", "label": "For expenses of execution of any warrant of committal or writ of arrestNote: For the purposes of this item, actual expenses means the actual expenses incurred by the bailiff or constable, including the costs of conveyance and lodging in prison of the person arrested"}, {"items": [], "amount": "actual and reasonable disbursements", "code": "18", "label": "For storage, cartage, and removal of goods, advertising goods for sale, or auctioning or otherwise disposing of goods"}, {"items": [], "amount": "fees, allowances, and expenses", "code": "19", "label": "For each person left in possession of any premisesNote: For the purposes of this item, fees, allowances, and expenses means fees, allowances, and expenses as allowed to a witness in accordance with the Witnesses and Interpreters Fees Regulations 1974"}], "label": "Enforcing judgments"}, {"items": [{"items": [], "amount": 100.0, "code": "19A", "label": "Filing an application under section 56 of the Trans-Tasman Proceedings Act 2010 to register in the court under subpart 5 of Part 2 of that Act a registrable Australian judgment"}, {"items": [{"items": [], "amount": 250.0, "code": "a", "label": "an application to set aside registration of an Australian judgment (under section 61 of the Trans-Tasman Proceedings Act 2010):"}, {"items": [], "amount": 250.0, "code": "b", "label": "an application for a stay of enforcement of a registered Australian judgment (under section 65 of the Trans-Tasman Proceedings Act 2010)"}], "amount": 250.0, "code": "19B", "label": "Filing either of the following applications:"}], "label": "Applications under Trans-Tasman Proceedings Act 2010"}, {"items": [{"items": [], "amount": 50.0, "code": "20", "label": "Sealing the original copy of any document"}, {"items": [], "amount": 50.0, "code": "21", "label": "Issuing a certificate of judgment or order"}, {"items": [{"items": [], "amount": "no fee", "code": "a", "label": "for the first copy of any part or parts of the court file or any document relating to the proceeding that is provided to a party to the proceeding or that party's counsel"}, {"items": [{"amount": 0.2, "code": "i", "label": "for each black and white page"}, {"amount": 0.4, "code": "ii", "label": "for each colour page"}, {"amount": "actual and reasonable costs", "code": "iii", "label": "for documents in electronic form"}], "amount": "", "code": "b", "label": "where paragraph (a) does not apply,\u2014"}], "amount": "", "code": "22", "label": "Copying any document (other than a document specified in item 23)\u2014"}, {"items": [{"items": [], "amount": "no fee", "code": "a", "label": "for the first copy provided to a party to the proceeding or that party's counsel"}, {"items": [], "amount": 3.0, "code": "b", "label": "where paragraph (a) does not apply"}], "amount": "", "code": "23", "label": "Copying a judgment or order,\u2014"}], "label": "Administrative fees"}, {"items": [{"items": [{"items": [], "amount": 30.0, "code": "a", "label": "for the first name or case searched"}, {"items": [], "amount": 5.0, "code": "b", "label": "for each additional name or case searched"}], "amount": "", "code": "24", "label": "Searching or inspecting the formal court record kept in an office of a court (DCR\u00a03.3)\u2014"}, {"items": [{"items": [], "amount": "no fee", "code": "a", "label": "if a fee has been paid under item 24 in respect of the document, court file, or formal court record"}, {"items": [], "amount": 30.0, "code": "b", "label": "in any other case"}], "amount": "", "code": "25", "label": "Requesting access to a document under DCR 3.5(4), or applying under DCR\u00a03.9 for permission to access documents, a court file, or the formal court record,\u2014"}], "label": "Searching and accessing court records"}]}
+{
+   "costs":[
+      {
+         "items":[
+            {
+               "A":0.75,
+               "C":3.0,
+               "B":1.5,
+               "costCode":"1",
+               "label":"Preparing statement of claim (receiving instructions, researching facts and law, and filing and serving that document)"
+            },
+            {
+               "A":0.75,
+               "C":2.0,
+               "B":1.0,
+               "costCode":"2",
+               "label":"Statement of defence by defendant (receiving instructions, researching facts and law, and preparing and serving that document)"
+            },
+            {
+               "A":0.75,
+               "C":2.0,
+               "B":1.0,
+               "costCode":"2A",
+               "label":"Notice of response by defendant (receiving instructions, researching facts and law, and preparing and serving that document) but only in respect of steps taken on or after 1\u00a0July 2014, under the District Courts Rules 2009"
+            },
+            {
+               "A":1.0,
+               "C":3.0,
+               "B":2.0,
+               "costCode":"3",
+               "label":"Preparing and serving information capsule by plaintiff and defendant under rules 2.14 and 2.15 of the District Courts Rules 2009, but only in respect of steps taken on or after 1\u00a0July 2014 under those rules"
+            },
+            {
+               "A":0.25,
+               "C":0.25,
+               "B":0.25,
+               "costCode":"4",
+               "label":"Filing notice of proceeding, notice of response, and preparing, filing, and serving notice of pursuit of claim under the District Courts Rules 2009, but only in respect of steps taken on or after 1\u00a0July 2014"
+            },
+            {
+               "A":1.0,
+               "C":4.0,
+               "B":2.0,
+               "costCode":"5",
+               "label":"Preparing, filing, and serving originating application"
+            },
+            {
+               "A":1.0,
+               "C":3.0,
+               "B":1.5,
+               "costCode":"6",
+               "label":"Preparing and serving notice of opposition"
+            },
+            {
+               "A":0.5,
+               "C":1.0,
+               "B":0.5,
+               "costCode":"7.1",
+               "label":"Other pleadings and notices: Counterclaim"
+            },
+            {
+               "A":0.5,
+               "C":2.0,
+               "B":1.0,
+               "costCode":"7.2",
+               "label":"Other pleadings and notices: Claims between defendants"
+            },
+            {
+               "A":0.75,
+               "C":3.0,
+               "B":1.5,
+               "costCode":"7.3",
+               "label":"Other pleadings and notices: Commencement of proceedings against third parties, including notice of claim"
+            },
+            {
+               "A":0.75,
+               "C":3.0,
+               "B":1.5,
+               "costCode":"7.3A",
+               "label":"Other pleadings and notices: Notice of claim against third party, but only in relation to steps taken on or after 1\u00a0July 2014 in relation to a claim under rule 2.19 of the District Courts Rules 2009"
+            },
+            {
+               "A":0.3,
+               "C":0.75,
+               "B":0.4,
+               "costCode":"7.4",
+               "label":"Other pleadings and notices: Pleading in response to other party\u2019s amended pleading (payable regardless of outcome except where formal or consented to)"
+            },
+            {
+               "A":0.25,
+               "C":0.25,
+               "B":0.25,
+               "costCode":"8.1",
+               "label":"Judicial settlement conference: Preparation for judicial settlement conference"
+            },
+            {
+               "explaination":"The time occupied by the judicial settlement conference measured in quarter days",
+               "costCode":"8.2",
+               "label":"Judicial settlement conference: Appearance at judicial settlement conference"
+            },
+            {
+               "A":0.3,
+               "C":2.0,
+               "B":1.0,
+               "costCode":"9.1",
+               "label":"Interlocutory proceedings and related steps: Notice to answer interrogatories"
+            },
+            {
+               "A":0.3,
+               "C":2.0,
+               "B":1.0,
+               "costCode":"9.2",
+               "label":"Interlocutory proceedings and related steps: Answer to interrogatories"
+            },
+            {
+               "A":0.3,
+               "C":1.0,
+               "B":0.5,
+               "costCode":"9.3",
+               "label":"Interlocutory proceedings and related steps: Notice to admit facts"
+            },
+            {
+               "A":0.3,
+               "C":1.0,
+               "B":0.5,
+               "costCode":"9.4",
+               "label":"Interlocutory proceedings and related steps: Admission of facts"
+            },
+            {
+               "A":0.5,
+               "C":4.0,
+               "B":1.0,
+               "costCode":"9.5",
+               "label":"Interlocutory proceedings and related steps: List of documents on discovery"
+            },
+            {
+               "A":0.5,
+               "C":2.0,
+               "B":0.75,
+               "costCode":"9.6",
+               "label":"Interlocutory proceedings and related steps: Production of documents for inspection"
+            },
+            {
+               "A":0.4,
+               "C":4.0,
+               "B":1.0,
+               "costCode":"9.7",
+               "label":"Interlocutory proceedings and related steps: Inspection of documents"
+            },
+            {
+               "A":0.2,
+               "C":0.75,
+               "B":0.25,
+               "costCode":"9.8",
+               "label":"Interlocutory proceedings and related steps: Filing and serving memorandum in anticipation of judicial conference"
+            },
+            {
+               "A":0.3,
+               "C":0.3,
+               "B":0.3,
+               "costCode":"9.9",
+               "label":"Interlocutory proceedings and related steps: Appearance at judicial conference"
+            },
+            {
+               "A":0.25,
+               "C":1.0,
+               "B":0.4,
+               "costCode":"9.10",
+               "label":"Interlocutory proceedings and related steps: Preparing and filing interlocutory application (excluding summary judgment application) and supporting affidavits"
+            },
+            {
+               "A":0.25,
+               "C":1.0,
+               "B":0.4,
+               "costCode":"9.11",
+               "label":"Interlocutory proceedings and related steps: Preparing and filing opposition to interlocutory application (excluding summary judgment application) and supporting affidavits"
+            },
+            {
+               "A":0.5,
+               "C":2.0,
+               "B":1.0,
+               "costCode":"9.12",
+               "label":"Interlocutory proceedings and related steps: Preparing written submissions"
+            },
+            {
+               "A":0.25,
+               "C":1.0,
+               "B":0.4,
+               "costCode":"9.13",
+               "label":"Interlocutory proceedings and related steps: Preparation of bundle for hearing"
+            },
+            {
+               "explaination":"Appearance in court measured in quarter days",
+               "costCode":"9.14",
+               "label":"Interlocutory proceedings and related steps: Appearance at hearing of defended interlocutory application (excluding summary judgment application) for sole or principal counsel"
+            },
+            {
+               "explaination":"Fifty percent of allowance for appearance for principal counsel",
+               "costCode":"9.15",
+               "label":"Interlocutory proceedings and related steps: Second and subsequent counsel if allowed by court"
+            },
+            {
+               "A":0.2,
+               "C":0.2,
+               "B":0.2,
+               "costCode":"9.16",
+               "label":"Interlocutory proceedings and related steps: Sealing order or judgment"
+            },
+            {
+               "A":0.25,
+               "C":1.5,
+               "B":0.4,
+               "costCode":"10.1",
+               "label":"Summary judgment application (additional to costs in items 1 to 5): Preparing and filing summary judgment application and supporting affidavits"
+            },
+            {
+               "A":0.25,
+               "C":1.5,
+               "B":0.4,
+               "costCode":"10.2",
+               "label":"Summary judgment application (additional to costs in items 1 to 5): Preparing and filing opposition and supporting affidavits"
+            },
+            {
+               "explaination":"The time occupied by the hearing measured in quarter days",
+               "costCode":"10.3",
+               "label":"Summary judgment application (additional to costs in items 1 to 5): Preparing for hearing of defended summary judgment application"
+            },
+            {
+               "explaination":"Appearance in court measured in quarter days",
+               "costCode":"10.4",
+               "label":"Summary judgment application (additional to costs in items 1 to 5): Arguing defended summary judgment application for sole or principal counsel"
+            },
+            {
+               "explaination":"Fifty percent of allowance for appearance of principal counsel",
+               "costCode":"10.5",
+               "label":"Summary judgment application (additional to costs in items 1 to 5): Second and subsequent counsel if allowed by court"
+            },
+            {
+               "A":0.2,
+               "C":0.3,
+               "B":0.2,
+               "costCode":"11.1",
+               "label":"Obtaining judgment without appearance (additional to costs in items 1 to 7): By default/admission"
+            },
+            {
+               "A":0.3,
+               "C":0.4,
+               "B":0.3,
+               "costCode":"11.2",
+               "label":"Obtaining judgment without appearance (additional to costs in items 1 to 7): By formal proof (including affidavit preparations)"
+            }
+         ],
+         "implicit":true,
+         "label":"Default"
+      },
+      {
+         "items":[
+            {
+               "A":0.5,
+               "C":0.5,
+               "B":0.5,
+               "costCode":"12",
+               "label":"Preparation"
+            },
+            {
+               "A":1.0,
+               "C":1.5,
+               "B":1.5,
+               "costCode":"13",
+               "label":"Appearance at hearing"
+            }
+         ],
+         "label":"Short trial"
+      },
+      {
+         "items":[
+            {
+               "A":1.0,
+               "C":2.5,
+               "B":1.25,
+               "costCode":"14",
+               "label":"Preparation"
+            },
+            {
+               "explaination":"Twice the time occupied by the hearing measured in half days",
+               "costCode":"15",
+               "label":"Appearance at hearing"
+            }
+         ],
+         "label":"Simplified trial"
+      },
+      {
+         "items":[
+            {
+               "A":1.25,
+               "C":3.5,
+               "B":2.25,
+               "costCode":"16.1",
+               "label":"Preparation for hearing following setting down or direction for trial if trial does not eventuate: Plaintiff\u2019s preparation of affidavits or written or oral statements of evidence to be used at hearing"
+            },
+            {
+               "A":1.25,
+               "C":3.5,
+               "B":2.25,
+               "costCode":"16.2",
+               "label":"Preparation for hearing following setting down or direction for trial if trial does not eventuate: Plaintiff\u2019s preparation of lists of issues and authorities, selecting documents for common bundle of documents, and all other preparation"
+            },
+            {
+               "A":1.0,
+               "C":3.0,
+               "B":2.0,
+               "costCode":"16.3",
+               "label":"Preparation for hearing following setting down or direction for trial if trial does not eventuate: Defendant\u2019s preparation of affidavits or written or oral statements of evidence to be used at hearing"
+            },
+            {
+               "A":1.0,
+               "C":3.0,
+               "B":2.0,
+               "costCode":"16.4",
+               "label":"Preparation for hearing following setting down or direction for trial if trial does not eventuate: Defendant\u2019s preparation of lists of issues and authorities, selecting documents for common bundle of documents, and all other preparation"
+            },
+            {
+               "explaination":"Twice the time occupied by the hearing measured in half days",
+               "costCode":"17.1",
+               "label":"Preparation: Where case proceeds to hearing"
+            },
+            {
+               "explaination":"1 day",
+               "costCode":"17.2",
+               "label":"Preparation: Where case proceeds by formal proof"
+            },
+            {
+               "explaination":"",
+               "costCode":"18",
+               "label":"Appearance at hearing:"
+            },
+            {
+               "explaination":"Appearance in court measured in half days",
+               "costCode":"18.1",
+               "label":"Preparation: For sole or principal counsel"
+            },
+            {
+               "explaination":"Fifty percent of allowance for principal counsel",
+               "costCode":"18.2",
+               "label":"Preparation: Second and subsequent counsel if allowed for by court"
+            },
+            {
+               "explaination":"Appearance in court measured in quarter days",
+               "costCode":"18.3",
+               "label":"Preparation: Appearance for formal proof"
+            }
+         ],
+         "label":"Full trial"
+      },
+      {
+         "items":[
+            {
+               "A":0.4,
+               "C":0.4,
+               "B":0.4,
+               "costCode":"19",
+               "label":"Enforcement of judgment or order:"
+            },
+            {
+               "A":0.4,
+               "C":0.4,
+               "B":0.4,
+               "costCode":"19.1",
+               "label":"Preparation: Application for charging order"
+            },
+            {
+               "A":0.1,
+               "C":0.1,
+               "B":0.1,
+               "costCode":"19.2",
+               "label":"Preparation: Completion of financial statement under section 84A of Act"
+            },
+            {
+               "A":0.1,
+               "C":0.1,
+               "B":0.1,
+               "costCode":"19.3",
+               "label":"Preparation: Application for assessment of financial means under section 84C of Act"
+            },
+            {
+               "A":0.1,
+               "C":0.1,
+               "B":0.1,
+               "costCode":"19.4",
+               "label":"Preparation: Application for financial assessment hearing"
+            },
+            {
+               "A":0.1,
+               "C":0.1,
+               "B":0.1,
+               "costCode":"19.5",
+               "label":"Preparation: Each attendance at financial assessment hearing (if the judgment debtor attends)"
+            },
+            {
+               "A":0.1,
+               "C":0.1,
+               "B":0.1,
+               "costCode":"19.6",
+               "label":"Preparation: Application for arrest warrant if debtor fails to appear at financial assessment hearing or contempt of enforcement proceedings hearing"
+            },
+            {
+               "A":0.2,
+               "C":0.2,
+               "B":0.2,
+               "costCode":"19.7",
+               "label":"Preparation: Application for contempt of enforcement proceedings"
+            },
+            {
+               "A":0.1,
+               "C":0.1,
+               "B":0.1,
+               "costCode":"19.8",
+               "label":"Preparation: Each attendance at contempt of enforcement proceedings hearing (if the judgment debtor attends)"
+            },
+            {
+               "A":0.1,
+               "C":0.1,
+               "B":0.1,
+               "costCode":"19.9",
+               "label":"Preparation: Application for attachment order under section 84G(1)\ufeff(c) of Act (excluding application to vary, discharge, or suspend attachment order and filing agreed attachment order in accordance with section 79(5C) of Act)"
+            },
+            {
+               "A":0.1,
+               "C":0.1,
+               "B":0.1,
+               "costCode":"19.10",
+               "label":"Preparation: Application to vary, discharge, or suspend attachment order"
+            },
+            {
+               "A":0.05,
+               "C":0.05,
+               "B":0.05,
+               "costCode":"19.11",
+               "label":"Preparation: Agreeing terms of attachment order and filing agreed attachment order in accordance with section 79(5C) of Act"
+            },
+            {
+               "A":0.2,
+               "C":0.2,
+               "B":0.2,
+               "costCode":"19.12",
+               "label":"Preparation: Application for warrant of enforcement: recovery of chattels/seizure of property/recovery of land"
+            },
+            {
+               "A":0.25,
+               "C":1.0,
+               "B":0.4,
+               "costCode":"19.13",
+               "label":"Preparation: Preparing and filing interlocutory application (excluding an application to vary, discharge, or suspend attachment order) and supporting affidavits"
+            },
+            {
+               "A":0.2,
+               "C":0.2,
+               "B":0.2,
+               "costCode":"19.14",
+               "label":"Preparation: Application for warrant of committal"
+            },
+            {
+               "A":0.2,
+               "C":0.2,
+               "B":0.2,
+               "costCode":"19.15",
+               "label":"Preparation: Application for writ of arrest"
+            },
+            {
+               "A":0.4,
+               "C":0.4,
+               "B":0.4,
+               "costCode":"19.16",
+               "label":"Preparation: Garnishee proceedings"
+            },
+            {
+               "A":0.4,
+               "C":0.4,
+               "B":0.4,
+               "costCode":"19.17",
+               "label":"Preparation: Third party claim proceedings (including service)"
+            },
+            {
+               "A":0.4,
+               "C":0.4,
+               "B":0.4,
+               "costCode":"19.18",
+               "label":"Preparation: Other enforcement process"
+            },
+            {
+               "explaination":"As allowed by court",
+               "costCode":"20",
+               "label":"Other steps in the proceeding not specifically mentioned"
+            },
+            {
+               "A":0.2,
+               "C":2.0,
+               "B":0.5,
+               "costCode":"21",
+               "label":"Commencement of appeal (including assessing original decision, noting appealable points, and filing and serving notice of appeal and points of appeal)"
+            },
+            {
+               "A":0.2,
+               "C":0.5,
+               "B":0.2,
+               "costCode":"22",
+               "label":"Commencement of response to appeal"
+            },
+            {
+               "A":0.1,
+               "C":0.4,
+               "B":0.2,
+               "costCode":"23",
+               "label":"Case management (as for ordinary proceeding)"
+            },
+            {
+               "A":0.5,
+               "C":1.0,
+               "B":0.5,
+               "costCode":"24",
+               "label":"Preparing of case on appeal"
+            },
+            {
+               "A":0.5,
+               "C":3.0,
+               "B":1.5,
+               "costCode":"24A",
+               "label":"Preparation of written submissions"
+            },
+            {
+               "explaination":"The time occupied by the hearing measured in quarter days",
+               "costCode":"25",
+               "label":"Appearance at hearing as principal counsel"
+            },
+            {
+               "explaination":"Fifty percent of allowance for appearance by principal counsel",
+               "costCode":"26",
+               "label":"Second and subsequent counsel, if allowed by court"
+            }
+         ],
+         "label":"Enforcement and other steps"
+      }
+   ],
+   "rates":[
+      {
+         "category":"1",
+         "rate":1270.0
+      },
+      {
+         "category":"2",
+         "rate":1910.0
+      },
+      {
+         "category":"3",
+         "rate":2820.0
+      }
+   ],
+   "disbursements":[
+      {
+         "items":[
+            {
+               "items":[
+
+               ],
+               "amount":200.0,
+               "code":"1",
+               "label":"Filing an initiating document (as defined in regulation 3A), unless a different filing fee is prescribed for that document elsewhere in the fees table"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":50.0,
+               "code":"2",
+               "label":"Filing a claim, an objection, an application, or other proceedings under section 21 of the Land Valuation Proceedings Act 1948"
+            }
+         ],
+         "label":"Documents initiating proceedings"
+      },
+      {
+         "items":[
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"a",
+                     "label":"in the case of an application made under DCR\u00a05.44"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"b",
+                     "label":"in the case of an application to vary, discharge, or suspend an attachment order made under section 84M of the District Courts Act 1947"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"ba",
+                     "label":"in the case of an application under rule\u00a016 (review of Registrar's decision on application to register Australian judgment) of the Trans-Tasman Proceedings Regulations and Rules\u00a02013"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":250.0,
+                     "code":"c",
+                     "label":"in any other case"
+                  }
+               ],
+               "amount":"",
+               "code":"3",
+               "label":"Filing an interlocutory application (including an application for summary judgment and a review of a Registrar's decision unless a different filing fee is prescribed for that application elsewhere in the fees table\u2014see items 19A and 19B),\u2014"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":180.0,
+               "code":"4",
+               "label":"Filing an application under DCR 9.17 for an order that a witness be examined otherwise than at the time and place appointed for the hearing of the proceeding"
+            }
+         ],
+         "label":"Interlocutory applications"
+      },
+      {
+         "items":[
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":75.0,
+                     "code":"a",
+                     "label":"a statement of defence"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":75.0,
+                     "code":"b",
+                     "label":"an amended statement of defence"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":75.0,
+                     "code":"c",
+                     "label":"an amended statement of claim"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"",
+                     "code":"d",
+                     "label":""
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":75.0,
+                     "code":"e",
+                     "label":"an appearance"
+                  }
+               ],
+               "amount":"",
+               "code":"5",
+               "label":"Filing\u2014"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":200.0,
+               "code":"6",
+               "label":"Filing a counterclaim (which may include in the same document, for no additional fee, a statement of defence)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":90.0,
+               "code":"7",
+               "label":"Filing the first affidavit filed by a party in answer to an affidavit filed in support of an interlocutory application for summary judgment"
+            }
+         ],
+         "label":"Statements of defence and other documents in response"
+      },
+      {
+         "items":[
+            {
+               "items":[
+
+               ],
+               "amount":"",
+               "code":"8",
+               "label":"[Revoked]"
+            },
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":90.0,
+                     "code":"a",
+                     "label":"default judgment (the fee for this item also covers sealing of the judgment)"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":90.0,
+                     "code":"b",
+                     "label":"judgment as admission of facts (the fee for this item also covers sealing of the judgment)"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":90.0,
+                     "code":"c",
+                     "label":"judgment for costs following a discontinuance of a statement of claim or counterclaim (the fee for this item also covers sealing of the judgment)"
+                  }
+               ],
+               "amount":"",
+               "code":"9",
+               "label":"Filing an application for\u2014"
+            }
+         ],
+         "label":"Other filing fees"
+      },
+      {
+         "items":[
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"a",
+                     "label":"in the case of an interlocutory application"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"b",
+                     "label":"in the case of an appeal to the District Court"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"c",
+                     "label":"in the case of a limited licence application under section 103 of the Land Transport Act 1998"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":900.0,
+                     "code":"d",
+                     "label":"in any other case"
+                  }
+               ],
+               "amount":"",
+               "code":"10",
+               "label":"For scheduling the hearing date for an application or a proceeding,\u2014"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":900.0,
+               "code":"10A",
+               "label":"Judicial settlement conference"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":900.0,
+               "code":"11",
+               "label":"Hearing fee for each half-day or part of a half-day after the first half-day"
+            }
+         ],
+         "label":"Scheduling"
+      },
+      {
+         "items":[
+            {
+               "items":[
+
+               ],
+               "amount":400.0,
+               "code":"12",
+               "label":"Attendance before a Registrar in an inquiry or a reference"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":400.0,
+               "code":"13",
+               "label":"Examination of witnesses by Registrar under an order of the court"
+            }
+         ],
+         "label":"Attendance before Registrar"
+      },
+      {
+         "items":[
+            {
+               "items":[
+
+               ],
+               "amount":30.0,
+               "code":"13A",
+               "label":"Filing a judgment or an order for the payment of money under section 79(5C) of the District Courts Act 1947"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":65.0,
+               "code":"13B",
+               "label":"Filing a financial statement under section 84A of the District Courts Act 1947"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":80.0,
+               "code":"13C",
+               "label":"Filing an application for a financial assessment under section 84C of the District Courts Act 1947"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":130.0,
+               "code":"13D",
+               "label":"Filing an application for a financial assessment hearing under section 84E of the District Courts Act 1947"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":50.0,
+               "code":"13E",
+               "label":"Requesting service by an authorised process server of a summons to attend a financial assessment hearing issued under section 84E of the District Courts Act 1947"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":50.0,
+               "code":"13F",
+               "label":"Filing an application for an attachment order under section 84G(1)\ufeff(c) of the District Courts Act 1947"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":200.0,
+               "code":"13G",
+               "label":"Filing an application for an order for contempt of enforcement proceedings under section 84O(3) of the District Courts Act 1947"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":50.0,
+               "code":"13H",
+               "label":"Requesting service by an authorised process server of a copy of an application and notification of the time and place for the hearing of that application that is required to be served under section 84OA(5) of the District Courts Act 1947"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":200.0,
+               "code":"13I",
+               "label":"Filing an application for 1 of the following, or more than 1 if applied for at the same time and in respect of the same execution address:a warrant to seize property:a warrant for recovery of chattels:a warrant for recovery of land (including filing a possession order under section 106 of the Residential Tenancies Act 1986)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":"no fee",
+               "code":"13J",
+               "label":"Obtaining a warrant to seize property for the value of chattels under section 104(2) of the District Courts Act 1947"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":180.0,
+               "code":"14",
+               "label":"Filing an application under DCR 19.3 for an order that any party be examined, for each party"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":250.0,
+               "code":"15",
+               "label":"Filing an application for an interim charging order or a final charging order"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":250.0,
+               "code":"16",
+               "label":"Filing an affidavit in support of garnishee summons"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":50.0,
+               "code":"16A",
+               "label":"Filing a new address for service where service is by an authorised process server, or where execution of a warrant pursuant to Part 6 of the District Courts Act 1947 is by a bailiff or constable (provided that a maximum of 1 fee only may be added to the judgment debt)"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":"actual expenses",
+               "code":"17",
+               "label":"For expenses of execution of any warrant of committal or writ of arrestNote: For the purposes of this item, actual expenses means the actual expenses incurred by the bailiff or constable, including the costs of conveyance and lodging in prison of the person arrested"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":"actual and reasonable disbursements",
+               "code":"18",
+               "label":"For storage, cartage, and removal of goods, advertising goods for sale, or auctioning or otherwise disposing of goods"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":"fees, allowances, and expenses",
+               "code":"19",
+               "label":"For each person left in possession of any premisesNote: For the purposes of this item, fees, allowances, and expenses means fees, allowances, and expenses as allowed to a witness in accordance with the Witnesses and Interpreters Fees Regulations 1974"
+            }
+         ],
+         "label":"Enforcing judgments"
+      },
+      {
+         "items":[
+            {
+               "items":[
+
+               ],
+               "amount":100.0,
+               "code":"19A",
+               "label":"Filing an application under section 56 of the Trans-Tasman Proceedings Act 2010 to register in the court under subpart 5 of Part 2 of that Act a registrable Australian judgment"
+            },
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":250.0,
+                     "code":"a",
+                     "label":"an application to set aside registration of an Australian judgment (under section 61 of the Trans-Tasman Proceedings Act 2010):"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":250.0,
+                     "code":"b",
+                     "label":"an application for a stay of enforcement of a registered Australian judgment (under section 65 of the Trans-Tasman Proceedings Act 2010)"
+                  }
+               ],
+               "amount":250.0,
+               "code":"19B",
+               "label":"Filing either of the following applications:"
+            }
+         ],
+         "label":"Applications under Trans-Tasman Proceedings Act 2010"
+      },
+      {
+         "items":[
+            {
+               "items":[
+
+               ],
+               "amount":50.0,
+               "code":"20",
+               "label":"Sealing the original copy of any document"
+            },
+            {
+               "items":[
+
+               ],
+               "amount":50.0,
+               "code":"21",
+               "label":"Issuing a certificate of judgment or order"
+            },
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"a",
+                     "label":"for the first copy of any part or parts of the court file or any document relating to the proceeding that is provided to a party to the proceeding or that party's counsel"
+                  },
+                  {
+                     "items":[
+                        {
+                           "amount":0.2,
+                           "code":"i",
+                           "label":"for each black and white page"
+                        },
+                        {
+                           "amount":0.4,
+                           "code":"ii",
+                           "label":"for each colour page"
+                        },
+                        {
+                           "amount":"actual and reasonable costs",
+                           "code":"iii",
+                           "label":"for documents in electronic form"
+                        }
+                     ],
+                     "amount":"",
+                     "code":"b",
+                     "label":"where paragraph (a) does not apply,\u2014"
+                  }
+               ],
+               "amount":"",
+               "code":"22",
+               "label":"Copying any document (other than a document specified in item 23)\u2014"
+            },
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"a",
+                     "label":"for the first copy provided to a party to the proceeding or that party's counsel"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":3.0,
+                     "code":"b",
+                     "label":"where paragraph (a) does not apply"
+                  }
+               ],
+               "amount":"",
+               "code":"23",
+               "label":"Copying a judgment or order,\u2014"
+            }
+         ],
+         "label":"Administrative fees"
+      },
+      {
+         "items":[
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":30.0,
+                     "code":"a",
+                     "label":"for the first name or case searched"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":5.0,
+                     "code":"b",
+                     "label":"for each additional name or case searched"
+                  }
+               ],
+               "amount":"",
+               "code":"24",
+               "label":"Searching or inspecting the formal court record kept in an office of a court (DCR\u00a03.3)\u2014"
+            },
+            {
+               "items":[
+                  {
+                     "items":[
+
+                     ],
+                     "amount":"no fee",
+                     "code":"a",
+                     "label":"if a fee has been paid under item 24 in respect of the document, court file, or formal court record"
+                  },
+                  {
+                     "items":[
+
+                     ],
+                     "amount":30.0,
+                     "code":"b",
+                     "label":"in any other case"
+                  }
+               ],
+               "amount":"",
+               "code":"25",
+               "label":"Requesting access to a document under DCR 3.5(4), or applying under DCR\u00a03.9 for permission to access documents, a court file, or the formal court record,\u2014"
+            }
+         ],
+         "label":"Searching and accessing court records"
+      }
+   ]
+}
