@@ -25,12 +25,12 @@ export const findDescription = (scheme: CC.Scheme, costCode: string) =>  {
 }
 
 export const hasBand = (scheme: CC.Scheme, costCode: string) =>  {
-    return !scheme.costMap[costCode].explaination;
+    return !scheme.costMap[costCode].explanation;
 }
 
 export const findDays = (scheme: CC.Scheme, costCode: string, band: string, days?: number) =>  {
     const item = scheme.costMap[costCode] as CC.CostItem;
-    if(item.explaination){
+    if(item.explanation){
         return days;
     }
     return (item as any)[band];
@@ -258,12 +258,12 @@ export class AddItem extends React.PureComponent<AddItemFormProps> {
             <CostSelect scheme={this.props.scheme} onChange={this.handleChange}/>
             <Field title="Description" name="description"  component={TextAreaFieldRow} validate={required} />
             {hasBands && <Band scheme={this.props.scheme} />}
-            {!hasBands && <FormGroup key="explaination">
+            {!hasBands && <FormGroup key="explanation">
                 <Col sm={3} className="text-right">
-                    <ControlLabel>Explaination</ControlLabel>
+                    <ControlLabel>explanation</ControlLabel>
                 </Col>
                 <Col sm={7}><div className="form-text">
-                    { this.props.cost.explaination }
+                    { this.props.cost.explanation }
                     </div>
                 </Col>
             </FormGroup> }
@@ -312,7 +312,7 @@ export class Uplift extends React.PureComponent<any, {showing: boolean}> {
 const bandedCostMap = (state: CC.State, ownProps: {scheme: CC.Scheme}) => {
     const costCode = AddItemSelector(state, 'costCode');
     const cost = ownProps.scheme.costMap[costCode];
-    const hasBands = !costCode || !cost.explaination;
+    const hasBands = !costCode || !cost.explanation;
     return {
         cost,
         hasBands
@@ -382,7 +382,7 @@ export class AddDisbursements extends React.PureComponent<AddDisbursementFormPro
             <Field title="Description" name="description"  component={TextAreaFieldRow} validate={required} />
             { userDefined && <Field title="Item Cost" name="amount" component={NumberFieldRow} validate={required} /> }
             <Field title="Count" name="count" component={IntegerFieldRow} validate={required} />
-            <FormGroup key="explaination">
+            <FormGroup key="explanation">
                 <Col sm={3} className="text-right">
                     <ControlLabel>Total</ControlLabel>
                 </Col>

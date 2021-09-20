@@ -15,12 +15,17 @@ def get_source():
 
 def to_float(input):
     try:
-        return float(input.replace(',', ''))
+        if isinstance(input, str) == False:
+            input = input.decode("utf-8");
+        return float(input .replace(',', ''))
     except ValueError:
         return None
 
 numbers = re.compile('\d+(?:\.\d+)?')
 def strip_alpha(input):
+    if isinstance(input, str) == False:
+        input = input.decode("utf-8");
+
     return numbers.findall(input.replace(',', ''))[0]
 
 
@@ -31,7 +36,7 @@ def daily_rates(node, category_parse=lambda x: x):
     results = []
     for row in rows:
         cells = row.findall('.//entry')
-        lines.append([ET.tostring(cell, 'utf8', 'text') for cell in cells])
+        lines.append([ET.tostring(cell, 'utf8', 'text').decode("utf-8") for cell in cells])
     for line in lines:
         try:
             results.append({'category': category_parse(line[0]), 'rate': to_float(strip_alpha(line[2]))})
@@ -66,7 +71,7 @@ def time_allocations(node, columns=5, use_prefix=False):
             current_category = []
             results.append({'label': line[1], 'items': current_category})
 
-        elif line[0] and (not any(line[1:]) or ''.join(line[1:]) == "ABC") and len(line) == columns:
+        elif line[0] and (not any(line[1:]) or b''.join(line[1:]) == "ABC") and len(line) == columns:
             current_category = []
             results.append({'label': line[0], 'items': current_category})
 
@@ -77,7 +82,7 @@ def time_allocations(node, columns=5, use_prefix=False):
             current_category.append({
                                     'costCode': line[0],
                                     'label': label(line),
-                                    'explaination': line[3]
+                                    'explanation': line[3]
                                     })
         elif all(line[0:2] + line[3:]):
             if current_category is None:
@@ -107,11 +112,6 @@ def disbursements(table, params):
     category_cost = None
     stack = []
 
-    def cost(value):
-        try:
-            return float(value.replace(',', ''))
-        except ValueError:
-            return value
 
     for row in rows:
         if not ET.tostring(row, 'utf8', 'text'):
@@ -135,23 +135,23 @@ def disbursements(table, params):
 
         if not any(ET.tostring(cell, 'utf8', 'text') for cell in cells[0:4]) and ET.tostring(cells[params['label']], 'utf8', 'text'):
             stack[2].append({
-                            'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
+                            'amount': to_float(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
                             'label': ET.tostring(cells[params['label']], 'utf8', 'text'),
                             'code': label_sub_code
                             })
         elif not code and label_sub_code:
             stack = [stack[0], stack[1], []]
             stack[1].append({
-                            'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
+                            'amount': to_float(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
                             'label': ET.tostring(cells[params['label']], 'utf8', 'text'),
                             'code': label_sub_code,
                             'items': stack[2]
                             })
         elif code:
             stack = [stack[0], []]
-            category_cost = cost(ET.tostring(cells[-1], 'utf8', 'text'))
+            category_cost = to_float(ET.tostring(cells[-1], 'utf8', 'text'))
             stack[0].append({
-                            'amount': cost(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
+                            'amount': to_float(ET.tostring(cells[-1], 'utf8', 'text')) or category_cost,
                             'label': ET.tostring(cells[params['label']], 'utf8', 'text'),
                             'code': code,
                             'items': stack[1]
@@ -205,7 +205,7 @@ def parse_district_court():
 
     return {
         'rates': daily_rates(rate_node, strip_alpha),
-        'costs': time_allocations(cost_node, 5, use_prefix=lambda lines: '.' in lines[0]),
+        'costs': time_allocations(cost_node, 5, use_prefix=lambda lines: b'.' in lines[0]),
         'disbursements': disbursements(disbursements_table, {
             'label': -3,
             'code': -4
@@ -242,10 +242,10 @@ def parse_court_of_appeal_civil():
         }),
         'rates': [{
             "category": "Simple",
-            'rate': filter(lambda x: x["category"] == '2', high_court_rates)[0]["rate"]
+            'rate': list(filter(lambda x: x["category"] == '2', high_court_rates))[0]["rate"]
         }, {
             "category": "Complex",
-            'rate': filter(lambda x: x["category"] == '3', high_court_rates)[0]["rate"]
+            'rate': list(filter(lambda x: x["category"] == '3', high_court_rates))[0]["rate"]
         }]
     }
 
@@ -257,21 +257,6 @@ def parse_employment_court():
 
     cost_results = []
     current_category = None
-
-    with open(os.path.join(path, '../src/xml/Employment Court Scale Costs.csv')) as csv_file:
-        reader = csv.reader(csv_file)
-        for line in reader:
-            if not line[0]:
-                current_category = []
-                cost_results.append({'label': line[1], 'items': current_category})
-            else:
-                current_category.append({
-                    'costCode': line[0],
-                    'label': line[1],
-                    'A': to_float(line[2]),
-                    'B': to_float(line[3]),
-                    'C': to_float(line[4]),
-                })
 
     fees_tree = ET.parse(os.path.join(path, '../src/xml/Employment Court Regulations.xml'))
     fees_root = fees_tree.getroot()
@@ -301,15 +286,29 @@ def parse_employment_court():
                         })
 
     return {
-        'costs': cost_results,
+        'costs': parse_high_court()['costs'],
         'disbursements': disbursements,
         'rates': daily_rates(rate_node)
     }
 
+def utfy_dict(dic):
+    if isinstance(dic,bytes):
+        return(dic.decode("utf-8"))
+    elif isinstance(dic,dict):
+        for key in dic:
+            dic[key] = utfy_dict(dic[key])
+        return(dic)
+    elif isinstance(dic,list):
+        new_l = []
+        for e in dic:
+            new_l.append(utfy_dict(e))
+        return(new_l)
+    else:
+        return(dic)
 
 def save_result(data, filename):
-    with open(os.path.join(path, '../src/js/data/%s.json' % filename), 'wb') as out:
-        out.write(json.dumps(data))
+    with open(os.path.join(path, '../src/js/data/%s.json' % filename), 'w') as out:
+        out.write(json.dumps(utfy_dict(data)))
 
 if __name__ == '__main__':
     save_result(parse_high_court(), 'High Court')

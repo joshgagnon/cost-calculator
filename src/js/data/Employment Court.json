@@ -1,1 +1,549 @@
-{"costs": [{"items": [{"A": 1.5, "C": 4.0, "B": 2.0, "costCode": "1", "label": "Commencement of proceeding by way of challenge by plaintiff"}, {"A": 0.5, "C": 3.0, "B": 1.5, "costCode": "2", "label": "Commencement of defence to challenge by defendant"}, {"A": 1.6, "C": 8.0, "B": 3.0, "costCode": "3", "label": "Commencement of other proceeding by plaintiff"}, {"A": 1.0, "C": 4.0, "B": 2.0, "costCode": "4", "label": "Commencement of defence to other proceeding by defendant"}], "label": "Commencement"}, {"items": [{"A": 1.0, "C": 3.0, "B": 1.5, "costCode": "5", "label": "Application for special leave to remove matter"}, {"A": 0.5, "C": 2.0, "B": 1.0, "costCode": "6", "label": "Filing opposition to application for special leave to remove matter"}, {"A": 0.5, "C": 2.0, "B": 1.0, "costCode": "7", "label": "Application for rehearing"}, {"A": 0.5, "C": 2.0, "B": 1.0, "costCode": "8", "label": "Filing opposition to application for rehearing"}, {"A": 0.3, "C": 1.0, "B": 0.6, "costCode": "9", "label": "Notice of objection to jurisdiction"}, {"A": 0.6, "C": 1.0, "B": 0.6, "costCode": "10", "label": "Pleading in response to amended pleading (payable regardless of outcome except when formal or consented to)"}], "label": "Other pleadings and notices"}, {"items": [{"A": 0.2, "C": 0.5, "B": 0.4, "costCode": "11", "label": "Preparation for first directions conference"}, {"A": 0.2, "C": 0.5, "B": 0.4, "costCode": "12", "label": "Filing Memorandum for first or subsequent directions conference"}, {"A": 0.2, "C": 0.4, "B": 0.2, "costCode": "13", "label": "Appearance at first or subsequent directions conference"}, {"A": 0.2, "C": 0.5, "B": 0.4, "costCode": "14", "label": "Preparation for case management meeting"}, {"A": 0.2, "C": 0.5, "B": 0.4, "costCode": "15", "label": "Filing Memorandum for case management meeting"}, {"A": null, "C": null, "B": null, "costCode": "16", "label": "Appearance at case management meeting for sole or principal representative"}, {"A": null, "C": null, "B": null, "costCode": "17", "label": "Second or subsequent representative if allowed by court"}], "label": "Case management"}, {"items": [{"A": 0.4, "C": 2.0, "B": 1.0, "costCode": "18", "label": "Notice to answer interrogatories"}, {"A": 0.4, "C": 2.0, "B": 1.0, "costCode": "19", "label": "Answer to interrogatories"}, {"A": 0.4, "C": 1.0, "B": 0.8, "costCode": "20", "label": "Notice to admit facts"}, {"A": 0.4, "C": 1.0, "B": 0.8, "costCode": "21", "label": "Admissions to facts"}, {"A": 0.4, "C": 1.0, "B": 0.8, "costCode": "22", "label": "Notice requiring disclosure"}, {"A": 0.5, "C": 4.0, "B": 2.0, "costCode": "23", "label": "List of documents on disclosure"}, {"A": 0.2, "C": 0.5, "B": 0.2, "costCode": "24", "label": "Notice of objection to disclosure"}, {"A": 0.2, "C": 0.5, "B": 0.2, "costCode": "25", "label": "Notice of challenge to objection to disclosure"}, {"A": 0.2, "C": 0.5, "B": 0.2, "costCode": "26", "label": "Application for verification order"}, {"A": 0.5, "C": 2.0, "B": 1.0, "costCode": "27", "label": "Inspection of documents"}], "label": "Disclosure, inspection and interrogatories"}, {"items": [{"A": 0.3, "C": 1.0, "B": 0.6, "costCode": "28", "label": "Filing interlocutory application"}, {"A": 0.3, "C": 1.0, "B": 0.6, "costCode": "29", "label": "Filing opposition to interlocutory application"}, {"A": 0.5, "C": 1.5, "B": 1.0, "costCode": "30", "label": "Preparation of written submissions"}, {"A": 0.4, "C": 0.8, "B": 0.6, "costCode": "31", "label": "Preparation of bundle for hearing"}, {"A": null, "C": null, "B": null, "costCode": "32", "label": "Appearance at hearing of defended application for sole or principal representative"}, {"A": null, "C": null, "B": null, "costCode": "33", "label": "Second and subsequent representative if allowed by court"}, {"A": 0.3, "C": 0.5, "B": 0.3, "costCode": "34", "label": "Obtaining judgment without appearance"}, {"A": 0.2, "C": 0.2, "B": 0.2, "costCode": "35", "label": "Obtaining certificate of judgment"}], "label": "Interlocutory applications (including applications for stay, security for costs)"}, {"items": [{"A": 1.0, "C": 4.0, "B": 2.0, "costCode": "36", "label": "Plaintiff's or defendant's preparation of briefs or affidavits"}, {"A": 1.0, "C": 4.0, "B": 2.0, "costCode": "37", "label": "Plaintiff's preparation of list of issues, agreed facts, authorities and common bundle"}, {"A": 0.5, "C": 2.0, "B": 1.0, "costCode": "38", "label": "Defendant's preparation of list of issues, agreed facts, authorities and common bundle"}, {"A": 1.5, "C": 4.0, "B": 2.0, "costCode": "39", "label": "Preparation for hearing"}, {"A": null, "C": null, "B": null, "costCode": "40", "label": "Appearance at hearing for sole or principal representative"}, {"A": null, "C": null, "B": null, "costCode": "41", "label": "Second and subsequent representative if allowed by court"}, {"A": null, "C": null, "B": null, "costCode": "42", "label": "Other steps in proceeding not specifically mentioned"}], "label": "Trial preparation and appearance for challenge"}, {"items": [{"A": 1.5, "C": 5.0, "B": 2.5, "costCode": "43", "label": "Plaintiff's or defendant's preparation of briefs or affidavits"}, {"A": 1.0, "C": 4.0, "B": 2.0, "costCode": "44", "label": "Plaintiff's preparation of list of issues, agreed facts, authorities and common bundle"}, {"A": 0.5, "C": 2.0, "B": 1.0, "costCode": "45", "label": "Defendant's preparation of list of issues, agreed facts, authorities and common bundle"}, {"A": 1.5, "C": 4.0, "B": 2.0, "costCode": "46", "label": "Preparation for hearing"}, {"A": null, "C": null, "B": null, "costCode": "47", "label": "Appearance at hearing for sole or principal representative"}, {"A": null, "C": null, "B": null, "costCode": "48", "label": "Second and subsequent representative if allowed by court"}, {"A": null, "C": null, "B": null, "costCode": "49", "label": "Other steps in proceeding not specifically mentioned"}], "label": "Trial preparation and appearance for other proceedings"}, {"items": [{"A": 1.0, "C": 3.0, "B": 2.0, "costCode": "50", "label": "Filing application and supporting affidavits"}, {"A": 1.0, "C": 3.0, "B": 2.0, "costCode": "51", "label": "Filing notice of opposition and supporting affidavits"}, {"A": null, "C": null, "B": null, "costCode": "52", "label": "Case management (as for ordinary proceeding, refer items 11-17 above)"}, {"A": 0.5, "C": 1.5, "B": 1.0, "costCode": "53", "label": "Preparation of written submissions"}, {"A": 0.4, "C": 0.8, "B": 0.6, "costCode": "54", "label": "Preparation of bundle for hearing"}, {"A": null, "C": null, "B": null, "costCode": "55", "label": "Appearance at hearing for sole or principal representative"}, {"A": null, "C": null, "B": null, "costCode": "56", "label": "Second and subsequent representative if allowed by court"}], "label": "Originating applications (including applications for freezing and search orders, interim injunction)"}], "rates": [{"category": "1", "rate": 1480.0}, {"category": "2", "rate": 2230.0}, {"category": "3", "rate": 3300.0}], "disbursements": [{"items": [], "amount": 204.4, "code": "1AA", "label": "Filing statement of claim in form 1AA"}, {"items": [], "amount": 200.0, "code": "1", "label": "Filing statement of claim in form 1"}, {"items": [], "amount": 300.0, "code": "2", "label": "Filing statement of claim in form 2"}, {"items": [], "amount": 200.0, "code": "2A", "label": "Filing application for leave to serve statement of claim on overseas party"}, {"items": [], "amount": 200.0, "code": "3", "label": "Filing application for special leave to remove proceedings to Employment Court"}, {"items": [], "amount": 300.0, "code": "4", "label": "Filing application for rehearing"}, {"items": [], "amount": 100.0, "code": "5", "label": "Filing challenge to objection to disclosure"}, {"items": [], "amount": 100.0, "code": "6", "label": "Filing application for verification order"}, {"items": [], "amount": 245.0, "code": "7", "label": "Hearing fee, for each half-day or part thereof after the first day"}]}
+{
+  "costs": [
+    {
+      "label": "Commencement",
+      "items": [
+        {
+          "costCode": "1",
+          "label": "Commencement of proceeding by plaintiff",
+          "A": 1.6,
+          "B": 3.0,
+          "C": 10.0
+        },
+        {
+          "costCode": "2",
+          "label": "Commencement of defence by defendant",
+          "A": 1.0,
+          "B": 2.0,
+          "C": 6.0
+        }
+      ]
+    },
+    {
+      "label": "Other pleadings and notices",
+      "items": [
+        {
+          "costCode": "3",
+          "label": "Reply",
+          "A": 0.4,
+          "B": 0.8,
+          "C": 2.4
+        },
+        {
+          "costCode": "4",
+          "label": "Counterclaim",
+          "A": 0.8,
+          "B": 1.6,
+          "C": 4.8
+        },
+        {
+          "costCode": "5",
+          "label": "Cross-notice between defendants",
+          "A": 0.6,
+          "B": 1.2,
+          "C": 4.0
+        },
+        {
+          "costCode": "6",
+          "label": "Third party notice and statement of claim",
+          "A": 1.2,
+          "B": 2.4,
+          "C": 7.0
+        },
+        {
+          "costCode": "7",
+          "label": "Notice of appearance",
+          "A": 0.2,
+          "B": 0.2,
+          "C": 0.2
+        },
+        {
+          "costCode": "8",
+          "label": "Notice of appearance with protest to jurisdiction",
+          "A": 0.3,
+          "B": 0.6,
+          "C": 2.0
+        },
+        {
+          "costCode": "9",
+          "label": "Pleading in response to amended pleading (payable regardless of outcome except when formal or consented to)",
+          "A": 0.3,
+          "B": 0.6,
+          "C": 2.0
+        }
+      ]
+    },
+    {
+      "label": "Case management",
+      "items": [
+        {
+          "costCode": "10",
+          "label": "Preparation for first case management conference (including discussion about discovery)",
+          "A": 0.2,
+          "B": 0.4,
+          "C": 1.0
+        },
+        {
+          "costCode": "11",
+          "label": "Filing memorandum for first or subsequent case management conference or mentions hearing",
+          "A": 0.2,
+          "B": 0.4,
+          "C": 1.0
+        },
+        {
+          "costCode": "12",
+          "label": "Appearance at mentions hearing or callover",
+          "A": 0.2,
+          "B": 0.2,
+          "C": 0.2
+        },
+        {
+          "costCode": "13",
+          "label": "Appearance at first or subsequent case management conference",
+          "A": 0.3,
+          "B": 0.3,
+          "C": 0.7
+        },
+        {
+          "costCode": "14",
+          "label": "Preparation for and appearance at issues conference",
+          "A": null,
+          "B": 0.5,
+          "C": 1.0
+        },
+        {
+          "costCode": "15",
+          "label": "Preparation for and appearance at pre-trial conference",
+          "A": null,
+          "B": 0.5,
+          "C": 1.0
+        }
+      ]
+    },
+    {
+      "label": "Interrogatories, discovery and inspection",
+      "items": [
+        {
+          "costCode": "16",
+          "label": "Notice to answer interrogatories",
+          "A": 0.4,
+          "B": 1.0,
+          "C": 4.0
+        },
+        {
+          "costCode": "17",
+          "label": "Answer to interrogatories",
+          "A": 0.4,
+          "B": 1.0,
+          "C": 4.0
+        },
+        {
+          "costCode": "18",
+          "label": "Notice to admit facts",
+          "A": 0.4,
+          "B": 0.8,
+          "C": 2.4
+        },
+        {
+          "costCode": "19",
+          "label": "Admissions of facts",
+          "A": 0.4,
+          "B": 0.8,
+          "C": 2.4
+        },
+        {
+          "costCode": "20",
+          "label": "List of documents on discovery",
+          "A": 0.7,
+          "B": 2.5,
+          "C": 7.0
+        },
+        {
+          "costCode": "21",
+          "label": "Inspection of documents",
+          "A": 0.5,
+          "B": 1.5,
+          "C": 6.0
+        }
+      ]
+    },
+    {
+      "label": "Interlocutory applications (including applications for summary judgment and for review of interlocutory decisions)",
+      "items": [
+        {
+          "costCode": "22",
+          "label": "Filing interlocutory application",
+          "A": 0.3,
+          "B": 0.6,
+          "C": 2.0
+        },
+        {
+          "costCode": "23",
+          "label": "Filing opposition to interlocutory application",
+          "A": 0.3,
+          "B": 0.6,
+          "C": 2.0
+        },
+        {
+          "costCode": "24",
+          "label": "Preparation of written submissions",
+          "A": 0.5,
+          "B": 1.5,
+          "C": 3.0
+        },
+        {
+          "costCode": "25",
+          "label": "Preparation by applicant of bundle for hearing",
+          "A": 0.4,
+          "B": 0.6,
+          "C": 1.0
+        },
+        {
+          "costCode": "26",
+          "label": "Appearance at hearing of defended application for sole or principal counsel",
+          "explanation": "The time occupied by the hearing measured in quarter days"
+        },
+        {
+          "costCode": "27",
+          "label": "Second and subsequent counsel if allowed by court",
+          "explanation": "50% of allowance for appearance for principal counsel"
+        },
+        {
+          "costCode": "28",
+          "label": "Obtaining judgment without appearance",
+          "A": 0.3,
+          "B": 0.3,
+          "C": 0.5
+        },
+        {
+          "costCode": "29",
+          "label": "Sealing order or judgment",
+          "A": 0.2,
+          "B": 0.2,
+          "C": 0.2
+        },
+        {
+          "costCode": "30",
+          "label": "Preparation of affidavits, list of issues or authorities; and agreeing common bundle",
+          "A": null,
+          "B": null,
+          "C": null
+        },
+        {
+          "costCode": "31",
+          "label": "Additional allowance for whichever party prepared common bundle",
+          "A": 0.5,
+          "B": 0.5,
+          "C": 1.0
+        },
+        {
+          "costCode": "32",
+          "label": "Preparation for hearing ",
+          "explanation": "All bands:2 days for first hearing day:1 per day for second to fifth hearing days:0.75 per day from then on"
+        },
+        {
+          "costCode": "33",
+          "label": "Preparation of briefs, list of issues, authorities, and agreeing common bundle",
+          "explanation": "All bands:1 per day for first to fifth hearing days:0.75 per day from sixth to tenth hearing days:0.5 per day from then on"
+        },
+        {
+          "costCode": "33A",
+          "label": "Additional allowance for whichever party prepared common bundle",
+          "explanation": "All bands: 0.5"
+        },
+        {
+          "costCode": "33B",
+          "label": "Preparation for hearing",
+          "explanation": "All bands:1 per day for first to fifth hearing days:0.75 per day for sixth to tenth hearing days:0.5 per day from then on"
+        }
+      ]
+    },
+    {
+      "label": "Appearances at affidavit hearing or witness hearing and other steps",
+      "items": [
+        {
+          "costCode": "34",
+          "label": "Appearance at hearing for sole or principal counsel",
+          "explanation": "The time occupied by the hearing measured in quarter days"
+        },
+        {
+          "costCode": "35",
+          "label": "Second and subsequent counsel if allowed by court",
+          "explanation": "50% of allowance for appearance for principal counsel"
+        },
+        {
+          "costCode": "36",
+          "label": "Other steps in proceeding not specifically mentioned",
+          "explanation": "As allowed by the court"
+        }
+      ]
+    },
+    {
+      "label": "Originating applications",
+      "items": [
+        {
+          "costCode": "37",
+          "label": "Filing application and supporting affidavits",
+          "A": 1.0,
+          "B": 2.0,
+          "C": 6.0
+        },
+        {
+          "costCode": "38",
+          "label": "Filing note of opposition and supporting affidavits",
+          "A": 1.0,
+          "B": 2.0,
+          "C": 6.0
+        },
+        {
+          "costCode": "40",
+          "label": "Preparation of written submissions",
+          "A": 0.5,
+          "B": 1.5,
+          "C": 3.0
+        },
+        {
+          "costCode": "41",
+          "label": "Preparation by applicant of bundle for hearing",
+          "A": 0.4,
+          "B": 0.6,
+          "C": 1.0
+        },
+        {
+          "costCode": "42",
+          "label": "Appearance at hearing for sole or principal counsel",
+          "explanation": "The time occupied by the hearing measured in quarter days"
+        },
+        {
+          "costCode": "43",
+          "label": "Second and subsequent counsel if allowed by court",
+          "explanation": "50% of allowance for appearance for principal counsel"
+        }
+      ]
+    },
+    {
+      "label": "Bankruptcy proceedings",
+      "items": [
+        {
+          "costCode": "44",
+          "label": "Filing and serving bankruptcy notice",
+          "A": 0.1,
+          "B": 0.2,
+          "C": 0.6
+        },
+        {
+          "costCode": "45",
+          "label": "Filing application for adjudication by creditor",
+          "A": 0.3,
+          "B": 0.6,
+          "C": 1.8
+        },
+        {
+          "costCode": "46",
+          "label": "Appearance at hearing",
+          "A": 0.2,
+          "B": 0.4,
+          "C": 1.2
+        },
+        {
+          "costCode": "47",
+          "label": "Supporting party on bankruptcy",
+          "A": 0.2,
+          "B": 0.4,
+          "C": 1.2
+        }
+      ]
+    },
+    {
+      "label": "Company liquidation proceedings",
+      "items": [
+        {
+          "costCode": "48",
+          "label": "Issuing statutory demand",
+          "A": 0.1,
+          "B": 0.2,
+          "C": 0.6
+        },
+        {
+          "costCode": "49",
+          "label": "Filing statement of claim and other documents",
+          "A": 0.3,
+          "B": 0.6,
+          "C": 1.8
+        },
+        {
+          "costCode": "50",
+          "label": "Appearance at hearing",
+          "A": 0.2,
+          "B": 0.4,
+          "C": 1.2
+        },
+        {
+          "costCode": "51",
+          "label": "Supporting party on liquidation",
+          "A": 0.2,
+          "B": 0.4,
+          "C": 1.2
+        }
+      ]
+    },
+    {
+      "label": "Appeals",
+      "items": [
+        {
+          "costCode": "52",
+          "label": "Commencement of appeal or cross-appeal",
+          "A": 0.5,
+          "B": 1.0,
+          "C": 3.0
+        },
+        {
+          "costCode": "53",
+          "label": "Commencement of response to appeal or cross-appeal",
+          "A": 0.3,
+          "B": 0.5,
+          "C": 1.0
+        },
+        {
+          "costCode": "55",
+          "label": "Preparation of Case on Appeal",
+          "A": 0.5,
+          "B": 1.0,
+          "C": 2.0
+        },
+        {
+          "costCode": "56",
+          "label": "Preparation of written submissions",
+          "A": 1.0,
+          "B": 3.0,
+          "C": 6.0
+        },
+        {
+          "costCode": "57",
+          "label": "Appearance at hearing for sole or principal counsel",
+          "explanation": "The time occupied by the hearing measured in quarter days"
+        },
+        {
+          "costCode": "58",
+          "label": "Second and subsequent counsel if allowed by court",
+          "explanation": "50% of allowance for appearance for principal counsel"
+        }
+      ]
+    },
+    {
+      "label": "Australian judgment proceedings",
+      "items": [
+        {
+          "costCode": "58A",
+          "label": "Preparing and filing an application under section 56 of the Trans-Tasman Proceedings Act 2010 to register in the court an Australian judgment",
+          "A": 0.3,
+          "B": 0.3,
+          "C": 0.3
+        }
+      ]
+    },
+    {
+      "label": "Enforcement of judgment or order",
+      "items": [
+        {
+          "costCode": "59",
+          "label": "Charging order without application",
+          "A": 0.3,
+          "B": 0.3,
+          "C": 1.0
+        },
+        {
+          "costCode": "60",
+          "label": "Charging order with application, including any unopposed order",
+          "A": 0.5,
+          "B": 0.5,
+          "C": 1.4
+        },
+        {
+          "costCode": "61",
+          "label": "Sale order, including sale of seized property",
+          "A": 0.5,
+          "B": 0.5,
+          "C": 0.7
+        },
+        {
+          "costCode": "62",
+          "label": "Other enforcement process",
+          "A": 0.5,
+          "B": 0.5,
+          "C": 0.7
+        }
+      ]
+    }
+  ],
+  "disbursements": [
+    {
+      "amount": 204.4,
+      "label": "Filing statement of claim in form 1AA",
+      "code": "1AA",
+      "items": []
+    },
+    {
+      "amount": 200.0,
+      "label": "Filing statement of claim in form 1",
+      "code": "1",
+      "items": []
+    },
+    {
+      "amount": 300.0,
+      "label": "Filing statement of claim in form 2",
+      "code": "2",
+      "items": []
+    },
+    {
+      "amount": 200.0,
+      "label": "Filing application for leave to serve statement of claim on overseas party",
+      "code": "2A",
+      "items": []
+    },
+    {
+      "amount": 200.0,
+      "label": "Filing application for special leave to remove proceedings to Employment Court",
+      "code": "3",
+      "items": []
+    },
+    {
+      "amount": 300.0,
+      "label": "Filing application for rehearing",
+      "code": "4",
+      "items": []
+    },
+    {
+      "amount": 100.0,
+      "label": "Filing challenge to objection to disclosure",
+      "code": "5",
+      "items": []
+    },
+    {
+      "amount": 100.0,
+      "label": "Filing application for verification order",
+      "code": "6",
+      "items": []
+    },
+    {
+      "amount": 245.0,
+      "label": "Hearing fee, for each half-day or part thereof after the first day",
+      "code": "7",
+      "items": []
+    }
+  ],
+  "rates": [
+    {
+      "category": "1",
+      "rate": 1590.0
+    },
+    {
+      "category": "2",
+      "rate": 2390.0
+    },
+    {
+      "category": "3",
+      "rate": 3530.0
+    }
+  ]
+}

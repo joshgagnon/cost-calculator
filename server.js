@@ -25,7 +25,7 @@ const render  = (values) => fetch(url, {
         body: JSON.stringify(values)
     })
 
-
+const PORT = 3452;
 
 app.use(express.static('public'));
 app.use(bodyParser.json()); // support json encoded bodies
@@ -52,4 +52,4 @@ app.post('/api/render', function (req, res) {
         })
 })
 
-app.listen(3452, () => console.log('App Started'));
+app.listen(PORT, () => console.log('App Started on port: '+PORT));

@@ -26,7 +26,7 @@ declare namespace CC {
         B?: number,
         C?: number,
         label: string,
-        explaination?: string,
+        explanation?: string,
     }
 
     interface Cost {
