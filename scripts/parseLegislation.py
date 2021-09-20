@@ -258,6 +258,29 @@ def parse_employment_court():
     cost_results = []
     current_category = None
 
+    with open(os.path.join(path, '../src/xml/Employment Court Scale Costs.csv')) as csv_file:
+        reader = csv.reader(csv_file)
+        for line in reader:
+            if not line[0]:
+                current_category = []
+                cost_results.append({'label': line[1], 'items': current_category})
+            else:
+                if to_float(line[4]):
+                    current_category.append({
+                        'costCode': line[0],
+                        'label': line[1],
+                        'A': to_float(line[2]),
+                        'B': to_float(line[3]),
+                        'C': to_float(line[4]),
+                    })
+                else:
+                    current_category.append({
+                        'costCode': line[0],
+                        'label': line[1],
+                        'explanation': line[2]
+                    })
+
+
     fees_tree = ET.parse(os.path.join(path, '../src/xml/Employment Court Regulations.xml'))
     fees_root = fees_tree.getroot()
     disbursements_id = "DLM2034902"
@@ -286,7 +309,7 @@ def parse_employment_court():
                         })
 
     return {
-        'costs': parse_high_court()['costs'],
+        'costs': cost_results,
         'disbursements': disbursements,
         'rates': daily_rates(rate_node)
     }
